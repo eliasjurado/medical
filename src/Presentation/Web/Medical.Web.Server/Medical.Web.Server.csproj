@@ -22,6 +22,7 @@
         <ProjectReference Include="..\..\..\Core\Medical.Application\Medical.Application.csproj" />
         <ProjectReference Include="..\..\..\Infrastructure\Medical.Identity\Medical.Identity.csproj" />
         <ProjectReference Include="..\..\..\Infrastructure\Medical.Infrastructure\Medical.Infrastructure.csproj" />
+        <ProjectReference Include="..\..\..\Infrastructure\Medical.Orchestration.ServiceDefaults\Medical.Orchestration.ServiceDefaults.csproj" />
         <ProjectReference Include="..\..\..\Infrastructure\Medical.Persistence\Medical.Persistence.csproj" />
         <ProjectReference Include="..\Medical.Web.Client\Medical.Web.Client.csproj" />
     </ItemGroup>
