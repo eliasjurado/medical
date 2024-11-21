@@ -3,8 +3,13 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
+
 using Microsoft.Extensions.Localization;
+
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Medical.Web.Client.Data
 {
@@ -18,33 +23,37 @@ namespace Medical.Web.Client.Data
         /// <summary>
         ///
         /// </summary>
+        [Display(Name = "主键")]
         [AutoGenerateColumn(Ignore = true)]
         public int Id { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
-        [Display]
+        [Display(Name = "姓名")]
         public string? Name { get; set; }
 
         /// <summary>
         ///
         /// </summary>
         [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
+        [Display(Name = "日期")]
         public DateTime DateTime { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [Required]
+        [Display(Name = "地址")]
+        [Required(ErrorMessage = "{0}不能为空")]
         [AutoGenerateColumn(Order = 20, Filterable = true, Searchable = true)]
         public string? Address { get; set; }
 
         /// <summary>
         ///
         /// </summary>
+        [Display(Name = "数量")]
         [Required]
         [AutoGenerateColumn(Order = 40, Sortable = true)]
         public int Count { get; set; }
@@ -52,20 +61,23 @@ namespace Medical.Web.Client.Data
         /// <summary>
         ///
         /// </summary>
+        [Display(Name = "是/否")]
         [AutoGenerateColumn(Order = 50, ComponentType = typeof(Switch))]
         public bool Complete { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "请选择学历")]
+        [Display(Name = "学历")]
         [AutoGenerateColumn(Order = 60)]
         public EnumEducation? Education { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "请选择一种{0}")]
+        [Display(Name = "爱好")]
         [AutoGenerateColumn(Order = 70)]
         public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
@@ -80,11 +92,11 @@ namespace Medical.Web.Client.Data
         {
             Id = 1,
             Name = localizer["Foo.Name", "1000"],
-            DateTime = System.DateTime.Now,
+            DateTime = DateTime.Now,
             Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
             Count = random.Next(1, 100),
             Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         };
 
         /// <summary>
@@ -95,18 +107,18 @@ namespace Medical.Web.Client.Data
         {
             Id = i,
             Name = localizer["Foo.Name", $"{i:d4}"],
-            DateTime = System.DateTime.Now.AddDays(i - 1),
+            DateTime = DateTime.Now.AddDays(i - 1),
             Address = localizer["Foo.Address", $"{random.Next(1000, 2000)}"],
             Count = random.Next(1, 100),
             Complete = random.Next(1, 100) > 50,
-            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Education = random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middel
         }).ToList();
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public static IEnumerable<SelectedItem> GenerateHobbies(IStringLocalizer<Foo> localizer) => localizer["Hobbies"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
+        public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
     }
 
     /// <summary>
@@ -117,11 +129,13 @@ namespace Medical.Web.Client.Data
         /// <summary>
         ///
         /// </summary>
+        [Display(Name = "小学")]
         Primary,
 
         /// <summary>
         ///
         /// </summary>
-        Middle
+        [Display(Name = "中学")]
+        Middel
     }
 }

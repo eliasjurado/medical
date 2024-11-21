@@ -1,0 +1,57 @@
+﻿namespace Medical.Resource
+{
+    public static class Constants
+    {
+        #region System
+
+        public static string LANGUAGE_SPANISH_PERU = "es-PE";
+
+        public static string SYSTEM_PREFIX_NAME = "Sistema";
+
+        public static string ADMIN_GUID => "8e445865-a24d-4543-a6c6-9443d048cdb9";
+        public static string ADMIN_EMAIL => "admin@thaniwasi.com";
+        public static string ADMIN_PASSWORD => "Thaniwasi.123";
+        public static string ADMIN_NAME => "Administrador";
+        public static string ADMIN_ROLE_NAME => "Administrador";
+        public static string ADMIN_ROLE_GUID => "cbc43a8e-f7bb-4445-baaf-1add431ffbbf";
+
+        public static string USER_NAME => "Usuario";
+        public static string USER_ROLE_NAME => "Usuario";
+        public static string USER_ROLE_GUID => "cac43a6e-f7bb-4448-baaf-1add431ccbbf";
+
+        #endregion
+
+        #region Application
+
+        public static string APPLICATION_NAME = "Thaniwasi";
+        public static string APPLICATION_LEAD = "Integrativo y Natural";
+
+        public static string LOGIN_FORM_TITLE = "Mi Cuenta";
+        public static string LOGIN_FORM_USERNAME = "Usuario";
+        public static string LOGIN_FORM_SIGNOUT = "Cerrar Sesión";
+
+        public static string PROFILE_TITLE = "Perfil";
+
+        public static string SETTINGS_TITLE = "Configuración";
+
+        public static string NOTIFICATIONS_TITLE = "Notificaciones";
+
+        #endregion
+
+        #region Patients
+
+        public static string PATIENTS_MODULE_NAME = "Pacientes";
+
+        #endregion
+
+        #region Colors
+
+        public static string COLOR_PRIMARY = "#217439";
+        public static string COLOR_PRIMARY_LIGHT = "#87B93B";
+        public static string COLOR_SECONDARY = "#6A4D2B";
+        public static string COLOR_SECONDARY_LIGHT = "#AA9D8E";
+        public static string COLOR_ACCENT = "#DF0F82";
+
+        #endregion
+    }
+}

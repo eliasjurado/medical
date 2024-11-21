@@ -323,3 +323,4 @@ __pycache__/
 
 # Windows thumbnail cache files
 Thumbs.db
+/src/Infrastructure/Medical.Identity/Migrations

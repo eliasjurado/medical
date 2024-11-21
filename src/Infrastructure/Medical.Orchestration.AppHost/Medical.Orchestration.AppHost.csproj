@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Presentation\Api\Medical.Api.Auth\Medical.Api.Auth.csproj" />
     <ProjectReference Include="..\..\Presentation\Web\Medical.Web.Server\Medical.Web.Server.csproj" />
   </ItemGroup>
 

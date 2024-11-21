@@ -1,8 +1,12 @@
 ﻿using BootstrapBlazor.Components;
+
 using Medical.Web.Client.Data;
+
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Medical.Web.Client.Pages
@@ -18,7 +22,7 @@ namespace Medical.Web.Client.Pages
 
         private readonly ConcurrentDictionary<Foo, IEnumerable<SelectedItem>> _cache = new();
 
-        private IEnumerable<SelectedItem> GetHobbies(Foo item) => _cache.GetOrAdd(item, f => Foo.GenerateHobbies(Localizer));
+        private IEnumerable<SelectedItem> GetHobbys(Foo item) => _cache.GetOrAdd(item, f => Foo.GenerateHobbys(Localizer));
 
         /// <summary>
         /// 

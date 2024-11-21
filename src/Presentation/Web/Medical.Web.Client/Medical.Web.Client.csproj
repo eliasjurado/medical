@@ -1,26 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
-    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Locales\en.json" />
-    <Content Remove="Locales\zh.json" />
-  </ItemGroup>
+    <ItemGroup>
+        <Content Remove="Locales\en.json" />
+        <Content Remove="Locales\zh.json" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Locales\en.json" />
-    <EmbeddedResource Include="Locales\zh.json" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+        <PackageReference Include="BootstrapBlazor" Version="9.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.*" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.*" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+        <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Core\Medical.Domain\Medical.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+    </ItemGroup>
 
 </Project>
