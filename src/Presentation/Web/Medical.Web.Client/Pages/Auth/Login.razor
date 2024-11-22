@@ -1,8 +1,10 @@
 ﻿@page "/login"
+@layout LoginLayout
 @using Blazored.LocalStorage
 @using Medical.Domain.Dto.User
 @using Medical.Web.Client.Services
 @using Microsoft.AspNetCore.WebUtilities
+@using System.Diagnostics.CodeAnalysis
 @inject IAuthService AuthService
 @inject ILocalStorageService LocalStorage
 @inject NavigationManager NavigationManager
@@ -12,9 +14,7 @@
 
 <PageTitle>Login</PageTitle>
 
-<h3>Login</h3>
-
-<EditForm Model="user" OnValidSubmit="HandleLogin">
+@* <EditForm Model="user" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
     <div class="mb-3">
         <label for="email">Email</label>
@@ -30,12 +30,41 @@
 </EditForm>
 <div class="text-danger">
     <span>@errorMessage</span>
+</div> *@
+
+<div class="login-item login-item-avatar login-item-gitee">
+    <div class="text-center">
+        <Avatar Url="./images/brand.png" IsCircle="true" Size="Size.ExtraExtraLarge" />
+        <h1 class="text-dark">@Resource.Constants.APPLICATION_NAME</h1>
+        <h4 class="text-dark">@Resource.Constants.SYSTEM_LEAD</h4>
+    </div>
+    <ValidateForm Model="@user">
+        <div class="d-flex">
+            <BootstrapInput class="p-2 m-2" TValue="string" ShowLabel="false" PlaceHolder="Please enter your account number" />
+        </div>
+        <div class="d-flex">
+            <BootstrapPassword class="p-2 m-2" ShowLabel="false" PlaceHolder="Please enter your password" />
+        </div>
+        <div class="d-flex">
+            <Checkbox class="p-3" TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="Remember login status" />
+        </div>
+        <div class="d-flex">
+            <Button class="p-2 m-2" IsBlock="true" Text="Login" Color="Color.Primary"></Button>
+        </div>
+
+        <hr />
+        <div class="d-flex">
+            <Button class="p-2 m-2" IsBlock="true" Text="forget the password" Color="Color.Danger"></Button>
+            <Button class="p-2 m-2" IsBlock="true" Text="User Registration" Color="Color.Info"></Button>
+        </div>
+    </ValidateForm>
 </div>
 
 @code {
     [Inject]
     public HttpInterceptorService Interceptor { get; set; }
 
+    [NotNull]
     private UserLogin user = new UserLogin();
 
     private string errorMessage = string.Empty;

@@ -1,7 +1,11 @@
 ﻿using BootstrapBlazor.Components;
+using MediatR;
+using Medical.Web.Client.Services.UserService;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Medical.Web.Client.Shared
 {
@@ -10,6 +14,9 @@ namespace Medical.Web.Client.Shared
     /// </summary>
     public sealed partial class MainLayout
     {
+        [Inject]
+
+        NavigationManager NavigationManager { get; set; }
         private bool UseTabSet { get; set; } = true;
 
         private string Theme { get; set; } = "";
@@ -19,6 +26,8 @@ namespace Medical.Web.Client.Shared
         private bool IsFixedHeader { get; set; } = true;
 
         private bool IsFixedFooter { get; set; } = true;
+
+        private bool IsCollapsedSide { get; set; } = false;
 
         private bool IsFullSide { get; set; } = true;
 
@@ -45,8 +54,10 @@ namespace Medical.Web.Client.Shared
                 new MenuItem() { Text = "Artículos", Icon = "fa-solid fa-fw fa-table", Url = "table" },
                 new MenuItem() { Text = "Pacientes", Icon = "fa-solid fa-fw fa-users", Url = "users" }
             };
-
             return menus;
         }
+
+        private async Task Login() => NavigationManager.NavigateTo("/login");
+
     }
 }

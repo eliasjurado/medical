@@ -1,0 +1,36 @@
+﻿@using System.Diagnostics.CodeAnalysis
+@using Medical.Domain.Dto.User
+@inherits LayoutComponentBase
+<Layout ShowFooter="true">
+    <Header>
+        <br />
+    </Header>
+    <Main>
+        <section class="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <Card class="shadow-lg border-0 my-5">
+                            <BodyTemplate>
+                                <CascadingValue Value="Model" IsFixed="true">
+                                    @Body
+                                </CascadingValue>
+                            </BodyTemplate>
+                        </Card>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </Main>
+    <Footer>
+        <div class="text-center flex-fill">
+            <a class="page-layout-demo-footer-link" target="_self">By @Resource.Constants.SYSTEM_AUTHOR_NAME</a>
+        </div>
+    </Footer>
+</Layout>
+
+@code
+{
+    [NotNull]
+    private UserLogin? Model { get; set; } = new();
+}

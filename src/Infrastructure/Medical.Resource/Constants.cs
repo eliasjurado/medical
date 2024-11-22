@@ -7,6 +7,8 @@
         public static string LANGUAGE_SPANISH_PERU = "es-PE";
 
         public static string SYSTEM_PREFIX_NAME = "Sistema";
+        public static string SYSTEM_LEAD = "Sistema de Gestión Médica";
+        public static string SYSTEM_AUTHOR_NAME = "Medical Systems Services";
 
         public static string ADMIN_GUID => "8e445865-a24d-4543-a6c6-9443d048cdb9";
         public static string ADMIN_EMAIL => "admin@thaniwasi.com";
@@ -18,6 +20,7 @@
         public static string USER_NAME => "Usuario";
         public static string USER_ROLE_NAME => "Usuario";
         public static string USER_ROLE_GUID => "cac43a6e-f7bb-4448-baaf-1add431ccbbf";
+        public static string USER_THUMBNAIL_PATH => "images/user.png";
 
         #endregion
 
@@ -26,7 +29,7 @@
         public static string APPLICATION_NAME = "Thaniwasi";
         public static string APPLICATION_LEAD = "Integrativo y Natural";
 
-        public static string LOGIN_FORM_TITLE = "Mi Cuenta";
+        public static string LOGIN_FORM_TITLE = "Ingresar";
         public static string LOGIN_FORM_USERNAME = "Usuario";
         public static string LOGIN_FORM_SIGNOUT = "Cerrar Sesión";
 
