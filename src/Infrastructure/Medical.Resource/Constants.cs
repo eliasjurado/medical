@@ -29,9 +29,19 @@
         public static string APPLICATION_NAME = "Thaniwasi";
         public static string APPLICATION_LEAD = "Integrativo y Natural";
 
+        #region Login
+
         public static string LOGIN_FORM_TITLE = "Ingresar";
         public static string LOGIN_FORM_USERNAME = "Usuario";
         public static string LOGIN_FORM_SIGNOUT = "Cerrar Sesión";
+        public static string LOGIN_FORM_EMAIL_PLACEHOLDER = "Por favor ingrese su correo electrónico";
+        public static string LOGIN_FORM_PASSWORD_PLACEHOLDER = "Por favor ingrese su correo contraseña";
+        public static string LOGIN_FORM_SUBMIT = "Ingresar";
+        public static string LOGIN_FORM_FORGOT_PASSWORD = "Olvidé mi contraseña";
+        public static string LOGIN_FORM_REGISTER = "Registrarse";
+
+        #endregion
+
 
         public static string PROFILE_TITLE = "Perfil";
 

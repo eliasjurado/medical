@@ -1,6 +1,6 @@
 ﻿using Medical.Application.Contracts.Identity;
-using Medical.Shared.Response.Abstract;
-using Medical.Shared.User;
+using Medical.Domain.Dto.Response.Abstract;
+using Medical.Domain.Dto.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

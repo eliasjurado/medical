@@ -9,6 +9,8 @@
 
 using Medical.Identity;
 using Medical.Application;
+using Medical.Application.Contracts.Identity;
+using Medical.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +27,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 
 builder.Services.AddHttpContextAccessor();
 

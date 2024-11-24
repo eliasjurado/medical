@@ -1,8 +1,8 @@
 ﻿using Medical.Application.Contracts.Identity;
-using Medical.Shared.Auth;
-using Medical.Shared.Response.Abstract;
-using Medical.Shared.Response.Concrete;
-using Medical.Shared.User;
+using Medical.Domain.Dto.Auth;
+using Medical.Domain.Dto.Response.Abstract;
+using Medical.Domain.Dto.Response.Concrete;
+using Medical.Domain.Dto.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Medical.Server.Controllers

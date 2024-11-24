@@ -1,4 +1,5 @@
-﻿@* @inject NavigationManager NavigationManager *@
+﻿@using System.Security.Claims
+@* @inject NavigationManager NavigationManager *@
 @inherits LayoutComponentBase
 
 <Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
@@ -17,21 +18,23 @@
         <Widget></Widget>
         <AuthorizeView>
             <Authorized>
-                <Logout ImageUrl="@(context.User.Claims.FirstOrDefault(x=>x.Type.Equals(UserInfo.PictureClaimType)).Value ?? Resource.Constants.USER_THUMBNAIL_PATH)" DisplayName="@context.User.Claims.FirstOrDefault(x=>x.Type.Equals(UserInfo.NickNameClaimType)).Value" UserName="@context.User.Identity.Name">
+                <Logout ImageUrl="@(Resource.Constants.USER_THUMBNAIL_PATH ?? context.User.Claims.First(x=>x.Type.Equals(UserInfo.PictureClaimType)).Value)"
+                        DisplayName="@context.User.Claims.First(x=>x.Type.Equals(ClaimTypes.GivenName)).Value"
+                        UserName="@context.User.Identity.Name">
                     <LinkTemplate>
                         <a href="#"><i class="fa-solid fa-suitcase"></i>Profile</a>
                         <a href="#"><i class="fa-solid fa-cog"></i>Settings</a>
                         <a href="#"><i class="fa-solid fa-bell"></i>Notifications<span class="badge badge-pill badge-primary"></span></a>
-                        <LogInOrOut />
+                        <LogoutLink Url="" Text="@Resource.Constants.LOGIN_FORM_SIGNOUT" />
                     </LinkTemplate>
                 </Logout>
             </Authorized>
             <NotAuthorized>
-                <LinkButton Color="Color.Light" OnClick="Login" >
+                <LinkButton Color="Color.Light" OnClick="Login">
                     @* <Avatar Url="@Resource.Constants.USER_THUMBNAIL_PATH" IsCircle="true" Size="Size.ExtraSmall" /> *@
                     <span><h6>@Resource.Constants.LOGIN_FORM_TITLE</h6></span>
                 </LinkButton>
-               @*  <Link Href="/login">@Resource.Constants.LOGIN_FORM_TITLE</Link>
+                @*  <Link Href="/login">@Resource.Constants.LOGIN_FORM_TITLE</Link>
                 <Logout ImageUrl="images/user.png" DisplayName="@Resource.Constants.LOGIN_FORM_TITLE" UserName="@Resource.Constants.LOGIN_FORM_USERNAME">
                     <LinkTemplate>
                         <a href="#"><i class="fa-solid fa-suitcase"></i>@Resource.Constants.PROFILE_TITLE</a>
@@ -52,13 +55,20 @@
                 <span>@Resource.Constants.APPLICATION_NAME</span>
             </div>
         </div>
-        <div class="layout-user">
-            <img class="layout-avatar" src="images/user-circle.png">
-            <div class="layout-title">
-                <span>管理员</span>
-            </div>
-            <div class="layout-user-state"></div>
-        </div>
+@*         <AuthorizeView>
+            <Authorized>
+                <div class="layout-user text-center">
+                    <div class="layout-title">
+                        <strong>
+                            @context.User.Claims.First(x => x.Type.Equals(ClaimTypes.GivenName)).Value
+                            @context.User.Claims.First(x => x.Type.Equals(ClaimTypes.Surname)).Value
+                        </strong>
+                    </div>
+                    <div class="layout-user-state"></div>
+                    <hr />
+                </div>
+            </Authorized>
+        </AuthorizeView> *@
     </Side>
     <Main>
         <CascadingValue Value="this" IsFixed="true">

@@ -144,6 +144,8 @@ namespace Medical.Identity.Service
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.GivenName, user.FirstName),
+                new Claim(ClaimTypes.Surname, user.LastName)
             }
             .Union(roleClaims);
 
