@@ -1,5 +1,5 @@
 ﻿<DropdownWidget class="px-3">
-    <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
+    @*<DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
         <HeaderTemplate>
             <span>您有 4 个未读消息</span>
         </HeaderTemplate>
@@ -23,10 +23,10 @@
         <FooterTemplate>
             <a href="#" @onclick:preventDefault>查看所有消息</a>
         </FooterTemplate>
-    </DropdownWidgetItem>
-    <DropdownWidgetItem Icon="fa-regular fa-bell" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Warning">
+    </DropdownWidgetItem>*@
+    <DropdownWidgetItem Icon="fa-regular fa-bell" BadgeNumber="10" HeaderColor="Color.Warning" BadgeColor="Color.Warning">
         <HeaderTemplate>
-            <span>您有 10 个未读通知</span>
+            <span>@string.Format(Resource.Constants.NOTIFICATIONS_UNREAD, 10)</span>
         </HeaderTemplate>
         <BodyTemplate>
             @for (var index = 0; index < 10; index++)
@@ -38,10 +38,10 @@
             }
         </BodyTemplate>
         <FooterTemplate>
-            <a href="#" @onclick:preventDefault>查看所有通知</a>
+            <a href="#" @onclick:preventDefault>@Resource.Constants.NOTIFICATIONS_VIEW_ALL</a>
         </FooterTemplate>
     </DropdownWidgetItem>
-    <DropdownWidgetItem Icon="fa-regular fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
+@*     <DropdownWidgetItem Icon="fa-regular fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
         <HeaderTemplate>
             <span>您有 3 个任务</span>
         </HeaderTemplate>
@@ -71,5 +71,5 @@
         <FooterTemplate>
             <a href="#" @onclick:preventDefault>查看所有任务</a>
         </FooterTemplate>
-    </DropdownWidgetItem>
+    </DropdownWidgetItem> *@
 </DropdownWidget>

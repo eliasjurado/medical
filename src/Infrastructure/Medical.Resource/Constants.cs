@@ -21,6 +21,7 @@
         public static string USER_ROLE_NAME => "Usuario";
         public static string USER_ROLE_GUID => "cac43a6e-f7bb-4448-baaf-1add431ccbbf";
         public static string USER_THUMBNAIL_PATH => "images/user.png";
+        public static string USER_THUMBNAIL_CIRCLE_PATH => "images/user-circle.png";
 
         #endregion
 
@@ -48,6 +49,10 @@
         public static string SETTINGS_TITLE = "Configuración";
 
         public static string NOTIFICATIONS_TITLE = "Notificaciones";
+
+        public static string NOTIFICATIONS_UNREAD = "Usted tiene {0} notificaciones sin leer";
+
+        public static string NOTIFICATIONS_VIEW_ALL = "Ver todas las notificaciones";
 
         #endregion
 

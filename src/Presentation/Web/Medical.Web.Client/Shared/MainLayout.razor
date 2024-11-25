@@ -15,38 +15,26 @@
         <span class="ms-3 flex-sm-fill d-none d-sm-block">@(IsCollapsedSide || !IsFullSide ? Resource.Constants.APPLICATION_LEAD : string.Empty)</span>
         <div class="flex-fill d-sm-none">
         </div>
-        <Widget></Widget>
         <AuthorizeView>
             <Authorized>
-                <Logout ImageUrl="@(Resource.Constants.USER_THUMBNAIL_PATH ?? context.User.Claims.First(x=>x.Type.Equals(UserInfo.PictureClaimType)).Value)"
+                <Widget></Widget>
+                <Logout class="mx-2" ImageUrl="@(Resource.Constants.USER_THUMBNAIL_CIRCLE_PATH ?? context.User.Claims.First(x=>x.Type.Equals(UserInfo.PictureClaimType)).Value)"
                         DisplayName="@context.User.Claims.First(x=>x.Type.Equals(ClaimTypes.GivenName)).Value"
                         UserName="@context.User.Identity.Name">
                     <LinkTemplate>
                         <a href="#"><i class="fa-solid fa-suitcase"></i>Profile</a>
                         <a href="#"><i class="fa-solid fa-cog"></i>Settings</a>
                         <a href="#"><i class="fa-solid fa-bell"></i>Notifications<span class="badge badge-pill badge-primary"></span></a>
-                        <LogoutLink Url="" Text="@Resource.Constants.LOGIN_FORM_SIGNOUT" />
+                        <LogoutLink Url="/logout" Text="@Resource.Constants.LOGIN_FORM_SIGNOUT" />
                     </LinkTemplate>
                 </Logout>
             </Authorized>
             <NotAuthorized>
-                <LinkButton Color="Color.Light" OnClick="Login">
-                    @* <Avatar Url="@Resource.Constants.USER_THUMBNAIL_PATH" IsCircle="true" Size="Size.ExtraSmall" /> *@
-                    <span><h6>@Resource.Constants.LOGIN_FORM_TITLE</h6></span>
+                <LinkButton class="mx-2" Color="Color.Light" OnClick="Login">
+                    <span><strong>@Resource.Constants.LOGIN_FORM_TITLE</strong></span>
                 </LinkButton>
-                @*  <Link Href="/login">@Resource.Constants.LOGIN_FORM_TITLE</Link>
-                <Logout ImageUrl="images/user.png" DisplayName="@Resource.Constants.LOGIN_FORM_TITLE" UserName="@Resource.Constants.LOGIN_FORM_USERNAME">
-                    <LinkTemplate>
-                        <a href="#"><i class="fa-solid fa-suitcase"></i>@Resource.Constants.PROFILE_TITLE</a>
-                        <a href="#"><i class="fa-solid fa-cog"></i>@Resource.Constants.SETTINGS_TITLE</a>
-                        <a href="#"><i class="fa-solid fa-bell"></i>@Resource.Constants.NOTIFICATIONS_TITLE<span class="badge badge-pill badge-success"></span></a>
-                        <LogoutLink Text="@Resource.Constants.LOGIN_FORM_SIGNOUT" />
-                    </LinkTemplate>
-                </Logout> *@
             </NotAuthorized>
         </AuthorizeView>
-
-        <div class="layout-drawer" @onclick="@(e => IsOpen = !IsOpen)"><i class="fa fa-gears"></i></div>
     </Header>
     <Side>
         <div class="layout-banner">
@@ -55,20 +43,6 @@
                 <span>@Resource.Constants.APPLICATION_NAME</span>
             </div>
         </div>
-@*         <AuthorizeView>
-            <Authorized>
-                <div class="layout-user text-center">
-                    <div class="layout-title">
-                        <strong>
-                            @context.User.Claims.First(x => x.Type.Equals(ClaimTypes.GivenName)).Value
-                            @context.User.Claims.First(x => x.Type.Equals(ClaimTypes.Surname)).Value
-                        </strong>
-                    </div>
-                    <div class="layout-user-state"></div>
-                    <hr />
-                </div>
-            </Authorized>
-        </AuthorizeView> *@
     </Side>
     <Main>
         <CascadingValue Value="this" IsFixed="true">
@@ -85,7 +59,7 @@
     </NotFound>
 </Layout>
 
-<Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
+@* <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
     <div class="layout-drawer-body">
         <div class="btn btn-info w-100" @onclick="@(e => IsOpen = false)">点击关闭</div>
         <div class="page-layout-demo-option">
@@ -185,4 +159,4 @@
             </div>
         </div>
     </div>
-</Drawer>
+</Drawer> *@
