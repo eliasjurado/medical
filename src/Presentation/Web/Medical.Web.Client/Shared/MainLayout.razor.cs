@@ -44,7 +44,7 @@ namespace Medical.Web.Client.Shared
             Menus = GetIconSideMenuItems();
         }
 
-        private static List<MenuItem> GetIconSideMenuItems()
+        private List<MenuItem> GetIconSideMenuItems()
         {
             var menus = new List<MenuItem>
             {

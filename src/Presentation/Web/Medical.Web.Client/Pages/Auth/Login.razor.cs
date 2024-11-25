@@ -74,15 +74,6 @@ namespace Medical.Web.Client.Pages.Auth
             }
         }
 
-        private async Task HandleLogout()
-        {
-            var token = await LocalStorage.GetItemAsStringAsync("authToken");
-            if (string.IsNullOrWhiteSpace(token))
-            {
-                await LocalStorage.RemoveItemAsync("authToken");
-            }
-        }
-
         private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
         {
             currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
