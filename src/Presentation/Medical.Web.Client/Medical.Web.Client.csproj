@@ -7,6 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="App.razor.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
         <Content Remove="Locales\en.json" />
         <Content Remove="Locales\zh.json" />
     </ItemGroup>
@@ -17,11 +21,12 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.*" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.*" PrivateAssets="all" />
         <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="9.0.0" />
         <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Core\Medical.Domain\Medical.Domain.csproj" />
+        <ProjectReference Include="..\..\Core\Medical.Domain\Medical.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>

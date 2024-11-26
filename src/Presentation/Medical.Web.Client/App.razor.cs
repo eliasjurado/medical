@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using System;
+
+namespace Medical.Web.Client
+{
+    public partial class App
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Inject]
+        [NotNull]
+        private IJSRuntime? JSRuntime { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="firstRender"></param>
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            await base.OnAfterRenderAsync(firstRender);
+
+            if (firstRender && OperatingSystem.IsBrowser())
+            {
+                await JSRuntime.InvokeVoidAsync("$.loading");
+            }
+        }
+    }
+}

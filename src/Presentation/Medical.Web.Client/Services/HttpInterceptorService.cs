@@ -40,7 +40,7 @@ public class HttpInterceptorService
 
             if (!string.IsNullOrEmpty(token))
             {
-                e.Request.Headers.Authorization = new AuthenticationHeaderValue("bearer", token.Replace("\"", ""));
+                e.Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
             }
         }
     }

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Linq;
+using System;
+using Medical.Domain.Dto.Auth;
 
 
 //@inject AuthenticationStateProvider AuthenticationStateProvider
@@ -39,6 +41,8 @@ namespace Medical.Web.Client.Pages.Auth
 
         private string currentUrl = string.Empty;
 
+        private ApiResponse<AuthResponseDto> response { get; set; } 
+
         protected override void OnInitialized()
         {
             Interceptor.RegisterEvent();
@@ -49,12 +53,13 @@ namespace Medical.Web.Client.Pages.Auth
             }
 
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-            NavigationManager.LocationChanged += OnLocationChanged;
+            //NavigationManager.LocationChanged += OnLocationChanged;
         }
 
         private async Task HandleLogin()
         {
             var result = await AuthService.Login(user);
+            response = result;
             if (result != null)
             {
                 if (result.Success)
@@ -69,21 +74,21 @@ namespace Medical.Web.Client.Pages.Auth
                 }
                 else
                 {
-                    errorMessage = result.Messages.First() ?? string.Empty;
+                    errorMessage = result.Messages.FirstOrDefault();
                 }
             }
         }
 
-        private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
-        {
-            currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-            StateHasChanged();
-        }
+        //private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+        //{
+        //    currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        //    StateHasChanged();
+        //}
 
-        public void Dispose()
-        {
-            Interceptor.DisposeEvent();
-            NavigationManager.LocationChanged -= OnLocationChanged;
-        }
+        //public void Dispose()
+        //{
+        //    Interceptor.DisposeEvent();
+        //    NavigationManager.LocationChanged -= OnLocationChanged;
+        //}
     }
 }
