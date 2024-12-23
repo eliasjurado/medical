@@ -32,7 +32,7 @@
 
         #region Login
 
-        public static string LOGIN_FORM_TITLE = "Ingresar";
+        public static string LOGIN_FORM_TITLE = "Iniciar Sesión";
         public static string LOGIN_FORM_USERNAME = "Usuario";
         public static string LOGIN_FORM_SIGNOUT = "Cerrar Sesión";
         public static string LOGIN_FORM_EMAIL_PLACEHOLDER = "Por favor ingrese su correo electrónico";

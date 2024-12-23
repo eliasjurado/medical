@@ -1,0 +1,67 @@
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
+
+<Layout SideWidth="0" IsPage="true" ShowGotoTop="true" ShowCollapseBar="true"
+        IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter" ShowFooter="@ShowFooter"
+        IsCollapsed="@IsCollapsedSide"
+        OnCollapsed=@(async e => await Task.Run(()=> IsCollapsedSide = !IsCollapsedSide))
+        TabDefaultUrl="/"
+        Menus="@Menus" UseTabSet="@UseTabSet" AdditionalAssemblies="new[] { GetType().Assembly, typeof(Pages.Counter).Assembly }" class="@Theme">
+    <Header>
+        @if (!IsFullSide)
+        {
+            <img class="layout-logo layout-thumbnail" src="favicon.png" />
+        }
+        <span class="ms-3 flex-sm-fill d-none d-sm-block">
+            @(IsCollapsedSide || !IsFullSide ? Resource.Constants.APPLICATION_LEAD : string.Empty)
+        </span>
+        <div class="flex-fill d-sm-none"></div>
+        <AuthorizeView>
+            <Authorized>
+                <Widget></Widget>
+                <Logout class="mx-2" ImageUrl="@Resource.Constants.USER_THUMBNAIL_CIRCLE_PATH"
+                        DisplayName="@context.User.Claims.First(x=>x.Type.Equals(ClaimTypes.GivenName)).Value"
+                        UserName="@context.User.Identity?.Name">
+                    <LinkTemplate>
+                        <a href="#"><i class="fa-solid fa-suitcase"></i>Profile</a>
+                        <a href="#"><i class="fa-solid fa-cog"></i>Settings</a>
+                        <a href="#"><i class="fa-solid fa-bell"></i>Notifications<span class="badge badge-pill badge-primary"></span></a>
+                        <LogoutLink Url="/logout" Text="@Resource.Constants.LOGIN_FORM_SIGNOUT" />
+                    </LinkTemplate>
+                </Logout>
+            </Authorized>
+            <NotAuthorized>
+                <LinkButton class="mx-2" Color="Color.Light" OnClick="Login">
+                    <span><strong>@Resource.Constants.LOGIN_FORM_TITLE</strong></span>
+                </LinkButton>
+            </NotAuthorized>
+        </AuthorizeView>
+    </Header>
+    <Side>
+        <div class="layout-banner">
+            <img class="layout-logo" src="favicon.png" />
+            <div class="layout-title">
+                <span>@Resource.Constants.APPLICATION_NAME</span>
+            </div>
+        </div>
+    </Side>
+    <Main>
+        <CascadingValue Value="this" IsFixed="true">
+            @Body
+        </CascadingValue>
+    </Main>
+    <Footer>
+        <div class="text-center flex-fill">
+            <a class="page-layout-demo-footer-link" href="" target="_self">By @Resource.Constants.SYSTEM_AUTHOR_NAME</a>
+        </div>
+    </Footer>
+    <NotFound>
+        <p>Sorry, there's nothing at this address.</p>
+    </NotFound>
+</Layout>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

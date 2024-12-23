@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Medical",
+    "Projects": [
+      {
+        "Path": "src\\Presentation\\Medical.Auth\\Medical.Auth.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "src\\Presentation\\Medical.UI\\Medical.UI.csproj",
+        "Action": "Start",
+        "DebugTarget": "Medical.UI"
+      }
+    ]
+  }
+]

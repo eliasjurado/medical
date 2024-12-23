@@ -1,0 +1,43 @@
+﻿@page "/login"
+@layout LoginLayout
+@* @inject ICartService CartService *@
+@* @implements IDisposable *@
+
+<PageTitle>Login</PageTitle>
+
+<div class="login-item login-item-avatar login-item-gitee">
+    <div class="text-center">
+        <Avatar Url="./images/brand.png" IsCircle="true" Size="Size.ExtraExtraLarge" />
+        <h1 class="text-dark">@Resource.Constants.APPLICATION_NAME</h1>
+        <h4 class="text-dark">@Resource.Constants.SYSTEM_LEAD</h4>
+        <h4>@Resource.Constants.LOGIN_FORM_TITLE</h4>
+    </div>
+
+    <EditForm Model="user" OnValidSubmit="HandleLogin">
+        <DataAnnotationsValidator />
+        <div class="m-3">
+            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+            <InputText id="email" @bind-Value="user.Email" class="form-control p-2 m-2" type="email" placeholder="@Resource.Constants.LOGIN_FORM_EMAIL_PLACEHOLDER" />
+            <ValidationMessage class="p-2 m-2" For="@(() => user.Email)" />
+        </div>
+        <div class="m-3">
+            <InputText id="password" @bind-Value="user.Password" class="form-control p-2 m-2" type="password" placeholder="@Resource.Constants.LOGIN_FORM_PASSWORD_PLACEHOLDER" />
+            <ValidationMessage class="p-2 m-2" For="@(() => user.Password)" />
+        </div>
+        <div class="m-3">
+            <Button class="p-2 m-2" IsBlock="true" ButtonType="ButtonType.Submit" Color="Color.Primary">Login</Button>
+        </div>
+    </EditForm>
+    <hr />
+    <div class="d-flex m-3">
+        <Button class="p-2 m-2" IsBlock="true" Text="@Resource.Constants.LOGIN_FORM_FORGOT_PASSWORD" Color="Color.Danger"></Button>
+        <LinkButton class="p-2 m-2" ButtonType="ButtonType.Button" Url="/register" IsBlock="true" Text="@Resource.Constants.LOGIN_FORM_REGISTER" Color="Color.Info"></LinkButton>
+    </div>
+    <div class="text-danger">
+        <span>@errorMessage</span>
+    </div>
+
+</div>
+<script>
+    console.log(@response);
+</script>
