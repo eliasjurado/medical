@@ -172,7 +172,7 @@ namespace Medical.Identity.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "6c2e83c2-d270-4b3f-9f22-6d34e392048a", "admin@thaniwasi.com", true, "Sistema", "Administrador", false, null, "ADMIN@THANIWASI.COM", "ADMIN@THANIWASI.COM", "AQAAAAIAAYagAAAAEF9w+Ca0rDsqH9jjP5TAfMtC6L6chWip931/4OQJo6qeJoGT8vQvSepipSqSGmVTFg==", null, false, "3f4bf2be-0dfc-47d7-98ab-e4dfc27662e5", false, "admin@thaniwasi.com" });
+                values: new object[] { "8e445865-a24d-4543-a6c6-9443d048cdb9", 0, "d58137d6-f80f-4403-85b0-f4b9fc29c8f0", "admin@thaniwasi.com", true, "Administrador", "Sistema", false, null, "ADMIN@THANIWASI.COM", "ADMIN@THANIWASI.COM", "AQAAAAIAAYagAAAAEIk8Ny+Gl27fveJC5uUrotG4DuiE6iEfqNl8Cl63/XIzSSsPdEK4VjYuy9T7TlYSOg==", null, false, "6e484a11-d5c4-401d-85e1-7b20c0c4cce3", false, "admin@thaniwasi.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

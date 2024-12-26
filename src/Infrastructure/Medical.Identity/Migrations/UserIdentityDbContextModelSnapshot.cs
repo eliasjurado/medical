@@ -99,17 +99,17 @@ namespace Medical.Identity.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6c2e83c2-d270-4b3f-9f22-6d34e392048a",
+                            ConcurrencyStamp = "d58137d6-f80f-4403-85b0-f4b9fc29c8f0",
                             Email = "admin@thaniwasi.com",
                             EmailConfirmed = true,
-                            FirstName = "Sistema",
-                            LastName = "Administrador",
+                            FirstName = "Administrador",
+                            LastName = "Sistema",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@THANIWASI.COM",
                             NormalizedUserName = "ADMIN@THANIWASI.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEF9w+Ca0rDsqH9jjP5TAfMtC6L6chWip931/4OQJo6qeJoGT8vQvSepipSqSGmVTFg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIk8Ny+Gl27fveJC5uUrotG4DuiE6iEfqNl8Cl63/XIzSSsPdEK4VjYuy9T7TlYSOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3f4bf2be-0dfc-47d7-98ab-e4dfc27662e5",
+                            SecurityStamp = "6e484a11-d5c4-401d-85e1-7b20c0c4cce3",
                             TwoFactorEnabled = false,
                             UserName = "admin@thaniwasi.com"
                         });
