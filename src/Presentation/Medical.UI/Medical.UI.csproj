@@ -23,11 +23,18 @@
       <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
       <PackageReference Include="Microsoft.Extensions.Localization" Version="8.*" />
       <PackageReference Include="Toolbelt.Blazor.HttpClientInterceptor" Version="10.2.0" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.*" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.*">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Medical.Application\Medical.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Medical.Identity\Medical.Identity.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Medical.Persistence\Medical.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

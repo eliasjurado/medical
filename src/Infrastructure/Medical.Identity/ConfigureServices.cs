@@ -20,7 +20,7 @@ public static class ConfigureServices
     {
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
-        var connectionString = configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = configuration.GetConnectionString("Auth") ?? throw new InvalidOperationException("Connection string 'AuthConnection' not found.");
 
         services.AddDbContext<UserIdentityDbContext>(options =>
             options.UseSqlServer(connectionString));

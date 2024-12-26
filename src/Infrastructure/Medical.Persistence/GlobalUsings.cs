@@ -1,0 +1,13 @@
+﻿global using Medical.Application.Repositories.Commands;
+global using Medical.Application.Repositories.Queries;
+global using Medical.Domain.Entities;
+global using Medical.Persistence.Repositories.Commands.Base;
+global using Medical.Persistence.Repositories.Queries.Base;
+global using Medical.Persistence.Repositories.Commands;
+global using Medical.Persistence.Repositories.Queries;
+global using Medical.Server.Contexts;
+global using Medical.Application.Contracts.Identity;
+global using Medical.Application.UnitOfWork;
+global using Medical.Domain.Common;
+global using Microsoft.EntityFrameworkCore;
+global using System.Linq.Expressions;

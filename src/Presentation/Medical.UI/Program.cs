@@ -1,4 +1,6 @@
 ﻿using Blazored.LocalStorage;
+using Medical.Persistence;
+using Medical.Application;
 using Medical.Application.Contracts.Identity;
 using Medical.Identity;
 using Medical.Resource;
@@ -13,8 +15,13 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System.Text;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
+using Medical.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
@@ -22,7 +29,9 @@ builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalization();
 builder.Services.AddHttpClientInterceptor();
 
+builder.Services.AddApplicationServices();
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddPersistanceServices(builder.Configuration);
 
 // Add services to the container.
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -62,6 +71,26 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Initialise and seed the database
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var initialiser = scope.ServiceProvider.GetRequiredService<UserIdentityDbContextInitialiser>();
+        await initialiser.InitialiseAsync();
+
+        var persistenceInitialiser = scope.ServiceProvider.GetRequiredService<PersistenceDbContextInitialiser>();
+        await persistenceInitialiser.InitialiseAsync();
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred during database initialisation.");
+
+        throw;
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
@@ -70,9 +99,19 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
+app.UseSwaggerUI();
+app.UseSwagger();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseAntiforgery();
 
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+
+app.MapControllers();
 
 app.UseCors("all");
 

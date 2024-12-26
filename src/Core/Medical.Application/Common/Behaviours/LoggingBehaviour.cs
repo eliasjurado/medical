@@ -1,5 +1,5 @@
-﻿using Medical.Application.Contracts.Identity;
-using MediatR.Pipeline;
+﻿using MediatR.Pipeline;
+using Medical.Application.Contracts.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace Medical.Application.Common.Behaviours;
