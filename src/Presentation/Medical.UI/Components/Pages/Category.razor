@@ -1,0 +1,70 @@
+﻿@page "/categoria"
+@using Medical.Domain.Dto.Category
+@using Medical.UI.Models
+@attribute [TabItemOption(Text = "Categoría")]
+<PageTitle>Categoría</PageTitle>
+
+<h1>Categoría</h1>
+
+<Table TItem="CategoryDto" PageItemsSource="PageItemsSource" class="table-demo"
+       IsFixedHeader="true"
+       RenderMode="TableRenderMode.Table"
+       IsAutoRefresh="true"
+       AutoRefreshInterval="2000"
+       ShowRefresh="true"
+       ClickToSelect="true"
+       AllowResizing="true"
+       ShowColumnList="false"
+       AllowDragColumn="true"
+       ShowExportButton="true"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       ShowSkeleton="true"
+       IsMultipleSelect="true"
+       ShowDefaultButtons="true"
+       ShowAddButton="true"
+       ShowEditButton="false"
+       ShowDeleteButton="false"
+       ShowToolbar="true"
+       ShowAdvancedSearch="false"
+       ShowSearch="true"
+       ShowExtendButtons="true"
+       AutoGenerateColumns="true"
+       DoubleClickToEdit="true"
+       EditDialogShowMaximizeButton="false"
+       EditMode="EditMode.Popup">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Id"
+                     Order="1" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
+
+        <TableColumn @bind-Field="@context.Name"
+                     @* FieldName="Nombre" *@
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Order="2" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.Url"
+                     @* FieldName="Url" *@
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Order="3" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.IsActive"
+                     @* FieldName="Activo" *@
+                     Order="4" Sortable="true"
+                     ComponentType="typeof(Switch)" />
+
+        <TableColumn @bind-Field="@context.Editing"
+                     @* FieldName="Editable" *@
+                     Order="5" Sortable="true"
+                     ComponentType="typeof(Switch)" />
+
+        <TableColumn @bind-Field="@context.IsNew"
+                     @* FieldName="Nuevo" *@
+                     Order="6" Sortable="true"
+                     ComponentType="typeof(Switch)" />
+    </TableColumns>
+</Table>

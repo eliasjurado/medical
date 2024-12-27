@@ -1,12 +1,14 @@
 ﻿using Blazored.LocalStorage;
-using Medical.Persistence;
 using Medical.Application;
 using Medical.Application.Contracts.Identity;
 using Medical.Identity;
+using Medical.Persistence;
+using Medical.Persistence.Contexts;
 using Medical.Resource;
 using Medical.UI;
 using Medical.UI.Components;
 using Medical.UI.Data;
+using Medical.UI.Extensions;
 using Medical.UI.Models;
 using Medical.UI.Services;
 using Medical.UI.Services.AuthService;
@@ -15,7 +17,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System.Text;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
-using Medical.Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
+
+var settings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(settings.ApiHub.App) });
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalization();
@@ -44,10 +48,13 @@ builder.Services.AddBootstrapBlazor(op =>
     op.IgnoreLocalizerMissing = true;
 });
 
+builder.Services.AddBootstrapBlazorTableExportService();
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 // Add Table data service operation class
 builder.Services.AddTableDemoDataService();
+builder.Services.AddServiceCollection();
 
 // Add SignalR service data transfer size limit configuration
 builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);

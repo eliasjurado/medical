@@ -29,14 +29,14 @@ public class CategoryController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("admin"), Authorize(Roles = "Admin")]
+    [HttpGet("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> GetAdminCategories()
     {
         var response = await _mediator.Send(new GetAllCategoryQueryRequest(true));
         return Ok(response);
     }
 
-    [HttpDelete("admin/{id}"), Authorize(Roles = "Admin")]
+    [HttpDelete("admin/{id}"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> DeleteCategory(int id)
     {
         var result = await _mediator.Send(new DeleteCategoryCommandRequest(id));
@@ -52,7 +52,7 @@ public class CategoryController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost("admin"), Authorize(Roles = "Admin")]
+    [HttpPost("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> AddCategory(CategoryDto category)
     {
         await _mediator.Send(new AddCategoryCommandRequest(category));
@@ -61,7 +61,7 @@ public class CategoryController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPut("admin"), Authorize(Roles = "Admin")]
+    [HttpPut("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> UpdateCategory(CategoryDto category)
     {
         var result = await _mediator.Send(new UpdateCategoryCommandRequest(category));
