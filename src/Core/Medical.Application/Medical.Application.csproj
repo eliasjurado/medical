@@ -18,5 +18,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Medical.Domain\Medical.Domain.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Features\Pacient\" />
+    </ItemGroup>
 
 </Project>

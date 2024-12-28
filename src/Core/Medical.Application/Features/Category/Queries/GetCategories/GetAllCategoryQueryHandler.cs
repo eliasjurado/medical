@@ -6,7 +6,7 @@ using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;
 using Medical.Resource;
 
-namespace Medical.Application.Features.Category.Query.GetCategories;
+namespace Medical.Application.Features.Category.Queries.GetCategories;
 
 public record GetAllCategoryQueryRequest(bool forAdmin = false) : IRequest<IResponse>;
 
