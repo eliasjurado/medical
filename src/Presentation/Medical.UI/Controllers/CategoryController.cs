@@ -1,7 +1,7 @@
 ﻿using Medical.Application.Features.Category.Commands.AddCategory;
 using Medical.Application.Features.Category.Commands.DeleteCategory;
 using Medical.Application.Features.Category.Commands.UpdateCategory;
-using Medical.Application.Features.Category.Query.GetCategories;
+using Medical.Application.Features.Category.Queries.GetCategories;
 using Medical.Domain.Dto.Category;
 using Medical.Domain.Dto.Response.Concrete;
 using MediatR;
