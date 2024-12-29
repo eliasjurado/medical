@@ -20,11 +20,9 @@ namespace Medical.UI.Data
         private List<T>? Items { get; set; }
 
         private ICategoryService _categoryService { get; set; }
-        private readonly IMapper _mapper;
 
-        public CategoryDataService(ICategoryService categoryService, IMapper mapper)
+        public CategoryDataService(ICategoryService categoryService)
         {
-            _mapper = mapper;
             _categoryService = categoryService;
             Items = [];
         }
@@ -84,7 +82,7 @@ namespace Medical.UI.Data
             if (!string.IsNullOrEmpty(options.SortName))
             {
                 // No sorting is done externally, but sorting is done automatically internally
-                var invoker = SortLambdaCache.GetOrAdd(typeof(Foo), key => LambdaExtensions.GetSortLambda<T>().Compile());
+                var invoker = SortLambdaCache.GetOrAdd(typeof(CategoryDto), key => LambdaExtensions.GetSortLambda<T>().Compile());
                 items = invoker(items, options.SortName, options.SortOrder);
                 isSorted = true;
             }
