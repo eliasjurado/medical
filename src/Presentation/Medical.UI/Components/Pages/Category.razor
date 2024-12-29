@@ -40,29 +40,29 @@
                      IsVisibleWhenAdd="false"
                      IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
 
-        <TableColumn @bind-Field="@context.Name"
+        <TableColumn @bind-Field="@context.Name" Text="Nombre"
                      @* FieldName="Nombre" *@
                      RequiredErrorMessage="El campo puede ser nulo"
                      Required="true" Order="2" Sortable="true"
                      Filterable="true" Searchable="true" />
 
-        <TableColumn @bind-Field="@context.Url"
+        <TableColumn @bind-Field="@context.Url" Text="URL"
                      @* FieldName="Url" *@
                      RequiredErrorMessage="El campo puede ser nulo"
                      Required="true" Order="3" Sortable="true"
                      Filterable="true" Searchable="true" />
 
-        <TableColumn @bind-Field="@context.IsActive"
+        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
                      @* FieldName="Activo" *@
                      Order="4" Sortable="true"
                      ComponentType="typeof(Switch)" />
 
-        <TableColumn @bind-Field="@context.Editing"
+        <TableColumn @bind-Field="@context.Editing" Text="Editable"
                      @* FieldName="Editable" *@
                      Order="5" Sortable="true"
                      ComponentType="typeof(Switch)" />
 
-        <TableColumn @bind-Field="@context.IsNew"
+        <TableColumn @bind-Field="@context.IsNew" Text="Nuevo"
                      @* FieldName="Nuevo" *@
                      Order="6" Sortable="true"
                      ComponentType="typeof(Switch)" />
