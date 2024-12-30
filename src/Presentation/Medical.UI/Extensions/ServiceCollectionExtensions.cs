@@ -1,16 +1,21 @@
 ﻿using BootstrapBlazor.Components;
-using Medical.UI.Services.CategoryService;
 using Medical.UI.Data;
+using Medical.UI.Services.CategoryService;
+using Medical.UI.Services.PacientService;
 
 namespace Medical.UI.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-            public static IServiceCollection AddServiceCollection(this IServiceCollection services)
-            {
-                services.AddScoped<ICategoryService, CategoryService>();
-                services.AddScoped(typeof(IDataService<>), typeof(CategoryDataService<>));
-                return services;
-            }        
+        public static IServiceCollection AddServiceCollection(this IServiceCollection services)
+        {
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IPacientService, PacientService>();
+
+            services.AddScoped(typeof(IDataService<>), typeof(CategoryDataService<>));
+            services.AddScoped(typeof(IDataService<>), typeof(PacientDataService<>));
+
+            return services;
+        }
     }
 }

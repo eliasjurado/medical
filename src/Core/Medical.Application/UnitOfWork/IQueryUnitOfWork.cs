@@ -5,5 +5,5 @@ namespace Medical.Application.UnitOfWork;
 public interface IQueryUnitOfWork
 {
     ICategoryQueryRepository CategoryQuery { get; }
-
+    IPacientQueryRepository PacientQuery { get; }
 }

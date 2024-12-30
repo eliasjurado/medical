@@ -39,4 +39,10 @@
     <ProjectReference Include="..\..\Infrastructure\Medical.Persistence\Medical.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\Pacient.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

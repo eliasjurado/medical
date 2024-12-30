@@ -9,7 +9,7 @@ namespace Medical.Server.Contexts
         }
 
         //public DbSet<Product> Products { get; set; }
-
+        public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         //public DbSet<ProductType> ProductTypes { get; set; }
@@ -20,7 +20,10 @@ namespace Medical.Server.Contexts
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {           
+        {
+            modelBuilder.Entity<Pacient>()
+                .HasIndex(u => u.NumDocument).IsUnique();
+
             //modelBuilder.Entity<CartItem>()
             //    .HasKey(ci => new { ci.UserId, ci.ProductId, ci.ProductTypeId });
 

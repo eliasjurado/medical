@@ -1,0 +1,113 @@
+﻿@page "/paciente"
+@using Medical.Domain.Dto.Pacient
+@using Medical.UI.Models
+@attribute [TabItemOption(Text = "Paciente")]
+<PageTitle>Paciente</PageTitle>
+
+<h1>Paciente</h1>
+
+<Table TItem="PacientDto" PageItemsSource="PageItemsSource" class="table-demo"
+       IsFixedHeader="true"
+       RenderMode="TableRenderMode.Table"
+       IsAutoRefresh="true"
+       AutoRefreshInterval="2000"
+       ShowRefresh="true"
+       ClickToSelect="true"
+       AllowResizing="true"
+       ShowColumnList="false"
+       AllowDragColumn="true"
+       ShowExportButton="true"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       ShowSkeleton="true"
+       IsMultipleSelect="true"
+       ShowDefaultButtons="true"
+       ShowAddButton="true"
+       ShowEditButton="false"
+       ShowDeleteButton="false"
+       ShowToolbar="true"
+       ShowAdvancedSearch="false"
+       ShowSearch="true"
+       ShowExtendButtons="true"
+       AutoGenerateColumns="true"
+       DoubleClickToEdit="true"
+       EditDialogShowMaximizeButton="false"
+       EditMode="EditMode.Popup">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Id" Text="Historia"
+                     Order="10" IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true">
+            <Template Context="value">
+                @value.Value.ToString().PadLeft(6, '0')
+            </Template>
+        </TableColumn>
+
+        <TableColumn @bind-Field="@context.IsNew" Text="Apellidos y Nombres"
+                     Order="20" Sortable="true"
+                     Filterable="true" Searchable="true"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false">
+            <Template Context="value">
+                @value.Row.LastName @value.Row.Name
+            </Template>
+        </TableColumn>
+
+        <TableColumn @bind-Field="@context.TypeSex" Text="Sexo"
+                     Order="30" RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.Birthdate" Text="FecNac"
+                     Order="40" FormatString="dd/MM/yyyy"
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true"
+                     Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.Address" Text="Domicilio"
+                     Order="50" RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.TypeDocument" Text="Tipo Documento"
+                     Order="11" Visible="false"
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.NumDocument" Text="Nro Documento"
+                     Order="12" Visible="false"
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.LastName" Text="Apellidos"
+                     Order="13" Visible="false"
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.Name" Text="Nombres"
+                     Order="14" Visible="false"
+                     RequiredErrorMessage="El campo puede ser nulo"
+                     Required="true" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.Phone" Text="Teléfono"
+                     Order="60" Visible="false" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.IsActive"
+                     Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false"
+                     ComponentType="typeof(Switch)" />
+
+        <TableColumn @bind-Field="@context.Editing"
+                     Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false"
+                     ComponentType="typeof(Switch)" />
+    </TableColumns>
+</Table>

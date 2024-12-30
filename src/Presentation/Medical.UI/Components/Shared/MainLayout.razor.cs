@@ -49,6 +49,7 @@ namespace Medical.UI.Components.Shared
                 new() { Text = "Weather", Icon = "fa-solid fa-fw fa-database", Url = "/weather" },
                 new() { Text = "Table", Icon = "fa-solid fa-fw fa-table", Url = "/table" },
                 new() { Text = "Categoría", Icon = "fa-solid fa-fw fa-table", Url = "/categoria" },
+                new() { Text = "Paciente", Icon = "fa-solid fa-fw fa-table", Url = "/paciente"  },
                 new() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "/users" }
             };
 
