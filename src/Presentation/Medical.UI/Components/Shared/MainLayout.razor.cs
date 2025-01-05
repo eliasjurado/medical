@@ -45,12 +45,16 @@ namespace Medical.UI.Components.Shared
             {
                 //new() { Text = "返回组件库", Icon = "fa-solid fa-fw fa-home", Url = "https://www.blazor.zone/components" },
                 new() { Text = "Index", Icon = "fa-solid fa-fw fa-flag", Url = "/" , Match = NavLinkMatch.All},
-                new() { Text = "Counter", Icon = "fa-solid fa-fw fa-check-square", Url = "/counter" },
-                new() { Text = "Weather", Icon = "fa-solid fa-fw fa-database", Url = "/weather" },
-                new() { Text = "Table", Icon = "fa-solid fa-fw fa-table", Url = "/table" },
-                new() { Text = "Categoría", Icon = "fa-solid fa-fw fa-table", Url = "/categoria" },
-                new() { Text = "Paciente", Icon = "fa-solid fa-fw fa-table", Url = "/paciente"  },
-                new() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "/users" }
+                //new() { Text = "Counter", Icon = "fa-solid fa-fw fa-check-square", Url = "/counter" },
+                //new() { Text = "Weather", Icon = "fa-solid fa-fw fa-database", Url = "/weather" },
+                //new() { Text = "Table", Icon = "fa-solid fa-fw fa-table", Url = "/table" },                                
+                //new() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "/users" },
+                new() { Text = "Pacientes", Icon = "fa-solid fa-fw fa-users", Items = new List<MenuItem>{
+                    new() { Text = "Paciente", Icon = "fa-solid fa-fw fa-user", Url = "/paciente"  },
+                }},
+                new() { Text = "Sistema", Icon = "fa-solid fa-fw fa-gears", Items = new List<MenuItem>{
+                    new() { Text = "Categoría", Icon = "fa-solid fa-fw fa-table", Url = "/categoria" },
+                }}
             };
 
             return menus;
