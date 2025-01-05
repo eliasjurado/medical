@@ -84,8 +84,6 @@
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
-       
-
         <TableColumn @bind-Field="@context.Phone" Text="Teléfono"
                      Order="60" Visible="false" Sortable="true"
                      Filterable="true" Searchable="true" />
@@ -93,7 +91,7 @@
         <TableColumn @bind-Field="@context.IsActive"
                      Visible="false"
                      IsVisibleWhenAdd="false"
-                     IsVisibleWhenEdit="false"
+                     IsVisibleWhenEdit="true"
                      ComponentType="typeof(Switch)" />
 
         <TableColumn @bind-Field="@context.Editing"
