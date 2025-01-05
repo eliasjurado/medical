@@ -1,8 +1,9 @@
 ﻿namespace Medical.Domain.Enums;
 
-public enum TypeSex
+public enum Shift
 {
     None,
-    Femenino,
-    Masculino
+    Dia,
+    Tarde,
+    Noche
 }
