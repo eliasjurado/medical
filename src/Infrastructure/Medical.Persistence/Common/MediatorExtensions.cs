@@ -1,7 +1,4 @@
-﻿using Medical.Domain.Common;
-using Microsoft.EntityFrameworkCore;
-
-namespace MediatR;
+﻿namespace MediatR;
 
 public static class MediatorExtensions
 {
