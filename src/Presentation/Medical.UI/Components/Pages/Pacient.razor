@@ -45,19 +45,19 @@
         </TableColumn>
 
         <TableColumn @bind-Field="@context.IsActive" Text="Activo"
-                     Order="2" Visible="false"
+                     Order="11" Visible="false"
                      IsVisibleWhenAdd="false"
                      IsVisibleWhenEdit="true"
                      ComponentType="typeof(Switch)" />
 
         <TableColumn @bind-Field="@context.LastName" Text="Apellidos"
-                     Order="13" Visible="true"
+                     Order="14" Visible="true"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Name" Text="Nombres"
-                     Order="14" Visible="true"
+                     Order="15" Visible="true"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
@@ -79,13 +79,13 @@
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.TypeDocument" Text="Tipo Documento"
-                     Order="11" Visible="false"
+                     Order="12" Visible="false"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.NumDocument" Text="Nro Documento"
-                     Order="12" Visible="false"
+                     Order="13" Visible="false"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
