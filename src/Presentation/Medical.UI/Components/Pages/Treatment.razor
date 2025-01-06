@@ -1,0 +1,73 @@
+﻿@page "/consultorio"
+@using Medical.Domain.Dto.Treatment
+@using Medical.UI.Models
+@attribute [TabItemOption(Text = "Consultorio")]
+<PageTitle>Consultorio</PageTitle>
+
+<h1>Consultorio</h1>
+
+<Table TItem="TreatmentDto" PageItemsSource="PageItemsSource" class="table-demo"
+       IsFixedHeader="true"
+       RenderMode="TableRenderMode.Table"
+       IsAutoRefresh="true"
+       AutoRefreshInterval="2000"
+       ShowRefresh="true"
+       ClickToSelect="true"
+       AllowResizing="true"
+       ShowColumnList="false"
+       AllowDragColumn="true"
+       ShowExportButton="true"
+       IsPagination="true"
+       IsStriped="true"
+       IsBordered="true"
+       ShowSkeleton="true"
+       IsMultipleSelect="true"
+       ShowDefaultButtons="true"
+       ShowAddButton="true"
+       ShowEditButton="false"
+       ShowDeleteButton="false"
+       ShowToolbar="true"
+       ShowAdvancedSearch="false"
+       ShowSearch="true"
+       ShowExtendButtons="true"
+       AutoGenerateColumns="true"
+       DoubleClickToEdit="true"
+       EditDialogShowMaximizeButton="false"
+       EditMode="EditMode.Popup"
+       OnQueryAsync="OnQueryAsync"
+       OnSaveAsync="SaveAsync"
+       OnDeleteAsync="DeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.Id"
+                     Order="1" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
+
+        <TableColumn @bind-Field="@context.Name" Text="Nombre"
+                     RequiredErrorMessage="El campo no puede ser nulo"
+                     Required="true" Order="2" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.DurationMinutes" Text="Duración Minutos"
+                     RequiredErrorMessage="El campo no puede ser nulo"
+                     Required="true" Order="3" Sortable="true"
+                     Filterable="true" Searchable="true" />
+
+        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
+                     Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true"
+                     Order="4" Sortable="true"
+                     ComponentType="typeof(Switch)" />
+
+        <TableColumn @bind-Field="@context.Editing" Text="Editable"
+                     Visible="false" Order="5"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false" />
+
+        <TableColumn @bind-Field="@context.IsNew" Text="Nuevo"
+                     Visible="false" Order="6"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false" />
+    </TableColumns>
+</Table>

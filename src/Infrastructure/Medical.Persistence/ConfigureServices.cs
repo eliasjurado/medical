@@ -22,10 +22,12 @@ public static class ConfigureServices
         //Commands
         services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
         services.AddScoped<IPacientCommandRepository, PacientCommandRepository>();
+        services.AddScoped<ITreatmentCommandRepository, TreatmentCommandRepository>();
 
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
         services.AddScoped<IPacientQueryRepository, PacientQueryRepository>();
+        services.AddScoped<ITreatmentQueryRepository, TreatmentQueryRepository>();
 
         return services;
     }
