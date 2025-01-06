@@ -30,6 +30,8 @@
         public static string EmailSuccessfullyChangedConfirmYourEmail => "Email Successfully Changed.Please confirm your email";
         public static string TokenNotExpired => "Current token is not expired yet.";
         public static string PASSWORD_CHANGED_SUCCESS => "Password has been changed.";
+
+        public static string REQUIRED_ERROR_MESSAGE = "El campo no puede ser nulo";
         public static string IsRequired => "{0} is required";
         public static string AlreadyExists => "{0} already exist";
         public static string MaxCharLimit => "{0} is exceeding the limit of {1} characters.";

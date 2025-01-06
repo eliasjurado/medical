@@ -1,6 +1,4 @@
 ﻿@page "/paciente"
-@using Medical.Domain.Dto.Pacient
-@using Medical.UI.Models
 @attribute [TabItemOption(Text = "Paciente")]
 <PageTitle>Paciente</PageTitle>
 
@@ -45,42 +43,42 @@
 
         <TableColumn @bind-Field="@context.LastName" Text="Apellidos"
                      Order="13" Visible="true"
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Name" Text="Nombres"
                      Order="14" Visible="true"
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.TypeSex" Text="Sexo"
-                     Order="30" RequiredErrorMessage="El campo puede ser nulo"
+                     Order="30" RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Birthdate" Text="FecNac"
                      Order="40" FormatString="dd/MM/yyyy"
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true"
                      Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Address" Text="Domicilio"
-                     Order="50" RequiredErrorMessage="El campo puede ser nulo"
+                     Order="50" RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.TypeDocument" Text="Tipo Documento"
                      Order="11" Visible="false"
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.NumDocument" Text="Nro Documento"
                      Order="12" Visible="false"
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
@@ -97,13 +95,11 @@
         <TableColumn @bind-Field="@context.Editing"
                      Visible="false"
                      IsVisibleWhenAdd="false"
-                     IsVisibleWhenEdit="false"
-                     ComponentType="typeof(Switch)" />
+                     IsVisibleWhenEdit="false" />
 
         <TableColumn @bind-Field="@context.IsNew"
                      Visible="false"
                      IsVisibleWhenAdd="false"
-                     IsVisibleWhenEdit="false"
-                     ComponentType="typeof(Switch)" />
+                     IsVisibleWhenEdit="false" />
     </TableColumns>
 </Table>

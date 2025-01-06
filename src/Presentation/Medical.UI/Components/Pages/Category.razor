@@ -1,6 +1,4 @@
 ﻿@page "/categoria"
-@using Medical.Domain.Dto.Category
-@using Medical.UI.Models
 @attribute [TabItemOption(Text = "Categoría")]
 <PageTitle>Categoría</PageTitle>
 
@@ -42,13 +40,13 @@
 
         <TableColumn @bind-Field="@context.Name" Text="Nombre"
                      @* FieldName="Nombre" *@
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Order="2" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Url" Text="URL"
                      @* FieldName="Url" *@
-                     RequiredErrorMessage="El campo puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Order="3" Sortable="true"
                      Filterable="true" Searchable="true" />
 

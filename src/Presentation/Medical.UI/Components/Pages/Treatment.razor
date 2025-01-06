@@ -1,6 +1,4 @@
 ﻿@page "/consultorio"
-@using Medical.Domain.Dto.Treatment
-@using Medical.UI.Models
 @attribute [TabItemOption(Text = "Consultorio")]
 <PageTitle>Consultorio</PageTitle>
 
@@ -33,7 +31,7 @@
        AutoGenerateColumns="true"
        DoubleClickToEdit="true"
        EditDialogShowMaximizeButton="false"
-       EditMode="EditMode.Popup"
+       EditMode="EditMode.Popup"       
        OnQueryAsync="OnQueryAsync"
        OnSaveAsync="SaveAsync"
        OnDeleteAsync="DeleteAsync">
@@ -44,12 +42,12 @@
                      IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
 
         <TableColumn @bind-Field="@context.Name" Text="Nombre"
-                     RequiredErrorMessage="El campo no puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Order="2" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.DurationMinutes" Text="Duración Minutos"
-                     RequiredErrorMessage="El campo no puede ser nulo"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Order="3" Sortable="true"
                      Filterable="true" Searchable="true" />
 
