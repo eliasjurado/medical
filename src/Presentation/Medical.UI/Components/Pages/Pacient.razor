@@ -31,7 +31,10 @@
        AutoGenerateColumns="true"
        DoubleClickToEdit="true"
        EditDialogShowMaximizeButton="false"
-       EditMode="EditMode.Popup">
+       EditMode="EditMode.Popup"
+       OnQueryAsync="OnQueryAsync"
+       OnSaveAsync="SaveAsync"
+       OnDeleteAsync="DeleteAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.Id" Text="Historia"
                      Order="10" IsVisibleWhenAdd="false"
@@ -40,6 +43,12 @@
                 @value.Value.ToString().PadLeft(6, '0')
             </Template>
         </TableColumn>
+
+        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
+                     Order="2" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true"
+                     ComponentType="typeof(Switch)" />
 
         <TableColumn @bind-Field="@context.LastName" Text="Apellidos"
                      Order="13" Visible="true"
@@ -59,10 +68,9 @@
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Birthdate" Text="FecNac"
-                     Order="40" FormatString="dd/MM/yyyy"
+                     Order="40" FormatString="@Resource.Constants.APPLICATION_DATE_FORMAT"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true"
-                     Sortable="true"
+                     Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Address" Text="Domicilio"
@@ -85,12 +93,6 @@
         <TableColumn @bind-Field="@context.Phone" Text="Teléfono"
                      Order="60" Visible="false" Sortable="true"
                      Filterable="true" Searchable="true" />
-
-        <TableColumn @bind-Field="@context.IsActive"
-                     Visible="false"
-                     IsVisibleWhenAdd="false"
-                     IsVisibleWhenEdit="true"
-                     ComponentType="typeof(Switch)" />
 
         <TableColumn @bind-Field="@context.Editing"
                      Visible="false"

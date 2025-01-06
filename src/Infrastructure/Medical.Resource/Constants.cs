@@ -29,6 +29,7 @@
 
         public static string APPLICATION_NAME = "Thaniwasi";
         public static string APPLICATION_LEAD = "Integrativo y Natural";
+        public static string APPLICATION_DATE_FORMAT = "dd/MM/yyyy";
 
         #region Login
 

@@ -31,38 +31,40 @@
        AutoGenerateColumns="true"
        DoubleClickToEdit="true"
        EditDialogShowMaximizeButton="false"
-       EditMode="EditMode.Popup">
+       EditMode="EditMode.Popup"
+       OnQueryAsync="OnQueryAsync"
+       OnSaveAsync="SaveAsync"
+       OnDeleteAsync="DeleteAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.Id"
                      Order="1" Visible="false"
                      IsVisibleWhenAdd="false"
                      IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
 
+        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
+                     Order="2" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true"
+                     ComponentType="typeof(Switch)" />
+
         <TableColumn @bind-Field="@context.Name" Text="Nombre"
-                     @* FieldName="Nombre" *@
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true" Order="2" Sortable="true"
+                     Order="3" Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Url" Text="URL"
-                     @* FieldName="Url" *@
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true" Order="3" Sortable="true"
+                     Order="4" Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
-        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
-                     @* FieldName="Activo" *@
-                     Order="4" Sortable="true"
-                     ComponentType="typeof(Switch)" />
-
         <TableColumn @bind-Field="@context.Editing" Text="Editable"
-                     @* FieldName="Editable" *@
-                     Order="5" Sortable="true"
-                     ComponentType="typeof(Switch)" />
+                     Order="5" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false" />
 
         <TableColumn @bind-Field="@context.IsNew" Text="Nuevo"
-                     @* FieldName="Nuevo" *@
-                     Order="6" Sortable="true"
-                     ComponentType="typeof(Switch)" />
+                     Order="6" Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false" />
     </TableColumns>
 </Table>

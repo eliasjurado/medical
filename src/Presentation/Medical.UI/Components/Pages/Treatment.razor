@@ -41,22 +41,21 @@
                      IsVisibleWhenAdd="false"
                      IsVisibleWhenEdit="true" IsReadonlyWhenEdit="true" />
 
-        <TableColumn @bind-Field="@context.Name" Text="Nombre"
-                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true" Order="2" Sortable="true"
-                     Filterable="true" Searchable="true" />
+        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
+                     Visible="false" Order="2"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="true"
+                     ComponentType="typeof(Switch)" />
 
-        <TableColumn @bind-Field="@context.DurationMinutes" Text="Duración Minutos"
+        <TableColumn @bind-Field="@context.Name" Text="Nombre"
                      RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Order="3" Sortable="true"
                      Filterable="true" Searchable="true" />
 
-        <TableColumn @bind-Field="@context.IsActive" Text="Activo"
-                     Visible="false"
-                     IsVisibleWhenAdd="false"
-                     IsVisibleWhenEdit="true"
-                     Order="4" Sortable="true"
-                     ComponentType="typeof(Switch)" />
+        <TableColumn @bind-Field="@context.DurationMinutes" Text="Duración Minutos"
+                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
+                     Required="true" Order="4" Sortable="true"
+                     Filterable="true" Searchable="true" />        
 
         <TableColumn @bind-Field="@context.Editing" Text="Editable"
                      Visible="false" Order="5"

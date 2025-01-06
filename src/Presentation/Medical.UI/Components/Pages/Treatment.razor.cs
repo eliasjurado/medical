@@ -27,14 +27,14 @@ public partial class Treatment : ComponentBase
             Items = _treatmentService.Treatments;
         }
 
-        var items = Items;
+        var items = Items.AsEnumerable();
         var isSearched = false;
         // Handling advanced queries
         if (options.SearchModel is TreatmentDto model)
         {
             if (!string.IsNullOrEmpty(model.Name))
             {
-                items = items.Where(item => item.Name?.Contains(model.Name, StringComparison.OrdinalIgnoreCase) ?? false).ToList();
+                items = items.Where(item => item.Name?.Contains(model.Name, StringComparison.OrdinalIgnoreCase) ?? false);
             }
 
             isSearched = !string.IsNullOrEmpty(model.Name);
@@ -43,14 +43,14 @@ public partial class Treatment : ComponentBase
         if (options.Searches.Any())
         {
             // Fuzzy search for SearchText
-            items = items.Where(options.Searches.GetFilterFunc<TreatmentDto>(FilterLogic.Or)).ToList();
+            items = items.Where(options.Searches.GetFilterFunc<TreatmentDto>(FilterLogic.Or));
         }
 
         // Filter
         var isFiltered = false;
         if (options.Filters.Any())
         {
-            items = items.Where(options.Filters.GetFilterFunc<TreatmentDto>()).ToList();
+            items = items.Where(options.Filters.GetFilterFunc<TreatmentDto>());
             isFiltered = true;
         }
 
@@ -60,7 +60,7 @@ public partial class Treatment : ComponentBase
         {
             // No sorting is done externally, but sorting is done automatically internally
             var invoker = SortLambdaCache.GetOrAdd(typeof(TreatmentDto), key => LambdaExtensions.GetSortLambda<TreatmentDto>().Compile());
-            items = invoker(items, options.SortName, options.SortOrder).ToList();
+            items = invoker(items, options.SortName, options.SortOrder);
             isSorted = true;
         }
 
@@ -68,7 +68,7 @@ public partial class Treatment : ComponentBase
 
         return new QueryData<TreatmentDto>()
         {
-            Items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList(),
+            Items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems),
             TotalCount = total,
             IsFiltered = isFiltered,
             IsSorted = isSorted,
@@ -76,7 +76,7 @@ public partial class Treatment : ComponentBase
         };
     }
 
-    public Task<bool> SaveAsync(TreatmentDto model, ItemChangedType changedType)
+    public async Task<bool> SaveAsync(TreatmentDto model, ItemChangedType changedType)
     {
         var ret = false;
 
@@ -91,7 +91,7 @@ public partial class Treatment : ComponentBase
                 Editing = model.Editing,
                 IsNew = model.IsNew
             };
-            _treatmentService.AddTreatment(item);
+            await _treatmentService.AddTreatment(item);
             Items.Add(item);
         }
         else
@@ -105,14 +105,14 @@ public partial class Treatment : ComponentBase
                 item.Editing = model.Editing;
                 item.IsNew = model.IsNew;
             }
-            _treatmentService.UpdateTreatment(item);
+            await _treatmentService.UpdateTreatment(item);
         }
         ret = true;
 
-        return Task.FromResult(ret);
+        return ret;
     }
 
-    public Task<bool> DeleteAsync(IEnumerable<TreatmentDto> models)
+    public async Task<bool> DeleteAsync(IEnumerable<TreatmentDto> models)
     {
         var ret = false;
         foreach (var model in models)
@@ -122,7 +122,7 @@ public partial class Treatment : ComponentBase
         }
         ret = true;
 
-        return Task.FromResult(ret);
+        return ret;
     }
 
 }
