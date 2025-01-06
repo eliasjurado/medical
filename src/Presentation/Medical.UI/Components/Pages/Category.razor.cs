@@ -28,7 +28,6 @@ namespace Medical.UI.Components.Pages
             if (Items == null || Items.Any())
             {
                 await _categoryService.GetCategories();
-                //Task.FromResult(_categoryService.GetCategories());
                 Items = _categoryService.Categories;
             }
 
