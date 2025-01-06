@@ -1,6 +1,6 @@
-﻿using Medical.Domain.Entities;
+﻿using AutoMapper;
 using Medical.Domain.Dto.Category;
-using AutoMapper;
+using Medical.Domain.Entities;
 
 namespace Medical.Application.MappingProfıles;
 
