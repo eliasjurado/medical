@@ -55,6 +55,7 @@ namespace Medical.UI.Components.Shared
                 new() { Text = "Sistema", Icon = "fa-solid fa-fw fa-gears", Items = new List<MenuItem>{
                     new() { Text = "Categoría", Icon = "fa-solid fa-fw fa-table", Url = "/categoria" },
                     new() { Text = "Consultorio", Icon = "fa-solid fa-fw fa-table", Url = "/consultorio" },
+                    new() { Text = "Especialista", Icon = "fa-solid fa-fw fa-table", Url = "/especialista" },
                 }}
             };
 

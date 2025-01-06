@@ -12,6 +12,7 @@ namespace Medical.Server.Contexts
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
+        public DbSet<Specialist> Specialists { get; set; }
 
         //public DbSet<ProductType> ProductTypes { get; set; }
 
