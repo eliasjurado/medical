@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Medical.Application.Features.Category.Commands.DeleteCategory;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Response.Abstract;
-using Medical.Domain.Dto.Response.Concrete;
-using Medical.Resource;
-
-namespace Medical.Application.Features.Pacient.Commands.DeletePacient;
+﻿namespace Medical.Application.Features.Pacient.Commands.DeletePacient;
 public record DeletePacientCommandRequest(int id) : IRequest<IResponse>;
 public class DeletePacientCommandHandler : IRequestHandler<DeletePacientCommandRequest, IResponse>
 {

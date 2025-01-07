@@ -106,11 +106,11 @@ namespace Medical.UI.Components.Pages
                 var item = new PacientDto()
                 {
                     Id = model.Id,
-                    TypeDocument = model.TypeDocument,
+                    TypeDocumentId = model.TypeDocumentId,
                     NumDocument = model.NumDocument,
                     Name = model.Name,
                     LastName = model.LastName,
-                    TypeSex = model.TypeSex,
+                    TypeSexId = model.TypeSexId,
                     Birthdate = model.Birthdate,
                     Address = model.Address,
                     Phone = model.Phone,
@@ -126,11 +126,11 @@ namespace Medical.UI.Components.Pages
                 var item = Items.OfType<PacientDto>().FirstOrDefault(o => o.Id == model.Id);
                 if (item != null)
                 {
-                    item.TypeDocument = model.TypeDocument;
+                    item.TypeDocumentId = model.TypeDocumentId;
                     item.NumDocument = model.NumDocument;
                     item.Name = model.Name;
                     item.LastName = model.LastName;
-                    item.TypeSex = model.TypeSex;
+                    item.TypeSexId = model.TypeSexId;
                     item.Birthdate = model.Birthdate;
                     item.Address = model.Address;
                     item.Phone = model.Phone;

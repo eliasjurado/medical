@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
 using ValidationException
     = Medical.Application.Common.Exceptions.ValidationException;
 

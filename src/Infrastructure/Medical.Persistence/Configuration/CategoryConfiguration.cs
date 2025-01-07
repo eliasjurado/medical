@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Medical.Persistence.DataSeed;
-public class CategorySeed : IEntityTypeConfiguration<Category>
+namespace Medical.Persistence.Configuration;
+public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
+        builder.HasKey(x => x.Id);
+
         builder.HasQueryFilter(x => !x.IsDeleted);
 
         builder.HasData(

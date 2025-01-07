@@ -1,6 +1,6 @@
 ﻿namespace Medical.Domain.Enums;
 
-public enum TypeShift
+public enum TypeShiftId
 {
     None,
     Dia,

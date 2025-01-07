@@ -1,5 +1,4 @@
 ﻿using Medical.Domain.Dto.Common;
-using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.User;
 
 namespace Medical.Application.Contracts.Identity;

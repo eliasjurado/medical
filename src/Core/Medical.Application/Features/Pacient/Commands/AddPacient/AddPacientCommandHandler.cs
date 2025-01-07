@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Pacient;
+﻿using Medical.Domain.Dto.Pacient;
 
 namespace Medical.Application.Features.Pacient.Commands.AddPacient;
 

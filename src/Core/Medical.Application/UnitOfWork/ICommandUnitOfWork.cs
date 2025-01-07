@@ -1,9 +1,8 @@
-﻿using Medical.Application.Repositories.Commands;
-
-namespace Medical.Application.UnitOfWork;
+﻿namespace Medical.Application.UnitOfWork;
 
 public interface ICommandUnitOfWork<Tkey>
 {
+    IAppointmentCommandRepository AppointmentCommand { get; }
     ICategoryCommandRepository CategoryCommand { get; }
     IPacientCommandRepository PacientCommand { get; }
     ITreatmentCommandRepository TreatmentCommand { get; }

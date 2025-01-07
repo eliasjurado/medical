@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Medical.Domain.Enums;
+using System.Reflection;
 
 namespace Medical.Server.Contexts
 {
@@ -8,13 +9,11 @@ namespace Medical.Server.Contexts
         {
         }
 
-        //public DbSet<Product> Products { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
-
-        //public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,9 +22,49 @@ namespace Medical.Server.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Pacient>()
-                .HasIndex(u => u.NumDocument).IsUnique();
+            modelBuilder.Entity<TypeAppointment>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeAppointmentId))
+                        .Cast<TypeAppointmentId>()
+                        .Select(e => new TypeAppointment()
+                        {
+                            TypeAppointmentId = e,
+                            Name = e.ToString()
+                        })
+                );
 
+            modelBuilder.Entity<TypeDocument>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeDocumentId))
+                        .Cast<TypeDocumentId>()
+                        .Select(e => new TypeDocument()
+                        {
+                            TypeDocumentId = e,
+                            Name = e.ToString()
+                        })
+                );
+
+            modelBuilder.Entity<TypeSex>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeSexId))
+                        .Cast<TypeSexId>()
+                        .Select(e => new TypeSex()
+                        {
+                            TypeSexId = e,
+                            Name = e.ToString()
+                        })
+                );
+
+            modelBuilder.Entity<TypeShift>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeShiftId))
+                        .Cast<TypeShiftId>()
+                        .Select(e => new TypeShift()
+                        {
+                            TypeShiftId = e,
+                            Name = e.ToString()
+                        })
+                );
             //modelBuilder.Entity<CartItem>()
             //    .HasKey(ci => new { ci.UserId, ci.ProductId, ci.ProductTypeId });
 

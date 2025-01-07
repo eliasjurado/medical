@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Response.Abstract;
-using Medical.Domain.Dto.Response.Concrete;
-using Medical.Resource;
-
-namespace Medical.Application.Features.Specialist.Commands.DeleteSpecialist;
+﻿namespace Medical.Application.Features.Specialist.Commands.DeleteSpecialist;
 
 public record DeleteSpecialistCommandRequest(int id) : IRequest<IResponse>;
 

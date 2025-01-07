@@ -1,4 +1,10 @@
-﻿using Blazored.LocalStorage;
+﻿global using Medical.Domain.Dto.Response.Concrete;
+global using MediatR;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Medical.Domain.Dto.Response.Abstract;
+
+using Blazored.LocalStorage;
 using Medical.Application;
 using Medical.Application.Contracts.Identity;
 using Medical.Identity;

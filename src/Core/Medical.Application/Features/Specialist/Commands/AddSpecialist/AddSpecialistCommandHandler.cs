@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Specialist;
+﻿using Medical.Domain.Dto.Specialist;
 
 namespace Medical.Application.Features.Specialist.Commands.AddSpecialist;
 

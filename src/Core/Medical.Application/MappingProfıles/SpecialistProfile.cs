@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Medical.Domain.Dto.Specialist;
-using Medical.Domain.Entities;
+﻿using Medical.Domain.Dto.Specialist;
 
 namespace Medical.Application.MappingProfıles;
 

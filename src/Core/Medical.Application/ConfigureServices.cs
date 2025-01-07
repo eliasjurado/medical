@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using MediatR;
 using Medical.Application.Common.Behaviours;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

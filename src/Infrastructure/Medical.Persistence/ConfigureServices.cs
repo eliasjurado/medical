@@ -24,12 +24,14 @@ public static class ConfigureServices
         services.AddScoped<IPacientCommandRepository, PacientCommandRepository>();
         services.AddScoped<ITreatmentCommandRepository, TreatmentCommandRepository>();
         services.AddScoped<ISpecialistCommandRepository, SpecialistCommandRepository>();
+        services.AddScoped<IAppointmentCommandRepository, AppointmentCommandRepository>();
 
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
         services.AddScoped<IPacientQueryRepository, PacientQueryRepository>();
         services.AddScoped<ITreatmentQueryRepository, TreatmentQueryRepository>();
         services.AddScoped<ISpecialistQueryRepository, SpecialistQueryRepository>();
+        services.AddScoped<IAppointmentQueryRepository, AppointmentQueryRepository>();
 
         return services;
     }

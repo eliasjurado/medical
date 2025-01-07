@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Category;
+﻿using Medical.Domain.Dto.Category;
 
 namespace Medical.Application.Features.Category.Commands.AddCategory;
 

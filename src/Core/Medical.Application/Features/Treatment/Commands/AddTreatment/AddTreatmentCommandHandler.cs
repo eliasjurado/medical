@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Treatment;
+﻿using Medical.Domain.Dto.Treatment;
 
 namespace Medical.Application.Features.Treatment.Commands.AddTreatment;
 

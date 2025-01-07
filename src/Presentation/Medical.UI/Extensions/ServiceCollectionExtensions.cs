@@ -1,4 +1,5 @@
-﻿using Medical.UI.Services.CategoryService;
+﻿using Medical.UI.Services.AppointmentService;
+using Medical.UI.Services.CategoryService;
 using Medical.UI.Services.PacientService;
 using Medical.UI.Services.SpecialistService;
 using Medical.UI.Services.TreatmentService;
@@ -13,6 +14,7 @@ namespace Medical.UI.Extensions
             services.AddScoped<IPacientService, PacientService>();
             services.AddScoped<ITreatmentService, TreatmentService>();
             services.AddScoped<ISpecialistService, SpecialistService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
 
             return services;
         }

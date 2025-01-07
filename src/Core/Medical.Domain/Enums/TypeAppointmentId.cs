@@ -1,6 +1,6 @@
 ﻿namespace Medical.Domain.Enums;
 
-public enum TypeAppointment
+public enum TypeAppointmentId
 {
     None,
     Consulta,

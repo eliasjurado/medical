@@ -1,6 +1,6 @@
 ﻿namespace Medical.Domain.Enums;
 
-public enum TypeSex
+public enum TypeSexId
 {
     None,
     Femenino,

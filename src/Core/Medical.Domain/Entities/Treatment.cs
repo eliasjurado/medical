@@ -6,4 +6,5 @@ public class Treatment : BaseAuditableEntity<int>
 {
     public string Name { get; set; } = string.Empty;
     public int DurationMinutes { get; set; }
+    public virtual List<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

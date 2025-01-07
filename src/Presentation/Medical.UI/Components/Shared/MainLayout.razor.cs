@@ -51,6 +51,7 @@ namespace Medical.UI.Components.Shared
                 //new() { Text = "花名册", Icon = "fa-solid fa-fw fa-users", Url = "/users" },
                 new() { Text = "Pacientes", Icon = "fa-solid fa-fw fa-users", Items = new List<MenuItem>{
                     new() { Text = "Paciente", Icon = "fa-solid fa-fw fa-user", Url = "/paciente"  },
+                    new() { Text = "Citas", Icon = "fa-solid fa-fw fa-calendar", Url = "/citas"  },
                 }},
                 new() { Text = "Sistema", Icon = "fa-solid fa-fw fa-gears", Items = new List<MenuItem>{
                     new() { Text = "Categoría", Icon = "fa-solid fa-fw fa-table", Url = "/categoria" },

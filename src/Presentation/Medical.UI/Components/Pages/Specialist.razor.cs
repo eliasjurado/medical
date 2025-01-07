@@ -121,14 +121,14 @@ namespace Medical.UI.Components.Pages
                 var item = new SpecialistDto()
                 {
                     Id = model.Id,
-                    TypeDocument = model.TypeDocument,
+                    TypeDocumentId = model.TypeDocumentId,
                     NumDocument = model.NumDocument,
                     Name = model.Name,
                     LastName = model.LastName,
                     SpecialtyName = model.SpecialtyName,
                     CollegeName = model.CollegeName,
                     CollegeId = model.CollegeId,
-                    TypeSex = model.TypeSex,
+                    TypeSexId = model.TypeSexId,
                     Birthdate = model.Birthdate,
                     Address = model.Address,
                     Phone = model.Phone,
@@ -144,14 +144,14 @@ namespace Medical.UI.Components.Pages
                 var item = Items.OfType<SpecialistDto>().FirstOrDefault(o => o.Id == model.Id);
                 if (item != null)
                 {
-                    item.TypeDocument = model.TypeDocument;
+                    item.TypeDocumentId = model.TypeDocumentId;
                     item.NumDocument = model.NumDocument;
                     item.Name = model.Name;
                     item.LastName = model.LastName;
                     item.SpecialtyName = model.SpecialtyName;
                     item.CollegeName = model.CollegeName;
                     item.CollegeId = model.CollegeId;
-                    item.TypeSex = model.TypeSex;
+                    item.TypeSexId = model.TypeSexId;
                     item.Birthdate = model.Birthdate;
                     item.Address = model.Address;
                     item.Phone = model.Phone;

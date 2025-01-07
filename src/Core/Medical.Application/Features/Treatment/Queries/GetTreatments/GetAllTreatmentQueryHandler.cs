@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Response.Abstract;
-using Medical.Domain.Dto.Response.Concrete;
-using Medical.Domain.Dto.Treatment;
-using Medical.Resource;
+﻿using Medical.Domain.Dto.Treatment;
 
 namespace Medical.Application.Features.Treatment.Queries.GetTreatments;
 

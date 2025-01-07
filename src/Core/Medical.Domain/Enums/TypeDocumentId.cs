@@ -1,5 +1,5 @@
 ﻿namespace Medical.Domain.Enums;
-public enum TypeDocument
+public enum TypeDocumentId
 {
     None,
     DNI,

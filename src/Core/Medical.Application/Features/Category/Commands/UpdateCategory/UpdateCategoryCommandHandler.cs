@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Medical.Application.UnitOfWork;
-using Medical.Domain.Dto.Category;
-using Medical.Domain.Dto.Response.Abstract;
-using Medical.Domain.Dto.Response.Concrete;
-using Medical.Resource;
+﻿using Medical.Domain.Dto.Category;
 
 namespace Medical.Application.Features.Category.Commands.UpdateCategory;
 

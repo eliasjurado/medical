@@ -1,0 +1,12 @@
+﻿global using AutoMapper;
+global using MediatR;
+global using Medical.Application.Repositories.Commands;
+global using Medical.Application.Repositories.Commands.Base;
+global using Medical.Application.Repositories.Queries;
+global using Medical.Application.Repositories.Queries.Base;
+global using Medical.Application.UnitOfWork;
+global using Medical.Domain.Dto.Appointment;
+global using Medical.Domain.Dto.Response.Abstract;
+global using Medical.Domain.Dto.Response.Concrete;
+global using Medical.Domain.Entities;
+global using Medical.Resource;
