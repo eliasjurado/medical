@@ -75,18 +75,18 @@
 
         <TableColumn @bind-Field="@context.TypeSex" Text="Sexo"
                      Order="30" RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true" Sortable="true"
+                     Visible="false" Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Birthdate" Text="FecNac"
                      Order="40" FormatString="@Resource.Constants.APPLICATION_DATE_FORMAT"
-                     RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
+                     Visible="false" RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
                      Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.Address" Text="Domicilio"
                      Order="50" RequiredErrorMessage="@Messages.REQUIRED_ERROR_MESSAGE"
-                     Required="true" Sortable="true"
+                     Visible="false" Required="true" Sortable="true"
                      Filterable="true" Searchable="true" />
 
         <TableColumn @bind-Field="@context.TypeDocument" Text="Tipo Documento"
