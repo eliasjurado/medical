@@ -11,11 +11,11 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
         _currentUser = currentUser;
     }
 
-    public CategoryCommandRepository _categoryCommand;
-    public PacientCommandRepository _pacientCommand;
-    public TreatmentCommandRepository _treatmentCommand;
-    public SpecialistCommandRepository _specialistCommand;
-    public AppointmentCommandRepository _appointmentCommand;
+    private CategoryCommandRepository? _categoryCommand;
+    private PacientCommandRepository? _pacientCommand;
+    private TreatmentCommandRepository? _treatmentCommand;
+    private SpecialistCommandRepository? _specialistCommand;
+    private AppointmentCommandRepository? _appointmentCommand;
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));

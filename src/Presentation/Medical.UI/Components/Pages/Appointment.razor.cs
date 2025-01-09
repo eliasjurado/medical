@@ -134,7 +134,7 @@ namespace Medical.UI.Components.Pages
                     item.Editing = model.Editing;
                     item.IsNew = model.IsNew;
                 }
-                await _appointmentService.UpdateAppointment(item);
+                await _appointmentService.UpdateAppointment(item!);
             }
             ret = true;
 

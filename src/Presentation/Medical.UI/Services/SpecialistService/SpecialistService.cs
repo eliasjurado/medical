@@ -15,11 +15,11 @@ namespace Medical.UI.Services.SpecialistService
         public List<SpecialistDto> Specialists { get; set; } = new List<SpecialistDto>();
         public List<SpecialistDto> AdminSpecialists { get; set; } = new List<SpecialistDto>();
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
-        public async Task AddSpecialist(SpecialistDto SpecialistDto)
+        public async Task AddSpecialist(SpecialistDto specialist)
         {
-            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", SpecialistDto);
+            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", specialist);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
 
@@ -37,13 +37,13 @@ namespace Medical.UI.Services.SpecialistService
         {
             var newSpecialistDto = new SpecialistDto { IsNew = true, Editing = true };
             AdminSpecialists.Add(newSpecialistDto);
-            OnChange.Invoke();
+            OnChange!.Invoke();
             return newSpecialistDto;
         }
 
-        public async Task DeleteSpecialist(int SpecialistDtoId)
+        public async Task DeleteSpecialist(int specialistId)
         {
-            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{SpecialistDtoId}");
+            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{specialistId}");
 
             var result = (await response.Content
                .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
@@ -78,9 +78,9 @@ namespace Medical.UI.Services.SpecialistService
             }
         }
 
-        public async Task UpdateSpecialist(SpecialistDto SpecialistDto)
+        public async Task UpdateSpecialist(SpecialistDto specialist)
         {
-            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", SpecialistDto);
+            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", specialist);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
 

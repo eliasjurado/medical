@@ -17,8 +17,6 @@ namespace Medical.UI.Components.Shared
 
         private bool IsCollapsedSide { get; set; } = false;
 
-        private bool IsOpen { get; set; }
-
         private bool IsFixedHeader { get; set; } = true;
 
         private bool IsFixedFooter { get; set; } = true;
@@ -63,6 +61,6 @@ namespace Medical.UI.Components.Shared
             return menus;
         }
 
-        private async Task Login() => NavigationManager.NavigateTo("/login");
+        private async Task Login() => await Task.Run(() => NavigationManager!.NavigateTo("/login"));
     }
 }

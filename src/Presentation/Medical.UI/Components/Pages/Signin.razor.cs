@@ -17,18 +17,18 @@ namespace Medical.UI.Components.Pages
     public partial class Signin
     {
         [Inject]
-        public AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+        public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        public NavigationManager? NavigationManager { get; set; }
         [Inject]
-        public ILocalStorageService LocalStorage { get; set; }
+        public ILocalStorageService? LocalStorage { get; set; }
 
         [Inject]
-        public IAuthService AuthService { get; set; }
+        public IAuthService? AuthService { get; set; }
 
         [Inject]
-        public HttpInterceptorService Interceptor { get; set; }
+        public HttpInterceptorService? Interceptor { get; set; }
 
         [NotNull]
         private UserLogin user = new UserLogin();
@@ -39,24 +39,23 @@ namespace Medical.UI.Components.Pages
 
         private string currentUrl = string.Empty;
 
-        private ApiResponse<AuthResponseDto> response { get; set; }
+        private ApiResponse<AuthResponseDto>? response { get; set; }
 
         protected override void OnInitialized()
         {
-            Interceptor.RegisterEvent();
-            var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+            Interceptor!.RegisterEvent();
+            var uri = NavigationManager!.ToAbsoluteUri(NavigationManager.Uri);
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
             {
                 returnUrl = url;
             }
 
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
-            //NavigationManager.LocationChanged += OnLocationChanged;
         }
 
         private async Task HandleLogin()
         {
-            var result = await AuthService.Login(user);
+            var result = await AuthService!.Login(user);
             response = result;
             if (result != null)
             {
@@ -64,11 +63,10 @@ namespace Medical.UI.Components.Pages
                 {
                     errorMessage = string.Empty;
 
-                    await LocalStorage.SetItemAsync("authToken", result.Data.Token);
-                    await AuthenticationStateProvider.GetAuthenticationStateAsync();
-                    // await CartService.StoreCartItems(true);
-                    // await CartService.GetCartItemsCount();
-                    NavigationManager.NavigateTo(returnUrl);
+                    await LocalStorage!.SetItemAsync("authToken", result.Data?.Token);
+                    await AuthenticationStateProvider!.GetAuthenticationStateAsync();
+
+                    NavigationManager!.NavigateTo(returnUrl);
                 }
                 else
                 {
@@ -76,17 +74,5 @@ namespace Medical.UI.Components.Pages
                 }
             }
         }
-
-        //private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
-        //{
-        //    currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
-        //    StateHasChanged();
-        //}
-
-        //public void Dispose()
-        //{
-        //    Interceptor.DisposeEvent();
-        //    NavigationManager.LocationChanged -= OnLocationChanged;
-        //}
     }
 }

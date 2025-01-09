@@ -21,7 +21,7 @@ namespace Medical.Identity.Service
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly JwtSettings _jwtSettings;
         private const string AuthenticatorStoreLoginProvider = "[AuthenticatorStore]";
-        public string AuthenticatorKeyTokenName = "AuthenticatorKey";
+        private readonly string AuthenticatorKeyTokenName = "AuthenticatorKey";
         public AuthService(UserManager<ApplicationUser> userManager,
             IOptions<JwtSettings> jwtSettings,
             SignInManager<ApplicationUser> signInManager)
@@ -143,7 +143,7 @@ namespace Medical.Identity.Service
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.Email),
+                new Claim(ClaimTypes.Name, user.Email!),
                 new Claim(ClaimTypes.GivenName, user.FirstName),
                 new Claim(ClaimTypes.Surname, user.LastName)
             }
@@ -162,7 +162,7 @@ namespace Medical.Identity.Service
             return jwtSecurityToken;
         }
 
-        private string CreateRefreshToken()
+        private static string CreateRefreshToken()
         {
             var numberByte = new byte[32];
             using var rnd = RandomNumberGenerator.Create();
@@ -170,7 +170,7 @@ namespace Medical.Identity.Service
             return Convert.ToBase64String(numberByte);
         }
 
-        private bool ValidateToken(string token)
+        private static bool ValidateToken(string token)
         {
             JwtSecurityToken jwtToken = new JwtSecurityToken(token);
             return (jwtToken.ValidFrom <= DateTime.UtcNow && jwtToken.ValidTo >= DateTime.UtcNow);

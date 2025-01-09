@@ -45,7 +45,7 @@ public class SpecialistController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<SpecialistDto>>(new List<SpecialistDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<SpecialistDto>>(new List<SpecialistDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllSpecialistQueryRequest(true));
@@ -70,7 +70,7 @@ public class SpecialistController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<SpecialistDto>>(new List<SpecialistDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<SpecialistDto>>(new List<SpecialistDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllSpecialistQueryRequest(true));

@@ -40,7 +40,7 @@ public class AppointmentController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<AppointmentDto>>(new List<AppointmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<AppointmentDto>>(new List<AppointmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllAppointmentQueryRequest(true));
@@ -65,7 +65,7 @@ public class AppointmentController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<AppointmentDto>>(new List<AppointmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<AppointmentDto>>(new List<AppointmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllAppointmentQueryRequest(true));

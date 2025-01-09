@@ -45,7 +45,7 @@ public class TreatmentController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<TreatmentDto>>(new List<TreatmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<TreatmentDto>>(new List<TreatmentDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllTreatmentQueryRequest(true));

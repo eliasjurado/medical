@@ -15,7 +15,7 @@ namespace Medical.UI.Services.PacientService
         public List<PacientDto> Pacients { get; set; } = new List<PacientDto>();
         public List<PacientDto> AdminPacients { get; set; } = new List<PacientDto>();
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         public async Task AddPacient(PacientDto pacient)
         {
@@ -37,7 +37,7 @@ namespace Medical.UI.Services.PacientService
         {
             var newPacientDto = new PacientDto { IsNew = true, Editing = true };
             AdminPacients.Add(newPacientDto);
-            OnChange.Invoke();
+            OnChange!.Invoke();
             return newPacientDto;
         }
 

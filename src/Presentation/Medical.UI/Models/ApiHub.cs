@@ -2,7 +2,7 @@
 {
     public class ApiHub
     {        
-        public string App { get; set; }
-        public string Auth { get; set; }
+        public string? App { get; set; }
+        public string? Auth { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Medical.UI.Services.AppointmentService
         public List<AppointmentDto> Appointments { get; set; } = new List<AppointmentDto>();
         public List<AppointmentDto> AdminAppointments { get; set; } = new List<AppointmentDto>();
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
         public async Task AddAppointment(AppointmentDto AppointmentDto)
         {
@@ -36,7 +36,7 @@ namespace Medical.UI.Services.AppointmentService
         {
             var newAppointmentDto = new AppointmentDto { IsNew = true, Editing = true };
             AdminAppointments.Add(newAppointmentDto);
-            OnChange.Invoke();
+            OnChange!.Invoke();
             return newAppointmentDto;
         }
 

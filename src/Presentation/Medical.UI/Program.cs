@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
 var settings = builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>();
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(settings.ApiHub.App) });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(settings!.ApiHub!.App!) });
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalization();
@@ -128,4 +128,4 @@ app.MapControllers();
 
 app.UseCors("all");
 
-app.Run();
+await app.RunAsync();

@@ -64,7 +64,7 @@ namespace Medical.Auth.Controllers
 
                 if (responseCast != null)
                 {
-                    setTokenCookie(responseCast.Data.RefreshToken);
+                    setTokenCookie(responseCast.Data.RefreshToken!);
                 }
 
             }

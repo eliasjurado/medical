@@ -10,7 +10,7 @@ namespace Medical.UI.Components.Pages;
 public partial class Treatment : ComponentBase
 {
     [Inject]
-    private ITreatmentService _treatmentService { get; set; }
+    private ITreatmentService? _treatmentService { get; set; }
 
     private static IEnumerable<int> PageItemsSource => [20, 40];
 
@@ -23,7 +23,7 @@ public partial class Treatment : ComponentBase
     {
         if (Items == null || !Items.Any())
         {
-            await _treatmentService.GetTreatments();
+            await _treatmentService!.GetTreatments();
             Items = _treatmentService.Treatments;
         }
 
@@ -91,7 +91,7 @@ public partial class Treatment : ComponentBase
                 Editing = model.Editing,
                 IsNew = model.IsNew
             };
-            await _treatmentService.AddTreatment(item);
+            await _treatmentService!.AddTreatment(item);
             Items.Add(item);
         }
         else
@@ -105,7 +105,7 @@ public partial class Treatment : ComponentBase
                 item.Editing = model.Editing;
                 item.IsNew = model.IsNew;
             }
-            await _treatmentService.UpdateTreatment(item);
+            await _treatmentService!.UpdateTreatment(item!);
         }
         ret = true;
 
@@ -117,7 +117,7 @@ public partial class Treatment : ComponentBase
         var ret = false;
         foreach (var model in models)
         {
-            _treatmentService.DeleteTreatment(model.Id);
+            await _treatmentService!.DeleteTreatment(model.Id);
             Items.Remove(model);
         }
         ret = true;

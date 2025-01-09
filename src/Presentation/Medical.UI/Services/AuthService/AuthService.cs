@@ -1,6 +1,5 @@
 ﻿using Blazored.LocalStorage;
 using Medical.Domain.Dto.Auth;
-using Medical.Domain.Dto.Response.Concrete;
 using Medical.Domain.Dto.User;
 using Medical.UI.Models;
 using Microsoft.AspNetCore.Components;
@@ -16,12 +15,10 @@ namespace Medical.UI.Services.AuthService
         private const string AuthBaseURL = "api/auth/";
         private readonly ILocalStorageService _localStorage;
         private readonly NavigationManager _navigationManager;
-        private readonly ApiSettings _apiSettings;
 
-        public AuthService(HttpClient http, AuthenticationStateProvider authStateProvider, ILocalStorageService localStorage, NavigationManager navigationManager, Medical.Application.Contracts.Identity.IAuthService authService, IOptions<ApiSettings> apiSettings)
+        public AuthService(HttpClient http, AuthenticationStateProvider authStateProvider, ILocalStorageService localStorage, NavigationManager navigationManager, Application.Contracts.Identity.IAuthService authService, IOptions<ApiSettings> apiSettings)
         {
-            _apiSettings = apiSettings.Value;
-            _http = new HttpClient() { BaseAddress = new Uri(_apiSettings.ApiHub.Auth) };
+            _http = new HttpClient() { BaseAddress = new Uri(apiSettings.Value.ApiHub?.Auth!) };
             _authStateProvider = authStateProvider;
             _localStorage = localStorage;
             _navigationManager = navigationManager;
@@ -30,19 +27,19 @@ namespace Medical.UI.Services.AuthService
 
         public async Task<bool> IsUserAuthenticated()
         {
-            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
+            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity!.IsAuthenticated;
         }
 
         public async Task<ApiResponse<AuthResponseDto>> Login(UserLogin request)
         {
             var result = await _http.PostAsJsonAsync($"{AuthBaseURL}login", request);
-            return await result.Content.ReadFromJsonAsync<ApiResponse<AuthResponseDto>>();
+            return (await result.Content.ReadFromJsonAsync<ApiResponse<AuthResponseDto>>())!;
         }
 
         public async Task<ApiResponse<string>> Register(UserRegister request)
         {
             var result = await _http.PostAsJsonAsync($"{AuthBaseURL}register", request);
-            return await result.Content.ReadFromJsonAsync<ApiResponse<string>>();
+            return (await result.Content.ReadFromJsonAsync<ApiResponse<string>>())!;
         }
 
         public async Task<string> RefreshToken()
@@ -57,9 +54,9 @@ namespace Medical.UI.Services.AuthService
             {
                 if (response.Success)
                 {
-                    await _localStorage.SetItemAsync("authToken", response.Data.Token);
+                    await _localStorage.SetItemAsync("authToken", response.Data?.Token);
                     await _authStateProvider.GetAuthenticationStateAsync();
-                    return response.Data.Token;
+                    return response.Data!.Token;
                 }
                 else
                 {

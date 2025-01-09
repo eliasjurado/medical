@@ -9,11 +9,11 @@ public class QueryUnitOfWork : IQueryUnitOfWork
         _context = context;
     }
 
-    public CategoryQueryRepository _categoryQuery;
-    public PacientQueryRepository _pacientQuery;
-    public TreatmentQueryRepository _treatmentQuery;
-    public SpecialistQueryRepository _specialistQuery;
-    public AppointmentQueryRepository _appointmentQuery;
+    private CategoryQueryRepository? _categoryQuery;
+    private PacientQueryRepository? _pacientQuery;
+    private TreatmentQueryRepository? _treatmentQuery;
+    private SpecialistQueryRepository? _specialistQuery;
+    private AppointmentQueryRepository? _appointmentQuery;
 
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
     public IPacientQueryRepository PacientQuery => _pacientQuery ?? (_pacientQuery = new PacientQueryRepository(_context));

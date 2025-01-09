@@ -44,7 +44,7 @@ public class QueryRepository<T, TKey> : IQueryRepository<T, TKey> where T : Base
         }
     }
 
-    public async Task<IEnumerable<T>> GetAllWithIncludeAsync(bool isChangeTracking = false, Expression<Func<T, bool>> predicate = null, bool ignoreQueryFilters = false, params Expression<Func<T, object>>[] includes)
+    public async Task<IEnumerable<T>> GetAllWithIncludeAsync(bool isChangeTracking = false, Expression<Func<T, bool>>? predicate = null, bool ignoreQueryFilters = false, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = context.Set<T>();
 
@@ -132,7 +132,7 @@ public class QueryRepository<T, TKey> : IQueryRepository<T, TKey> where T : Base
             }
         }
 
-        return await query.FirstOrDefaultAsync();
+        return (await query.FirstOrDefaultAsync())!;
     }
 
     public async Task<T> GetByIdAsync(Expression<Func<T, bool>> predicate, bool isChangeTracking = false, bool ignoreQueryFilters = false)

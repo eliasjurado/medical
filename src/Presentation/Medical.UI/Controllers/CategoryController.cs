@@ -45,7 +45,7 @@ public class CategoryController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<CategoryDto>> (new List<CategoryDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<CategoryDto>> (new List<CategoryDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllCategoryQueryRequest(true));
@@ -70,7 +70,7 @@ public class CategoryController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<CategoryDto>>(new List<CategoryDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<CategoryDto>>(new List<CategoryDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllCategoryQueryRequest(true));

@@ -20,7 +20,7 @@ namespace Medical.Identity.Configurations
                      LastName = Constants.SYSTEM_PREFIX_NAME,
                      UserName = Constants.ADMIN_EMAIL,
                      NormalizedUserName = Constants.ADMIN_EMAIL.ToUpper(),
-                     PasswordHash = hasher.HashPassword(null, Constants.ADMIN_PASSWORD),
+                     PasswordHash = hasher.HashPassword(null!, Constants.ADMIN_PASSWORD),
                      EmailConfirmed = true
                  }
             );

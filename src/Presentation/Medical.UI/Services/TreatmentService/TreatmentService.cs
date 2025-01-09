@@ -15,11 +15,11 @@ namespace Medical.UI.Services.TreatmentService
         public List<TreatmentDto> Treatments { get; set; } = new List<TreatmentDto>();
         public List<TreatmentDto> AdminTreatments { get; set; } = new List<TreatmentDto>();
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
-        public async Task AddTreatment(TreatmentDto TreatmentDto)
+        public async Task AddTreatment(TreatmentDto treatment)
         {
-            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", TreatmentDto);
+            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", treatment);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<TreatmentDto>>>());
 
@@ -28,8 +28,6 @@ namespace Medical.UI.Services.TreatmentService
                 AdminTreatments = result.Data;
 
                 await GetTreatments();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -37,13 +35,13 @@ namespace Medical.UI.Services.TreatmentService
         {
             var newTreatmentDto = new TreatmentDto { IsNew = true, Editing = true };
             AdminTreatments.Add(newTreatmentDto);
-            OnChange.Invoke();
+            OnChange!.Invoke();
             return newTreatmentDto;
         }
 
-        public async Task DeleteTreatment(int TreatmentDtoId)
+        public async Task DeleteTreatment(int treatmentId)
         {
-            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{TreatmentDtoId}");
+            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{treatmentId}");
 
             var result = (await response.Content
                .ReadFromJsonAsync<ApiResponse<List<TreatmentDto>>>());
@@ -53,8 +51,6 @@ namespace Medical.UI.Services.TreatmentService
                 AdminTreatments = result.Data;
 
                 await GetTreatments();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -78,9 +74,9 @@ namespace Medical.UI.Services.TreatmentService
             }
         }
 
-        public async Task UpdateTreatment(TreatmentDto TreatmentDto)
+        public async Task UpdateTreatment(TreatmentDto treatment)
         {
-            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", TreatmentDto);
+            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", treatment);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<TreatmentDto>>>());
 
@@ -89,8 +85,6 @@ namespace Medical.UI.Services.TreatmentService
                 AdminTreatments = result.Data;
 
                 await GetTreatments();
-
-                //OnChange.Invoke();
             }
         }
     }

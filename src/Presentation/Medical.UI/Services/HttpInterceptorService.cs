@@ -24,13 +24,13 @@ public class HttpInterceptorService
 
     public void RegisterEvent()
     {
-        _interceptor.AfterSend += InterceptResponse;
+        _interceptor.AfterSend += InterceptResponse!;
         _interceptor.BeforeSendAsync += InterceptBeforeHttpAsync;
     }
 
     public async Task InterceptBeforeHttpAsync(object sender, HttpClientInterceptorEventArgs e)
     {
-        var absPath = e.Request.RequestUri.AbsolutePath;
+        var absPath = e.Request.RequestUri!.AbsolutePath;
 
         var isUserAuthenticated = await _authService.IsUserAuthenticated();
 
@@ -75,7 +75,7 @@ public class HttpInterceptorService
 
     public void DisposeEvent()
     {
-        _interceptor.AfterSend -= InterceptResponse;
+        _interceptor.AfterSend -= InterceptResponse!;
         _interceptor.BeforeSendAsync -= InterceptBeforeHttpAsync;
     }
 }

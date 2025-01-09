@@ -2,6 +2,6 @@
 {
     public class ApiSettings
     {
-        public ApiHub ApiHub { get; set; }
+        public ApiHub? ApiHub { get; set; }
     }
 }

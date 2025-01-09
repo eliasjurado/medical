@@ -3,7 +3,7 @@
 namespace Medical.UI.CustomExceptions
 {
     [Serializable]
-    internal class HttpResponseException : Exception
+    public class HttpResponseException : Exception
     {
         public HttpResponseException()
         {

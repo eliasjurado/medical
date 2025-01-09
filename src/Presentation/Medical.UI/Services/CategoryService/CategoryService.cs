@@ -15,21 +15,19 @@ namespace Medical.UI.Services.CategoryService
         public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
         public List<CategoryDto> AdminCategories { get; set; } = new List<CategoryDto>();
 
-        public event Action OnChange;
+        public event Action? OnChange;
 
-        public async Task AddCategory(CategoryDto CategoryDto)
+        public async Task AddCategory(CategoryDto category)
         {
-            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", CategoryDto);
+            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", category);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
 
             if (result != null && result.Success)
             {
-                AdminCategories = result.Data;
+                AdminCategories = result.Data!;
 
                 await GetCategories();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -37,24 +35,22 @@ namespace Medical.UI.Services.CategoryService
         {
             var newCategoryDto = new CategoryDto { IsNew = true, Editing = true };
             AdminCategories.Add(newCategoryDto);
-            OnChange.Invoke();
+            OnChange?.Invoke();
             return newCategoryDto;
         }
 
-        public async Task DeleteCategory(int CategoryDtoId)
+        public async Task DeleteCategory(int categoryId)
         {
-            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{CategoryDtoId}");
+            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{categoryId}");
 
             var result = (await response.Content
                .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
 
             if (result != null && result.Success)
             {
-                AdminCategories = result.Data;
+                AdminCategories = result.Data!;
 
                 await GetCategories();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -63,7 +59,7 @@ namespace Medical.UI.Services.CategoryService
             var response = await _http.GetFromJsonAsync<ApiResponse<List<CategoryDto>>>($"{CategoryBaseURL}admin");
             if (response != null && response.Success)
             {
-                AdminCategories = response.Data;
+                AdminCategories = response.Data!;
             }
 
         }
@@ -74,7 +70,7 @@ namespace Medical.UI.Services.CategoryService
 
             if (response != null && response.Success)
             {
-                Categories = response.Data;
+                Categories = response.Data!;
             }
         }
 
@@ -86,11 +82,9 @@ namespace Medical.UI.Services.CategoryService
 
             if (result != null && result.Success)
             {
-                AdminCategories = result.Data;
+                AdminCategories = result.Data!;
 
                 await GetCategories();
-
-                //OnChange.Invoke();
             }
         }
     }
