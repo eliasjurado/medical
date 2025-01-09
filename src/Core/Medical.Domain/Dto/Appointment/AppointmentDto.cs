@@ -11,7 +11,9 @@ public class AppointmentDto
     public virtual Entities.Treatment Treatment { get; set; } = new Entities.Treatment();
     public int IdSpecialist { get; set; }
     public virtual Entities.Specialist Specialist { get; set; } = new Entities.Specialist();
-    public DateTime DateTime { get; set; }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public string? Note { get; set; }
     public TypeShiftId TypeShiftId { get; set; }
     public TypeAppointmentId TypeAppointmentId { get; set; }
     public bool IsActive { get; set; } = true;

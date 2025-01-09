@@ -13,6 +13,7 @@ public class Appointment : BaseAuditableEntity<int>
     public virtual Specialist? Specialist { get; set; }
     public DateTime Start { get; set; }
     public DateTime End { get; set; }
+    public string? Note { get; set; }
     public TypeShiftId TypeShiftId { get; set; }
     public TypeAppointment? TypeAppointment { get; set; }
 }
