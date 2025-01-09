@@ -47,7 +47,7 @@ namespace Medical.UI.Components.Pages
             var uri = NavigationManager!.ToAbsoluteUri(NavigationManager.Uri);
             if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("returnUrl", out var url))
             {
-                returnUrl = url;
+                returnUrl = url!;
             }
 
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
@@ -70,7 +70,7 @@ namespace Medical.UI.Components.Pages
                 }
                 else
                 {
-                    errorMessage = result.Messages.FirstOrDefault();
+                    errorMessage = result.Messages.FirstOrDefault()!;
                 }
             }
         }

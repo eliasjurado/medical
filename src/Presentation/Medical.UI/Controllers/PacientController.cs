@@ -45,7 +45,7 @@ public class PacientController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<PacientDto>>(new List<PacientDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<PacientDto>>(new List<PacientDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllPacientQueryRequest(true));
@@ -70,7 +70,7 @@ public class PacientController : ControllerBase
         {
             var responseCast = (DataResponse<string>)result;
 
-            return new DataResponse<List<PacientDto>>(new List<PacientDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault());
+            return new DataResponse<List<PacientDto>>(new List<PacientDto>(), responseCast.StatusCode, responseCast.Messages.FirstOrDefault()!);
         }
 
         var response = await _mediator.Send(new GetAllPacientQueryRequest(true));

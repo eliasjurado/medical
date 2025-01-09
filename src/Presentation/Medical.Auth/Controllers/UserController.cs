@@ -23,7 +23,7 @@ namespace Medical.Auth.Controllers
         public async Task<ActionResult<IResponse>> ChangePassword([FromBody] UserChangePassword changePassword)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var response = await _identityService.ChangePassword(userId, changePassword.CurrentPassword, changePassword.Password);
+            var response = await _identityService.ChangePassword(userId!, changePassword.CurrentPassword, changePassword.Password);
 
             if (!response.Success)
             {

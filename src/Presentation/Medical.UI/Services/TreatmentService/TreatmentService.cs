@@ -25,7 +25,7 @@ namespace Medical.UI.Services.TreatmentService
 
             if (result != null && result.Success)
             {
-                AdminTreatments = result.Data;
+                AdminTreatments = result.Data!;
 
                 await GetTreatments();
             }
@@ -48,7 +48,7 @@ namespace Medical.UI.Services.TreatmentService
 
             if (result != null && result.Success)
             {
-                AdminTreatments = result.Data;
+                AdminTreatments = result.Data!;
 
                 await GetTreatments();
             }
@@ -59,7 +59,7 @@ namespace Medical.UI.Services.TreatmentService
             var response = await _http.GetFromJsonAsync<ApiResponse<List<TreatmentDto>>>($"{CategoryBaseURL}admin");
             if (response != null && response.Success)
             {
-                AdminTreatments = response.Data;
+                AdminTreatments = response.Data!;
             }
 
         }
@@ -70,7 +70,7 @@ namespace Medical.UI.Services.TreatmentService
 
             if (response != null && response.Success)
             {
-                Treatments = response.Data;
+                Treatments = response.Data!;
             }
         }
 
@@ -82,7 +82,7 @@ namespace Medical.UI.Services.TreatmentService
 
             if (result != null && result.Success)
             {
-                AdminTreatments = result.Data;
+                AdminTreatments = result.Data!;
 
                 await GetTreatments();
             }

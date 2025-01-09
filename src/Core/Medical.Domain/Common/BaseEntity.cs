@@ -4,7 +4,7 @@ namespace Medical.Domain.Common;
 
 public abstract class BaseEntity<TKey>
 {
-    public TKey Id { get; set; }
+    public TKey? Id { get; set; }
 
     private readonly List<BaseEvent> _domainEvents = new();
 

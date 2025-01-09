@@ -11,6 +11,6 @@ namespace Medical.Domain.Entities
         }
         public TypeDocumentId TypeDocumentId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

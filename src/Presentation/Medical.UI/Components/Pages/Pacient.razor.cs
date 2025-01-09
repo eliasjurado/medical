@@ -12,7 +12,7 @@ namespace Medical.UI.Components.Pages
         private static IEnumerable<int> PageItemsSource => [20, 40];
 
         [Inject]
-        private IPacientService _pacientService { get; set; }
+        private IPacientService? _pacientService { get; set; }
 
         [NotNull]
         private List<PacientDto>? Items { get; set; }
@@ -24,7 +24,7 @@ namespace Medical.UI.Components.Pages
             // The code here is not available in actual combat. It is written only for demonstration to prevent all data from being deleted.
             if (Items == null || Items.Count == 0)
             {
-                await _pacientService.GetPacients();
+                await _pacientService!.GetPacients();
                 Items = _pacientService.Pacients;
             }
 
@@ -118,7 +118,7 @@ namespace Medical.UI.Components.Pages
                     Editing = model.Editing,
                     IsNew = model.IsNew
                 };
-                await _pacientService.AddPacient(item);
+                await _pacientService!.AddPacient(item);
                 Items.Add(item);
             }
             else
@@ -138,7 +138,7 @@ namespace Medical.UI.Components.Pages
                     item.Editing = model.Editing;
                     item.IsNew = model.IsNew;
                 }
-                await _pacientService.UpdatePacient(item);
+                await _pacientService!.UpdatePacient(item!);
             }
             ret = true;
 
@@ -150,7 +150,7 @@ namespace Medical.UI.Components.Pages
             var ret = false;
             foreach (var model in models)
             {
-                await _pacientService.DeletePacient(model.Id);
+                await _pacientService!.DeletePacient(model.Id);
                 Items.Remove(model);
             }
             ret = true;

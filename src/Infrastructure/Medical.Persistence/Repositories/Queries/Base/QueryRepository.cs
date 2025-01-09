@@ -161,7 +161,7 @@ public class QueryRepository<T, TKey> : IQueryRepository<T, TKey> where T : Base
             }
         }
 
-        return await query.SingleOrDefaultAsync();
+        return (await query.SingleOrDefaultAsync())!;
     }
 
     public async Task<T> GetWithIncludeAsync(bool isChangeTracking, Expression<Func<T, bool>> predicate, bool ignoreQueryFilters = false, params Expression<Func<T, object>>[] includes)
@@ -218,7 +218,7 @@ public class QueryRepository<T, TKey> : IQueryRepository<T, TKey> where T : Base
             }
         }
 
-        return await query.FirstOrDefaultAsync();
+        return (await query.FirstOrDefaultAsync())!;
 
     }
 }

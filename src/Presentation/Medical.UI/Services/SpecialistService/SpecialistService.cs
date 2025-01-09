@@ -1,5 +1,4 @@
-﻿using Medical.Domain.Dto.Response.Concrete;
-using Medical.Domain.Dto.Specialist;
+﻿using Medical.Domain.Dto.Specialist;
 
 namespace Medical.UI.Services.SpecialistService
 {
@@ -25,11 +24,9 @@ namespace Medical.UI.Services.SpecialistService
 
             if (result != null && result.Success)
             {
-                AdminSpecialists = result.Data;
+                AdminSpecialists = result.Data!;
 
                 await GetSpecialists();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -50,11 +47,9 @@ namespace Medical.UI.Services.SpecialistService
 
             if (result != null && result.Success)
             {
-                AdminSpecialists = result.Data;
+                AdminSpecialists = result.Data!;
 
                 await GetSpecialists();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -63,7 +58,7 @@ namespace Medical.UI.Services.SpecialistService
             var response = await _http.GetFromJsonAsync<ApiResponse<List<SpecialistDto>>>($"{CategoryBaseURL}admin");
             if (response != null && response.Success)
             {
-                AdminSpecialists = response.Data;
+                AdminSpecialists = response.Data!;
             }
 
         }
@@ -74,7 +69,7 @@ namespace Medical.UI.Services.SpecialistService
 
             if (response != null && response.Success)
             {
-                Specialists = response.Data;
+                Specialists = response.Data!;
             }
         }
 
@@ -86,11 +81,9 @@ namespace Medical.UI.Services.SpecialistService
 
             if (result != null && result.Success)
             {
-                AdminSpecialists = result.Data;
+                AdminSpecialists = result.Data!;
 
                 await GetSpecialists();
-
-                //OnChange.Invoke();
             }
         }
 

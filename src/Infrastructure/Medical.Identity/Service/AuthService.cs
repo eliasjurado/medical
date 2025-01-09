@@ -42,7 +42,7 @@ namespace Medical.Identity.Service
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
 
-            if (result.Succeeded == false)
+            if (!result.Succeeded)
             {
                 return new DataResponse<AuthResponseDto>(new AuthResponseDto(), HttpStatusCodes.NOT_FOUND, Messages.UserNameOrPasswordIsIncorrect, false);
             }
@@ -144,10 +144,11 @@ namespace Medical.Identity.Service
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Name, user.Email!),
-                new Claim(ClaimTypes.GivenName, user.FirstName),
-                new Claim(ClaimTypes.Surname, user.LastName)
+                new Claim(ClaimTypes.GivenName, user.FirstName!),
+                new Claim(ClaimTypes.Surname, user.LastName!)
             }
-            .Union(roleClaims);
+            .Union(roleClaims)
+            .Union(userClaims);
 
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
 

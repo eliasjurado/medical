@@ -53,7 +53,7 @@
 
 @code {
     [Inject]
-    public HttpInterceptorService Interceptor { get; set; }
+    public HttpInterceptorService? Interceptor { get; set; }
 
     UserRegister user = new UserRegister();
 
@@ -62,7 +62,7 @@
 
     protected override void OnInitialized()
     {
-        Interceptor.RegisterEvent();
+        Interceptor?.RegisterEvent();
     }
 
     async Task HandleRegistration()
@@ -92,6 +92,6 @@
 
     public void Dispose()
     {
-        Interceptor.DisposeEvent();
+        Interceptor?.DisposeEvent();
     }
 }

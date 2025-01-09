@@ -25,11 +25,9 @@ namespace Medical.UI.Services.PacientService
 
             if (result != null && result.Success)
             {
-                AdminPacients = result.Data;
+                AdminPacients = result.Data!;
 
                 await GetPacients();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -50,11 +48,9 @@ namespace Medical.UI.Services.PacientService
 
             if (result != null && result.Success)
             {
-                AdminPacients = result.Data;
+                AdminPacients = result.Data!;
 
                 await GetPacients();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -63,7 +59,7 @@ namespace Medical.UI.Services.PacientService
             var response = await _http.GetFromJsonAsync<ApiResponse<List<PacientDto>>>($"{PacientBaseURL}admin");
             if (response != null && response.Success)
             {
-                AdminPacients = response.Data;
+                AdminPacients = response.Data!;
             }
 
         }
@@ -74,7 +70,7 @@ namespace Medical.UI.Services.PacientService
 
             if (response != null && response.Success)
             {
-                Pacients = response.Data;
+                Pacients = response.Data!;
             }
         }
 
@@ -86,11 +82,9 @@ namespace Medical.UI.Services.PacientService
 
             if (result != null && result.Success)
             {
-                AdminPacients = result.Data;
+                AdminPacients = result.Data!;
 
                 await GetPacients();
-
-                //OnChange.Invoke();
             }
         }
     }

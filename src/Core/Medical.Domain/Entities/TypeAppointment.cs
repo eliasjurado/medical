@@ -11,6 +11,6 @@ namespace Medical.Domain.Entities
         }
         public TypeAppointmentId TypeAppointmentId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

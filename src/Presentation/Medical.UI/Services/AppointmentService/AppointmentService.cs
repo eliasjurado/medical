@@ -16,19 +16,17 @@ namespace Medical.UI.Services.AppointmentService
 
         public event Action? OnChange;
 
-        public async Task AddAppointment(AppointmentDto AppointmentDto)
+        public async Task AddAppointment(AppointmentDto appointment)
         {
-            var response = await _http.PostAsJsonAsync($"{AppointmentBaseURL}admin", AppointmentDto);
+            var response = await _http.PostAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
 
             if (result != null && result.Success)
             {
-                AdminAppointments = result.Data;
+                AdminAppointments = result.Data!;
 
                 await GetAppointments();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -40,20 +38,18 @@ namespace Medical.UI.Services.AppointmentService
             return newAppointmentDto;
         }
 
-        public async Task DeleteAppointment(int AppointmentDtoId)
+        public async Task DeleteAppointment(int appointmentId)
         {
-            var response = await _http.DeleteAsync($"{AppointmentBaseURL}admin/{AppointmentDtoId}");
+            var response = await _http.DeleteAsync($"{AppointmentBaseURL}admin/{appointmentId}");
 
             var result = (await response.Content
                .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
 
             if (result != null && result.Success)
             {
-                AdminAppointments = result.Data;
+                AdminAppointments = result.Data!;
 
                 await GetAppointments();
-
-                //OnChange.Invoke();
             }
         }
 
@@ -62,7 +58,7 @@ namespace Medical.UI.Services.AppointmentService
             var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}admin");
             if (response != null && response.Success)
             {
-                AdminAppointments = response.Data;
+                AdminAppointments = response.Data!;
             }
 
         }
@@ -73,23 +69,21 @@ namespace Medical.UI.Services.AppointmentService
 
             if (response != null && response.Success)
             {
-                Appointments = response.Data;
+                Appointments = response.Data!;
             }
         }
 
-        public async Task UpdateAppointment(AppointmentDto AppointmentDto)
+        public async Task UpdateAppointment(AppointmentDto appointment)
         {
-            var response = await _http.PutAsJsonAsync($"{AppointmentBaseURL}admin", AppointmentDto);
+            var response = await _http.PutAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
 
             if (result != null && result.Success)
             {
-                AdminAppointments = result.Data;
+                AdminAppointments = result.Data!;
 
                 await GetAppointments();
-
-                //OnChange.Invoke();
             }
         }
     }

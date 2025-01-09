@@ -1,8 +1,5 @@
-﻿using System.Runtime.Serialization;
-
-namespace Medical.UI.CustomExceptions
+﻿namespace Medical.UI.CustomExceptions
 {
-    [Serializable]
     public class HttpResponseException : Exception
     {
         public HttpResponseException()
@@ -16,11 +13,6 @@ namespace Medical.UI.CustomExceptions
 
         public HttpResponseException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        protected HttpResponseException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
         {
         }
     }

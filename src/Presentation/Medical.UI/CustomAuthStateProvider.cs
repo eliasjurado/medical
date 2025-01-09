@@ -47,7 +47,7 @@ namespace Medical.UI
             return state;
         }
 
-        private byte[] ParseBase64WithoutPadding(string base64)
+        private static byte[] ParseBase64WithoutPadding(string base64)
         {
             switch (base64.Length % 4)
             {
@@ -57,16 +57,16 @@ namespace Medical.UI
             return Convert.FromBase64String(base64);
         }
 
-        private IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
+        private static IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {
             var payload = jwt.Split('.')[1];
             var jsonBytes = ParseBase64WithoutPadding(payload);
             var keyValuePairs = JsonSerializer
                 .Deserialize<Dictionary<string, object>>(jsonBytes);
 
-            var claims = keyValuePairs.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()));
+            var claims = keyValuePairs?.Select(kvp => new Claim(kvp.Key, kvp.Value.ToString()!));
 
-            return claims;
+            return claims!;
         }
     }
 }

@@ -74,9 +74,9 @@ namespace Medical.UI.Services.CategoryService
             }
         }
 
-        public async Task UpdateCategory(CategoryDto CategoryDto)
+        public async Task UpdateCategory(CategoryDto category)
         {
-            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", CategoryDto);
+            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", category);
             var result  = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
 

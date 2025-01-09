@@ -11,6 +11,6 @@ namespace Medical.Domain.Entities
         }
         public TypeSexId TypeSexId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }
