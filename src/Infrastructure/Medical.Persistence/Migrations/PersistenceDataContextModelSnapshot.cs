@@ -36,7 +36,7 @@ namespace Medical.Persistence.Migrations
                     b.Property<DateTime>("CreatedUtc")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("End")
+                    b.Property<DateTime>("EndDateTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("IdPacient")
@@ -63,10 +63,10 @@ namespace Medical.Persistence.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Start")
+                    b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("TypeAppointmentId")
+                    b.Property<int>("TypeAppointmentId")
                         .HasColumnType("int");
 
                     b.Property<int>("TypeShiftId")
@@ -79,8 +79,6 @@ namespace Medical.Persistence.Migrations
                     b.HasIndex("IdSpecialist");
 
                     b.HasIndex("IdTreatment");
-
-                    b.HasIndex("TypeAppointmentId");
 
                     b.ToTable("Appointments");
                 });
@@ -127,7 +125,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 88, DateTimeKind.Utc).AddTicks(2820),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 799, DateTimeKind.Utc).AddTicks(7733),
                             IsActive = true,
                             IsDeleted = false,
                             LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -137,7 +135,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 88, DateTimeKind.Utc).AddTicks(2830),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 799, DateTimeKind.Utc).AddTicks(7738),
                             IsActive = true,
                             IsDeleted = false,
                             LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -310,7 +308,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6270),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(920),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -320,7 +318,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6280),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(923),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -330,7 +328,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6283),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(925),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -340,7 +338,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6285),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(926),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -350,7 +348,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6287),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(927),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -360,7 +358,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6288),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(928),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -370,7 +368,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6291),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(929),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -380,7 +378,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6293),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(930),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -390,7 +388,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6294),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(930),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -400,7 +398,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6296),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(931),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -410,7 +408,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6297),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(932),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -420,7 +418,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6299),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(933),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -430,7 +428,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6301),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(934),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -440,7 +438,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6302),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(935),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -450,7 +448,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6304),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(936),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -460,7 +458,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6305),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(936),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -470,7 +468,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6307),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(937),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -480,7 +478,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6309),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(938),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -490,7 +488,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6310),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(939),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -500,7 +498,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6312),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(940),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -510,7 +508,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6313),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(941),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -520,7 +518,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6315),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(942),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -530,7 +528,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6316),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(942),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -540,7 +538,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6318),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(943),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -550,7 +548,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6320),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(944),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -560,7 +558,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6321),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(945),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -570,7 +568,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6323),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(946),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -580,7 +578,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6324),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(947),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -590,7 +588,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6326),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(948),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -600,7 +598,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6327),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(949),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -610,7 +608,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6329),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(950),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -620,7 +618,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6330),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(951),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -630,7 +628,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6332),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(951),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -640,7 +638,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6333),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(952),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -650,7 +648,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6335),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(953),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -660,7 +658,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6336),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(954),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -670,7 +668,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6338),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(955),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -680,7 +678,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6339),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(956),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -690,7 +688,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6341),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(957),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -700,7 +698,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6342),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(957),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -710,7 +708,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedUtc = new DateTime(2025, 1, 9, 6, 32, 45, 89, DateTimeKind.Utc).AddTicks(6344),
+                            CreatedUtc = new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(958),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -890,17 +888,11 @@ namespace Medical.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Medical.Domain.Entities.TypeAppointment", "TypeAppointment")
-                        .WithMany()
-                        .HasForeignKey("TypeAppointmentId");
-
                     b.Navigation("Pacient");
 
                     b.Navigation("Specialist");
 
                     b.Navigation("Treatment");
-
-                    b.Navigation("TypeAppointment");
                 });
 
             modelBuilder.Entity("Medical.Domain.Entities.Pacient", b =>

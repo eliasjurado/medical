@@ -94,6 +94,11 @@
                      Order="60" Visible="false" Sortable="true"
                      Filterable="true" Searchable="true" />
 
+        <TableColumn @bind-Field="@context.Appointments"
+                     Visible="false"
+                     IsVisibleWhenAdd="false"
+                     IsVisibleWhenEdit="false" />
+
         <TableColumn @bind-Field="@context.Editing"
                      Visible="false"
                      IsVisibleWhenAdd="false"

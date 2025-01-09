@@ -109,8 +109,8 @@ namespace Medical.UI.Components.Pages
                     IdPacient = model.IdPacient,
                     IdTreatment = model.IdTreatment,
                     IdSpecialist = model.IdSpecialist,
-                    Start = model.Start,
-                    End = model.End,
+                    StartDateTime = model.StartDateTime,
+                    EndDateTime = model.EndDateTime,
                     Note = model.Note,
                     TypeShiftId = model.TypeShiftId,
                     TypeAppointmentId = model.TypeAppointmentId,
@@ -129,8 +129,8 @@ namespace Medical.UI.Components.Pages
                     item.IdPacient = model.IdPacient;
                     item.IdTreatment = model.IdTreatment;
                     item.IdSpecialist = model.IdSpecialist;
-                    item.Start = model.Start;
-                    item.End = model.End;
+                    item.StartDateTime = model.StartDateTime;
+                    item.EndDateTime = model.EndDateTime;
                     item.Note = model.Note;
                     item.TypeShiftId = model.TypeShiftId;
                     item.TypeAppointmentId = model.TypeAppointmentId;
