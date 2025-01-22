@@ -1,0 +1,33 @@
+﻿@using Medical.App.Services.SpecialistService
+@using Medical.Domain.Dto.Specialist
+@inject ISpecialistService specialistService
+@page "/especialista"
+
+<h3>Especialista</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.LastName)" Title="Apellidos" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Name)" Title="Nombres" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.SpecialtyName)" Title="Especialidad" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeName)" Title="Colegio Profesional" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeId)" Title="N° Colegiatura" Frozen="true" Width="90px" Sortable="true" Filterable="true" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<SpecialistDto> items;
+    IList<SpecialistDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await specialistService.GetSpecialists();
+        items = specialistService.Specialists.AsQueryable();
+
+        selectedItems = new List<SpecialistDto>() { items.FirstOrDefault() };
+    }
+}

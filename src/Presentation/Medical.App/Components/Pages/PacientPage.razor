@@ -1,0 +1,33 @@
+﻿@using Medical.App.Services.PacientService
+@using Medical.Domain.Dto.Pacient
+@inject IPacientService pacientService
+@page "/paciente"
+
+<h3>Paciente</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(PacientDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.LastName)" Title="Apellidos" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.Name)" Title="Nombres" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.TypeSexId)" Title="Sexo" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.Birthdate)" Title="Fecha Nac" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.Address)" Title="Domicilio" Frozen="true" Width="90px" Sortable="true" Filterable="true" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<PacientDto> items;
+    IList<PacientDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await pacientService.GetPacients();
+        items = pacientService.Pacients.AsQueryable();
+
+        selectedItems = new List<PacientDto>() { items.FirstOrDefault() };
+    }
+}
