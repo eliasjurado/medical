@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.UI", "src\Presentat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.Auth", "src\Presentation\Medical.Auth\Medical.Auth.csproj", "{D425B0FF-DD88-4140-9688-6431DA1BEE55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Medical.App", "src\Presentation\Medical.App\Medical.App.csproj", "{651243BD-1982-43ED-9B49-156887D00BE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
