@@ -9,6 +9,7 @@ public class Specialist : BaseAuditableEntity<int>
     public string? NumDocument { get; set; }
     public string? Name { get; set; }
     public string? LastName { get; set; }
+    public string? FullName { get; set; }
     public string? SpecialtyName { get; set; }
     public string? CollegeName { get; set; }
     public string? CollegeId { get; set; }

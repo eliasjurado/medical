@@ -6,11 +6,11 @@ public class AppointmentDto
 {
     public int Id { get; set; }
     public int IdPacient { get; set; }
-    public virtual Entities.Pacient Pacient { get; set; } = new Entities.Pacient();
+    public virtual Entities.Pacient? Pacient { get; set; }
     public int IdTreatment { get; set; }
-    public virtual Entities.Treatment Treatment { get; set; } = new Entities.Treatment();
+    public virtual Entities.Treatment? Treatment { get; set; }
     public int IdSpecialist { get; set; }
-    public virtual Entities.Specialist Specialist { get; set; } = new Entities.Specialist();
+    public virtual Entities.Specialist? Specialist { get; set; }
     public DateTime StartDateTime { get; set; }
     public DateTime EndDateTime { get; set; }
     public string? Note { get; set; }

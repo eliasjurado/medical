@@ -1,5 +1,7 @@
 ﻿using Medical.Domain.Dto.Appointment;
 using Medical.Domain.Dto.Response.Concrete;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Medical.App.Services.AppointmentService
 {
@@ -67,7 +69,6 @@ namespace Medical.App.Services.AppointmentService
         public async Task GetAppointments()
         {
             var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}");
-
             if (response != null && response.Success)
             {
                 Appointments = response.Data!;

@@ -9,8 +9,7 @@
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.LastName)" Title="Apellidos" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Name)" Title="Nombres" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres Completos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.SpecialtyName)" Title="Especialidad" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeName)" Title="Colegio Profesional" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeId)" Title="N° Colegiatura" Frozen="true" Width="90px" Sortable="true" Filterable="true" />

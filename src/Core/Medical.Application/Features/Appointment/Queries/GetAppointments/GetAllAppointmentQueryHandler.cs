@@ -24,7 +24,8 @@ public class GetAllAppointmentQueryHandler : IRequestHandler<GetAllAppointmentQu
         }
         else
         {
-            var appointments = await _query.AppointmentQuery.GetAllWithIncludeAsync(false, o => o.IsActive);
+
+            var appointments = await _query.AppointmentQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.Pacient!, y => y.Treatment!, z => z.Specialist!]);
             appointmentList = _mapper.Map<List<AppointmentDto>>(appointments).ToList();
         }
 

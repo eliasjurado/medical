@@ -21,7 +21,10 @@ builder.Services.AddRazorComponents()
       .AddInteractiveServerComponents().AddHubOptions(options => options.MaximumReceiveMessageSize = 10 * 1024 * 1024);
 
 builder.Services.AddControllers();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+}); ;
 builder.Services.AddSwaggerGen();
 builder.Services.AddRadzenComponents();
 

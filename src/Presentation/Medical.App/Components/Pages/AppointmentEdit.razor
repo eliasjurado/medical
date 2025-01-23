@@ -1,0 +1,79 @@
+﻿@using Medical.App.Models
+@using Medical.App.Services.PacientService
+@using Medical.App.Services.SpecialistService
+@using Medical.App.Services.TreatmentService
+@using Medical.Domain.Dto.Pacient
+@using Medical.Domain.Dto.Specialist
+@using Medical.Domain.Dto.Treatment
+@inject DialogService DialogService
+@inject IPacientService pacientService
+@inject ITreatmentService treatmentService
+@inject ISpecialistService specialistService
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="Appointment" Data="@model" Submit=@OnSubmit>
+    <RadzenStack Gap="1rem">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenLabel Text="Paciente" Style="width: 6rem;" />
+            <RadzenAutoComplete Name="Paciente" @bind-Value=@model.PacientFullName Data=@pacients TextProperty="@nameof(PacientDto.FullName)" Style="width: 15rem" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "Paciente" }})" />
+            <RadzenRequiredValidator Component="Paciente" Text="Paciente is required" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenLabel Text="Consultorio" Style="width: 6rem;" />
+            <RadzenAutoComplete Name="Consultorio" @bind-Value=@model.TreatmentName Data=@treatments TextProperty="@nameof(TreatmentDto.Name)" Style="width: 15rem" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "Tratamiento" }})" />
+            <RadzenRequiredValidator Component="Consultorio" Text="Consultorio is required" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenLabel Text="Especialista" Style="width: 6rem;" />
+            <RadzenAutoComplete Name="Especialista" @bind-Value=@model.SpecialistFullName Data=@specialists TextProperty="@nameof(SpecialistDto.FullName)" Style="width: 15rem" InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "Especialista" }})" />
+            <RadzenRequiredValidator Component="Especialista" Text="Especialista is required" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenLabel Text="Start" Style="width: 6rem;" />
+            <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" />
+            <RadzenRequiredValidator Component="StartDateTime" Text="Start is required" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+            <RadzenLabel Text="End" Style="width: 6rem;" />
+            <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 12rem;" />
+            <RadzenRequiredValidator Component="EndDateTime" Text="End is required" />
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+        </RadzenStack>
+    </RadzenStack>
+</RadzenTemplateForm>
+@code {
+    [Parameter]
+    public Appointment Appointment { get; set; }
+
+    IEnumerable<PacientDto> pacients;
+    IEnumerable<TreatmentDto> treatments;
+    IEnumerable<SpecialistDto> specialists;
+
+    Appointment model = new Appointment();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await pacientService.GetPacients();
+        pacients = pacientService.Pacients;
+
+        await treatmentService.GetTreatments();
+        treatments = treatmentService.Treatments;
+
+        await specialistService.GetSpecialists();
+        specialists = specialistService.Specialists;
+    }
+
+    protected override void OnParametersSet()
+    {
+        model = Appointment;
+    }
+
+    void OnSubmit(Appointment model)
+    {
+        DialogService.Close(model);
+    }
+}

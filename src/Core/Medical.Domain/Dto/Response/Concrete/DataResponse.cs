@@ -46,7 +46,7 @@ public class DataResponse<T> : IDataResponse<T>
     public DataResponse(T data)
     {
         Data = data;
-        StatusCode = HttpStatusCodes.ACCEPTED;
+        StatusCode = HttpStatusCodes.OK;
         Success = true;
     }
 }

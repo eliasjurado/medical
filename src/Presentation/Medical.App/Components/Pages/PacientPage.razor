@@ -9,14 +9,12 @@
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(PacientDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn Property="@nameof(PacientDto.LastName)" Title="Apellidos" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(PacientDto.Name)" Title="Nombres" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(PacientDto.FullName)" Title="Nombres Completos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(PacientDto.TypeSexId)" Title="Sexo" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(PacientDto.Birthdate)" Title="Fecha Nac" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(PacientDto.Address)" Title="Domicilio" Frozen="true" Width="90px" Sortable="true" Filterable="true" />
     </Columns>
 </RadzenDataGrid>
-
 @code {
     IQueryable<PacientDto> items;
     IList<PacientDto> selectedItems;

@@ -9,6 +9,7 @@ public class Pacient : BaseAuditableEntity<int>
     public string? NumDocument { get; set; }
     public string? Name { get; set; }
     public string? LastName { get; set; }
+    public string? FullName { get; set; }
     public TypeSexId TypeSexId { get; set; }
     public DateTime Birthdate { get; set; }
     public string? Address { get; set; }

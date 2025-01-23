@@ -10,6 +10,7 @@ public class PacientDto
     public string NumDocument { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
+    public string FullName { get; set; } = string.Empty;
     public TypeSexId TypeSexId { get; set; } = TypeSexId.None;
     public DateTime Birthdate { get; set; } = DateTime.MinValue;
     public string Address { get; set; } = string.Empty;

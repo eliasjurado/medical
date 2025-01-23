@@ -1,0 +1,144 @@
+﻿@using Medical.App.Models
+@using Medical.App.Services.AppointmentService
+@inject DialogService DialogService
+@inject IAppointmentService appointmentService
+@page "/citas"
+
+<h3>Citas</h3>
+
+@* <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" class="rz-p-4 rz-mb-6 rz-border-radius-1" Style="border: var(--rz-grid-cell-border);height:4rem;">
+    <RadzenLabel Text="Show Header:  " />
+    <RadzenSwitch @bind-Value=@showHeader />
+</RadzenStack> *@
+
+<RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
+TextProperty="PacientFullName" SelectedIndex="2"
+SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
+AppointmentMove=@OnAppointmentMove >
+    <RadzenDayView />
+    <RadzenWeekView />
+    <RadzenMonthView />
+</RadzenScheduler>
+
+@* <EventConsole @ref=@console /> *@
+
+@code {
+    RadzenScheduler<Appointment> scheduler;
+    // EventConsole console;
+    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+
+    bool showHeader = true;
+
+    IList<Appointment> appointments;
+    // = new List<Appointment>
+    // {
+    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-2), EndDateTime = DateTime.Today.AddDays(-2), PacientFullName = "Andrea Morales" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-11), EndDateTime = DateTime.Today.AddDays(-10), PacientFullName = "Rebeca Mansilla" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-10), EndDateTime = DateTime.Today.AddDays(-8), PacientFullName = "Gustavo Chavez Herrera" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddHours(10), EndDateTime = DateTime.Today.AddHours(12), PacientFullName = "Teresa Ofelia Tinoco Rojas" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddHours(10), EndDateTime = DateTime.Today.AddHours(13), PacientFullName = "Ruben Otárola Santos" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddHours(14), EndDateTime = DateTime.Today.AddHours(14).AddMinutes(30), PacientFullName = "Cristina Lopez Delgado" },
+    //     new Appointment { StartDateTime = DateTime.Today.AddDays(1), EndDateTime = DateTime.Today.AddDays(12), PacientFullName = "Raúl Jiménez Ochoa" },
+    // };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await appointmentService.GetAppointments();
+        appointments = appointmentService.Appointments.Select(x=> 
+            new Appointment
+            {
+                StartDateTime=x.StartDateTime,
+                EndDateTime=x.EndDateTime,
+                PacientFullName=x.Pacient.FullName,
+                SpecialistFullName=x.Specialist.FullName,
+                TreatmentName=x.Treatment.Name
+            }).ToList();
+    }
+
+    async void OnSlotRender(SchedulerSlotRenderEventArgs args)
+    {
+        // Highlight today in month view
+        if (args.View.Text == "Month" && args.Start.Date == DateTime.Today)
+        {
+            args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+        }
+
+        // Highlight working hours (9-18)
+        if ((args.View.Text == "Week" || args.View.Text == "Day") && args.Start.Hour > 8 && args.Start.Hour < 19)
+        {
+            args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+        }
+    }
+
+    async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
+    {
+        // console.Log($"SlotSelect: Start={args.Start} End={args.End}");
+
+        if (args.View.Text != "Year")
+        {
+            Appointment data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita",
+                new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+
+            if (data != null)
+            {
+                appointments.Add(data);
+                // Either call the Reload method or reassign the Data property of the Scheduler
+                await scheduler.Reload();
+            }
+        }
+    }
+
+    async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<Appointment> args)
+    {
+        // console.Log($"AppointmentSelect: Appointment={args.Data.Text}");
+
+        var copy = new Appointment
+        {
+            StartDateTime = args.Data.StartDateTime,
+            EndDateTime = args.Data.EndDateTime,
+            PacientFullName = args.Data.PacientFullName,            
+            TreatmentName = args.Data.TreatmentName,
+            SpecialistFullName = args.Data.SpecialistFullName
+        };
+
+        var data = await DialogService.OpenAsync<AppointmentEdit>("Editar Cita", new Dictionary<string, object> { { "Appointment", copy } });
+
+        if (data != null)
+        {
+            // Update the appointment
+            args.Data.StartDateTime = data.StartDateTime;
+            args.Data.EndDateTime = data.EndDateTime;
+            args.Data.PacientFullName = data.PacientFullName;
+            args.Data.TreatmentName = data.TreatmentName;
+            args.Data.SpecialistFullName = data.SpecialistFullName;
+        }
+
+        await scheduler.Reload();
+    }
+
+    void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<Appointment> args)
+    {
+        // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
+
+        if (args.Data.PacientFullName == "Birthday")
+        {
+            args.Attributes["style"] = "background: red";
+        }
+    }
+
+    async Task OnAppointmentMove(SchedulerAppointmentMoveEventArgs args)
+    {
+        var draggedAppointment = appointments.FirstOrDefault(x => x == args.Appointment.Data);
+
+        if (draggedAppointment != null)
+        {
+            draggedAppointment.StartDateTime = draggedAppointment.StartDateTime + args.TimeSpan;
+
+            draggedAppointment.EndDateTime = draggedAppointment.EndDateTime + args.TimeSpan;
+
+            await scheduler.Reload();
+        }
+    }
+}
