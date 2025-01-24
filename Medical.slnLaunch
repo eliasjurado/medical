@@ -8,9 +8,9 @@
         "DebugTarget": "https"
       },
       {
-        "Path": "src\\Presentation\\Medical.UI\\Medical.UI.csproj",
+        "Path": "src\\Presentation\\Medical.App\\Medical.App.csproj",
         "Action": "Start",
-        "DebugTarget": "Medical.UI"
+        "DebugTarget": "Medical.App.Server"
       }
     ]
   }
