@@ -11,7 +11,7 @@
 @inject ITreatmentService treatmentService
 @inject ISpecialistService specialistService
 
-<RadzenTemplateForm TItem="Appointment" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+<RadzenTemplateForm TItem="AppointmentViewModel" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem" >
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
@@ -47,14 +47,14 @@
                 <RadzenRequiredValidator Component="TypeShift" Text="Turno is required" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Start" Style="width: 6rem;" />
-                <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 14rem;" />
-                <RadzenRequiredValidator Component="StartDateTime" Text="Start is required" />
+                <RadzenLabel Text="Inicio" Style="width: 6rem;" />
+                <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
+                <RadzenRequiredValidator Component="StartDateTime" Text="Inicio is required" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="End" Style="width: 6rem;" />
-                <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 14rem;" />
-                <RadzenRequiredValidator Component="EndDateTime" Text="End is required" />
+                <RadzenLabel Text="Fin" Style="width: 6rem;" />
+                <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
+                <RadzenRequiredValidator Component="EndDateTime" Text="Fin is required" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
@@ -77,7 +77,7 @@
     IEnumerable<TreatmentDto> treatments;
     IEnumerable<SpecialistDto> specialists;
 
-    Appointment model = new Appointment();
+    AppointmentViewModel model = new AppointmentViewModel();
 
     protected override async Task OnInitializedAsync()
     {
@@ -99,7 +99,7 @@
         model.EndDateTime = End;
     }
 
-    void OnSubmit(Appointment model)
+    void OnSubmit(AppointmentViewModel model)
     {
         DialogService.Close(model);
     }

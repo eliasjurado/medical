@@ -2,7 +2,7 @@
 
 namespace Medical.App.Models
 {
-    public class Appointment
+    public class AppointmentViewModel
     {
         public DateTime StartDateTime { get; set; }
         public DateTime EndDateTime { get; set; }

@@ -7,7 +7,7 @@
 
 <h3>Citas</h3>
 
-<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
+<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="AppointmentViewModel" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
                  TextProperty="PacientFullName" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
                  AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
     <RadzenDayView Text="Día" TimeFormat="hh tt" />
@@ -16,13 +16,13 @@
 </RadzenScheduler>
 
 @code {
-    RadzenScheduler<Appointment> scheduler;
+    RadzenScheduler<AppointmentViewModel> scheduler;
     // EventConsole console;
     Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
 
     bool showHeader = true;
 
-    IList<Appointment> appointments;
+    IList<AppointmentViewModel> appointments;
 
     protected override async Task OnInitializedAsync()
     {
@@ -30,14 +30,16 @@
 
         await appointmentService.GetAppointments();
         appointments = appointmentService.Appointments.Select(x =>
-        new Appointment
-                {
-                    StartDateTime = x.StartDateTime,
-                    EndDateTime = x.EndDateTime,
-                    PacientFullName = x.Pacient.FullName,
-                    SpecialistFullName = x.Specialist.FullName,
-                    TreatmentName = x.Treatment.Name
-                }).ToList();
+        new AppointmentViewModel
+        {
+            StartDateTime = x.StartDateTime,
+            EndDateTime = x.EndDateTime,
+            PacientFullName = x.Pacient.FullName,
+            SpecialistFullName = x.Specialist.FullName,
+            TreatmentName = x.Treatment.Name,
+            TypeAppointmentId = x.TypeAppointmentId,
+            TypeShiftId = x.TypeShiftId
+        }).ToList();
     }
 
     async void OnSlotRender(SchedulerSlotRenderEventArgs args)
@@ -61,8 +63,8 @@
 
         if (args.View.Text != "Year")
         {
-            Appointment data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita",
-            new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+            AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita",
+    new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
 
             if (data != null)
             {
@@ -73,17 +75,17 @@
         }
     }
 
-    async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<Appointment> args)
+    async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<AppointmentViewModel> args)
     {
-        var copy = new Appointment
+        var copy = new AppointmentViewModel
                 {
                     StartDateTime = args.Data.StartDateTime,
                     EndDateTime = args.Data.EndDateTime,
                     PacientFullName = args.Data.PacientFullName,
                     TreatmentName = args.Data.TreatmentName,
                     SpecialistFullName = args.Data.SpecialistFullName,
-                    // TypeAppointmentId=args.Data.TypeAppointmentId,
-                    // TypeShiftId= args.Data.TypeShiftId
+                    TypeAppointmentId=args.Data.TypeAppointmentId,
+                    TypeShiftId= args.Data.TypeShiftId
                 };
 
         var data = await DialogService.OpenAsync<AppointmentEdit>("Editar Cita", new Dictionary<string, object> { { "Appointment", copy } });
@@ -96,14 +98,14 @@
             args.Data.PacientFullName = data.PacientFullName;
             args.Data.TreatmentName = data.TreatmentName;
             args.Data.SpecialistFullName = data.SpecialistFullName;
-            // args.Data.TypeAppointmentId = data.TypeAppointmentId;
-            // args.Data.TypeShiftId = data.TypeShiftId;
+            args.Data.TypeAppointmentId = data.TypeAppointmentId;
+            args.Data.TypeShiftId = data.TypeShiftId;
         }
 
         await scheduler.Reload();
     }
 
-    void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<Appointment> args)
+    void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<AppointmentViewModel> args)
     {
         // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
 
@@ -127,10 +129,10 @@
         }
     }
 
-    void OnAppointmentMouseEnter(SchedulerAppointmentMouseEventArgs<Appointment> args)
+    void OnAppointmentMouseEnter(SchedulerAppointmentMouseEventArgs<AppointmentViewModel> args)
     {
         TooltipService.Open(args.Element, ts =>
-    @<RadzenStack Orientation="Orientation.Vertical" Gap="0" class="rz-p-6" Style="min-width: 250px; max-width: 500px;">
+    @<RadzenStack Orientation="Orientation.Vertical" Gap="0" class="rz-p-6" Style="color: var(--rz-tooltip-color);min-width: 250px; max-width: 500px;">
         <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
                 <strong>Paciente</strong>
@@ -157,7 +159,23 @@
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
-                <strong>Start</strong>
+                <strong>Tipo</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.TypeAppointmentId.GetDisplayDescription()
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Turno</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.TypeShiftId.GetDisplayDescription()
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Inicio</strong>
             </RadzenText>
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
                 @args.Data.StartDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
@@ -165,7 +183,7 @@
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
-                <strong>End</strong>
+                <strong>Fin</strong>
             </RadzenText>
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
                 @args.Data.EndDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
@@ -174,7 +192,7 @@
     </RadzenStack>, new TooltipOptions { Position = TooltipPosition.Bottom, Duration = null });
     }
 
-    void OnAppointmentMouseLeave(SchedulerAppointmentMouseEventArgs<Appointment> args)
+    void OnAppointmentMouseLeave(SchedulerAppointmentMouseEventArgs<AppointmentViewModel> args)
     {
         TooltipService.Close();
     }
