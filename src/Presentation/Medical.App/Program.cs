@@ -1,5 +1,6 @@
 using Medical.App.Components;
 using Medical.App.Extensions;
+using Medical.App.Middlewares;
 using Medical.App.Models;
 using Medical.App.Services;
 using Medical.Application;
@@ -7,7 +8,9 @@ using Medical.Application.Contracts.Identity;
 using Medical.Identity;
 using Medical.Persistence;
 using Medical.Persistence.Contexts;
+using Microsoft.AspNetCore.Localization;
 using Radzen;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +27,9 @@ builder.Services.AddControllers();
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-}); ;
+});
+builder.Services.AddLocalization();
+builder.Services.AddSingleton<ESLocalizationMiddleware>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRadzenComponents();
 
@@ -41,6 +46,14 @@ builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddServiceCollection();
 
 var app = builder.Build();
+
+var options = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(new CultureInfo("es-PE"))
+};
+app.UseRequestLocalization(options);
+app.UseMiddleware<ESLocalizationMiddleware>();
+app.UseMiddleware<ResponseSecurityHeadersMiddleware>();
 
 // Initialise and seed the database
 using (var scope = app.Services.CreateScope())

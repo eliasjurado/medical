@@ -2,7 +2,6 @@
 
 public enum TypeSexId
 {
-    None,
     Femenino,
     Masculino
 }

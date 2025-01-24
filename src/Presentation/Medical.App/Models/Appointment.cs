@@ -1,4 +1,6 @@
-﻿namespace Medical.App.Models
+﻿using Medical.Domain.Enums;
+
+namespace Medical.App.Models
 {
     public class Appointment
     {
@@ -6,6 +8,8 @@
         public DateTime EndDateTime { get; set; }
         public string PacientFullName { get; set; }
         public string TreatmentName { get; set; }
-        public string SpecialistFullName { get; set; }       
+        public string SpecialistFullName { get; set; }
+        public TypeShiftId? TypeShiftId { get; set; }
+        public TypeAppointmentId? TypeAppointmentId { get; set; }
     }
 }

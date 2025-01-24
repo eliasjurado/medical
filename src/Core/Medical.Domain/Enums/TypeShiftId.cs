@@ -1,9 +1,13 @@
-﻿namespace Medical.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Medical.Domain.Enums;
 
 public enum TypeShiftId
 {
-    None,
+    [Display(Description = "Dia")]
     Dia,
+    [Display(Description = "Tarde")]
     Tarde,
+    [Display(Description = "Noche")]
     Noche
 }

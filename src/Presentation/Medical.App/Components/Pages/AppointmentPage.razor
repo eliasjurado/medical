@@ -1,26 +1,19 @@
 ﻿@using Medical.App.Models
 @using Medical.App.Services.AppointmentService
 @inject DialogService DialogService
+@inject TooltipService TooltipService
 @inject IAppointmentService appointmentService
 @page "/citas"
 
 <h3>Citas</h3>
 
-@* <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" class="rz-p-4 rz-mb-6 rz-border-radius-1" Style="border: var(--rz-grid-cell-border);height:4rem;">
-    <RadzenLabel Text="Show Header:  " />
-    <RadzenSwitch @bind-Value=@showHeader />
-</RadzenStack> *@
-
-<RadzenScheduler @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
-TextProperty="PacientFullName" SelectedIndex="2"
-SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
-AppointmentMove=@OnAppointmentMove >
-    <RadzenDayView />
-    <RadzenWeekView />
-    <RadzenMonthView />
+<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="Appointment" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
+                 TextProperty="PacientFullName" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
+                 AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
+    <RadzenDayView Text="Día" TimeFormat="hh tt" />
+    <RadzenWeekView Text="Semana" />
+    <RadzenMonthView Text="Mes" />
 </RadzenScheduler>
-
-@* <EventConsole @ref=@console /> *@
 
 @code {
     RadzenScheduler<Appointment> scheduler;
@@ -30,31 +23,21 @@ AppointmentMove=@OnAppointmentMove >
     bool showHeader = true;
 
     IList<Appointment> appointments;
-    // = new List<Appointment>
-    // {
-    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-2), EndDateTime = DateTime.Today.AddDays(-2), PacientFullName = "Andrea Morales" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-11), EndDateTime = DateTime.Today.AddDays(-10), PacientFullName = "Rebeca Mansilla" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddDays(-10), EndDateTime = DateTime.Today.AddDays(-8), PacientFullName = "Gustavo Chavez Herrera" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddHours(10), EndDateTime = DateTime.Today.AddHours(12), PacientFullName = "Teresa Ofelia Tinoco Rojas" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddHours(10), EndDateTime = DateTime.Today.AddHours(13), PacientFullName = "Ruben Otárola Santos" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddHours(14), EndDateTime = DateTime.Today.AddHours(14).AddMinutes(30), PacientFullName = "Cristina Lopez Delgado" },
-    //     new Appointment { StartDateTime = DateTime.Today.AddDays(1), EndDateTime = DateTime.Today.AddDays(12), PacientFullName = "Raúl Jiménez Ochoa" },
-    // };
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
         await appointmentService.GetAppointments();
-        appointments = appointmentService.Appointments.Select(x=> 
-            new Appointment
-            {
-                StartDateTime=x.StartDateTime,
-                EndDateTime=x.EndDateTime,
-                PacientFullName=x.Pacient.FullName,
-                SpecialistFullName=x.Specialist.FullName,
-                TreatmentName=x.Treatment.Name
-            }).ToList();
+        appointments = appointmentService.Appointments.Select(x =>
+        new Appointment
+                {
+                    StartDateTime = x.StartDateTime,
+                    EndDateTime = x.EndDateTime,
+                    PacientFullName = x.Pacient.FullName,
+                    SpecialistFullName = x.Specialist.FullName,
+                    TreatmentName = x.Treatment.Name
+                }).ToList();
     }
 
     async void OnSlotRender(SchedulerSlotRenderEventArgs args)
@@ -79,7 +62,7 @@ AppointmentMove=@OnAppointmentMove >
         if (args.View.Text != "Year")
         {
             Appointment data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita",
-                new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+            new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
 
             if (data != null)
             {
@@ -92,16 +75,16 @@ AppointmentMove=@OnAppointmentMove >
 
     async Task OnAppointmentSelect(SchedulerAppointmentSelectEventArgs<Appointment> args)
     {
-        // console.Log($"AppointmentSelect: Appointment={args.Data.Text}");
-
         var copy = new Appointment
-        {
-            StartDateTime = args.Data.StartDateTime,
-            EndDateTime = args.Data.EndDateTime,
-            PacientFullName = args.Data.PacientFullName,            
-            TreatmentName = args.Data.TreatmentName,
-            SpecialistFullName = args.Data.SpecialistFullName
-        };
+                {
+                    StartDateTime = args.Data.StartDateTime,
+                    EndDateTime = args.Data.EndDateTime,
+                    PacientFullName = args.Data.PacientFullName,
+                    TreatmentName = args.Data.TreatmentName,
+                    SpecialistFullName = args.Data.SpecialistFullName,
+                    // TypeAppointmentId=args.Data.TypeAppointmentId,
+                    // TypeShiftId= args.Data.TypeShiftId
+                };
 
         var data = await DialogService.OpenAsync<AppointmentEdit>("Editar Cita", new Dictionary<string, object> { { "Appointment", copy } });
 
@@ -113,6 +96,8 @@ AppointmentMove=@OnAppointmentMove >
             args.Data.PacientFullName = data.PacientFullName;
             args.Data.TreatmentName = data.TreatmentName;
             args.Data.SpecialistFullName = data.SpecialistFullName;
+            // args.Data.TypeAppointmentId = data.TypeAppointmentId;
+            // args.Data.TypeShiftId = data.TypeShiftId;
         }
 
         await scheduler.Reload();
@@ -140,5 +125,57 @@ AppointmentMove=@OnAppointmentMove >
 
             await scheduler.Reload();
         }
+    }
+
+    void OnAppointmentMouseEnter(SchedulerAppointmentMouseEventArgs<Appointment> args)
+    {
+        TooltipService.Open(args.Element, ts =>
+    @<RadzenStack Orientation="Orientation.Vertical" Gap="0" class="rz-p-6" Style="min-width: 250px; max-width: 500px;">
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Paciente</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.PacientFullName
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Consultorio</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.TreatmentName
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Especialista</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.SpecialistFullName
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>Start</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.StartDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
+            </RadzenText>
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
+                <strong>End</strong>
+            </RadzenText>
+            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
+                @args.Data.EndDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
+            </RadzenText>
+        </RadzenStack>
+    </RadzenStack>, new TooltipOptions { Position = TooltipPosition.Bottom, Duration = null });
+    }
+
+    void OnAppointmentMouseLeave(SchedulerAppointmentMouseEventArgs<Appointment> args)
+    {
+        TooltipService.Close();
     }
 }

@@ -1,8 +1,11 @@
-﻿namespace Medical.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Medical.Domain.Enums;
 
 public enum TypeAppointmentId
 {
-    None,
+    [Display(Description = "Consulta")]
     Consulta,
+    [Display(Description = "Control")]
     Control
 }
