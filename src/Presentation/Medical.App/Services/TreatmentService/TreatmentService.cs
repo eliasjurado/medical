@@ -74,6 +74,17 @@ namespace Medical.App.Services.TreatmentService
             }
         }
 
+        public async Task<TreatmentDto?> GetTreatmentByName(string name)
+        {
+            var response = await _http.GetFromJsonAsync<ApiResponse<TreatmentDto>>($"{CategoryBaseURL}name?name={name}");
+
+            if (response != null && response.Success)
+            {
+                return response.Data!;
+            }
+            return null;
+        }
+
         public async Task UpdateTreatment(TreatmentDto treatment)
         {
             var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", treatment);

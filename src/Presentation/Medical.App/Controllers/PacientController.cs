@@ -3,6 +3,7 @@ using Medical.Application.Features.Pacient.Commands.AddPacient;
 using Medical.Application.Features.Pacient.Commands.DeletePacient;
 using Medical.Application.Features.Pacient.Commands.UpdatePacient;
 using Medical.Application.Features.Pacient.Queries.GetPacients;
+using Medical.Application.Features.Specialist.Queries.GetSpecialists;
 using Medical.Domain.Dto.Pacient;
 using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;
@@ -26,6 +27,13 @@ public class PacientController : ControllerBase
     public async Task<ActionResult<IResponse>> GetPacients()
     {
         var response = await _mediator.Send(new GetAllPacientQueryRequest());
+        return Ok(response);
+    }
+
+    [HttpGet("name")]
+    public async Task<ActionResult<IResponse>> GetPacientByFullName(string name)
+    {
+        var response = await _mediator.Send(new GetPacientByFullNameQueryRequest(name));
         return Ok(response);
     }
 

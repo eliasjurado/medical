@@ -1,4 +1,5 @@
 ﻿using Medical.Domain.Dto.Pacient;
+using Medical.Domain.Dto.Specialist;
 
 namespace Medical.App.Services.PacientService
 {
@@ -8,6 +9,7 @@ namespace Medical.App.Services.PacientService
         List<PacientDto> Pacients { get; set; }
         List<PacientDto> AdminPacients { get; set; }
         Task GetPacients();
+        Task<PacientDto?> GetPacientByFullName(string fullName);
         Task GetAdminPacients();
         Task AddPacient(PacientDto pacient);
         Task UpdatePacient(PacientDto pacient);

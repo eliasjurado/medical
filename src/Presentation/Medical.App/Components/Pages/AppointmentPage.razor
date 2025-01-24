@@ -1,5 +1,6 @@
 ﻿@using Medical.App.Models
 @using Medical.App.Services.AppointmentService
+@using Medical.Domain.Dto.Appointment
 @inject DialogService DialogService
 @inject TooltipService TooltipService
 @inject IAppointmentService appointmentService
@@ -8,8 +9,8 @@
 <h3>Citas</h3>
 
 <RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="AppointmentViewModel" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
-                 TextProperty="PacientFullName" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
-                 AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
+TextProperty="PacientFullName" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
+AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
     <RadzenDayView Text="Día" TimeFormat="hh tt" />
     <RadzenWeekView Text="Semana" />
     <RadzenMonthView Text="Mes" />
@@ -32,10 +33,14 @@
         appointments = appointmentService.Appointments.Select(x =>
         new AppointmentViewModel
         {
+            Id=x.Id,
             StartDateTime = x.StartDateTime,
             EndDateTime = x.EndDateTime,
+            PacientId = x.IdPacient,
             PacientFullName = x.Pacient.FullName,
+            SpecialistId=x.IdSpecialist,
             SpecialistFullName = x.Specialist.FullName,
+            TreatmentId = x.IdTreatment,
             TreatmentName = x.Treatment.Name,
             TypeAppointmentId = x.TypeAppointmentId,
             TypeShiftId = x.TypeShiftId
@@ -44,16 +49,24 @@
 
     async void OnSlotRender(SchedulerSlotRenderEventArgs args)
     {
+        var currentTimeSlotStyle = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+
         // Highlight today in month view
-        if (args.View.Text == "Month" && args.Start.Date == DateTime.Today)
+        if (args.View.Text == "Mes" && args.Start.Date == DateTime.Today)
         {
-            args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+            args.Attributes["style"] = currentTimeSlotStyle;
         }
 
-        // Highlight working hours (9-18)
-        if ((args.View.Text == "Week" || args.View.Text == "Day") && args.Start.Hour > 8 && args.Start.Hour < 19)
+        // Highlight week current day (9-18)
+        if (args.View.Text == "Semana" && args.Start.Date == DateTime.Today)
         {
-            args.Attributes["style"] = "background: var(--rz-scheduler-highlight-background-color, rgba(255,220,40,.2));";
+            args.Attributes["style"] = currentTimeSlotStyle;
+        }
+
+        // Highlight current hour (9-18)
+        if (args.View.Text == "Día" && args.Start.Date == DateTime.Today && args.Start.Hour == DateTime.Now.Hour)
+        {
+            args.Attributes["style"] = currentTimeSlotStyle;
         }
     }
 
@@ -63,11 +76,23 @@
 
         if (args.View.Text != "Year")
         {
-            AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita",
-    new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+            AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita", new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
 
             if (data != null)
-            {
+            {             
+                var appointment = new AppointmentDto
+                        {
+                            Id = data.Id,
+                            StartDateTime = data.StartDateTime,
+                            EndDateTime = data.EndDateTime,
+                            IdPacient = data.PacientId,
+                            IdSpecialist = data.SpecialistId,
+                            IdTreatment = data.TreatmentId,
+                            TypeAppointmentId = data.TypeAppointmentId.Value,
+                            TypeShiftId = data.TypeShiftId.Value
+                        };
+
+                await appointmentService.AddAppointment(appointment);
                 appointments.Add(data);
                 // Either call the Reload method or reassign the Data property of the Scheduler
                 await scheduler.Reload();
@@ -79,13 +104,17 @@
     {
         var copy = new AppointmentViewModel
                 {
+                    Id = args.Data.Id,
                     StartDateTime = args.Data.StartDateTime,
                     EndDateTime = args.Data.EndDateTime,
+                    PacientId = args.Data.PacientId,
                     PacientFullName = args.Data.PacientFullName,
+                    TreatmentId = args.Data.TreatmentId,
                     TreatmentName = args.Data.TreatmentName,
+                    SpecialistId = args.Data.SpecialistId,
                     SpecialistFullName = args.Data.SpecialistFullName,
-                    TypeAppointmentId=args.Data.TypeAppointmentId,
-                    TypeShiftId= args.Data.TypeShiftId
+                    TypeAppointmentId = args.Data.TypeAppointmentId,
+                    TypeShiftId = args.Data.TypeShiftId
                 };
 
         var data = await DialogService.OpenAsync<AppointmentEdit>("Editar Cita", new Dictionary<string, object> { { "Appointment", copy } });
@@ -95,11 +124,28 @@
             // Update the appointment
             args.Data.StartDateTime = data.StartDateTime;
             args.Data.EndDateTime = data.EndDateTime;
+            args.Data.PacientId = data.PacientId;
             args.Data.PacientFullName = data.PacientFullName;
+            args.Data.TreatmentId = data.TreatmentId;
             args.Data.TreatmentName = data.TreatmentName;
+            args.Data.SpecialistId = data.SpecialistId;
             args.Data.SpecialistFullName = data.SpecialistFullName;
             args.Data.TypeAppointmentId = data.TypeAppointmentId;
             args.Data.TypeShiftId = data.TypeShiftId;
+
+            var appointment = new AppointmentDto
+                {
+                    Id = args.Data.Id,
+                    StartDateTime = args.Data.StartDateTime,
+                    EndDateTime = args.Data.EndDateTime,
+                    IdPacient = args.Data.PacientId,
+                    IdSpecialist = args.Data.SpecialistId,
+                    IdTreatment = args.Data.TreatmentId,
+                    TypeAppointmentId = args.Data.TypeAppointmentId.Value,
+                    TypeShiftId = args.Data.TypeShiftId.Value
+                };
+
+            await appointmentService.UpdateAppointment(appointment);
         }
 
         await scheduler.Reload();
@@ -108,7 +154,6 @@
     void OnAppointmentRender(SchedulerAppointmentRenderEventArgs<AppointmentViewModel> args)
     {
         // Never call StateHasChanged in AppointmentRender - would lead to infinite loop
-
         if (args.Data.PacientFullName == "Birthday")
         {
             args.Attributes["style"] = "background: red";

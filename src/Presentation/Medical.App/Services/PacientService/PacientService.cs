@@ -1,5 +1,6 @@
 ﻿using Medical.Domain.Dto.Pacient;
 using Medical.Domain.Dto.Response.Concrete;
+using Medical.Domain.Dto.Specialist;
 
 namespace Medical.App.Services.PacientService
 {
@@ -74,6 +75,16 @@ namespace Medical.App.Services.PacientService
             }
         }
 
+        public async Task<PacientDto?> GetPacientByFullName(string fullName)
+        {
+            var response = await _http.GetFromJsonAsync<ApiResponse<PacientDto>>($"{PacientBaseURL}name?name={fullName}");
+
+            if (response != null && response.Success)
+            {
+                return response.Data!;
+            }
+            return null;
+        }
         public async Task UpdatePacient(PacientDto pacient)
         {
             var response = await _http.PutAsJsonAsync($"{PacientBaseURL}admin", pacient);

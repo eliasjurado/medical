@@ -1,4 +1,5 @@
-﻿using Medical.Domain.Dto.Treatment;
+﻿using Medical.Domain.Dto.Appointment;
+using Medical.Domain.Dto.Treatment;
 
 namespace Medical.App.Services.TreatmentService
 {
@@ -8,6 +9,7 @@ namespace Medical.App.Services.TreatmentService
         List<TreatmentDto> Treatments { get; set; }
         List<TreatmentDto> AdminTreatments { get; set; }
         Task GetTreatments();
+        Task<TreatmentDto?> GetTreatmentByName(string name);
         Task GetAdminTreatments();
         Task AddTreatment(TreatmentDto treatment);
         Task UpdateTreatment(TreatmentDto treatment);

@@ -29,6 +29,13 @@ public class TreatmentController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("name")]
+    public async Task<ActionResult<IResponse>> GetTreatmentByName(string name)
+    {
+        var response = await _mediator.Send(new GetTreatmentByNameQueryRequest(name));
+        return Ok(response);
+    }
+
     [HttpGet("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> GetAdminTreatments()
     {
