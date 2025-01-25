@@ -93,14 +93,18 @@
         specialists = specialistService.Specialists;
     }
 
-    protected override void OnParametersSet()
+    protected async override void OnParametersSet()
     {
         model.StartDateTime = Start;
         model.EndDateTime = End;
+       
     }
 
-    void OnSubmit(AppointmentViewModel model)
+    async void OnSubmit(AppointmentViewModel model)
     {
+        model.PacientId = (await pacientService.GetPacientByFullName(model.PacientFullName)).Id;
+        model.TreatmentId = (await treatmentService.GetTreatmentByName(model.TreatmentName)).Id;
+        model.SpecialistId = (await specialistService.GetSpecialistByFullName(model.SpecialistFullName)).Id;
         DialogService.Close(model);
     }
 

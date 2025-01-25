@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Medical.App.Components;
 using Medical.App.Extensions;
 using Medical.App.Middlewares;
@@ -11,6 +12,7 @@ using Medical.Persistence.Contexts;
 using Microsoft.AspNetCore.Localization;
 using Radzen;
 using System.Globalization;
+using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +30,9 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
+builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddLocalization();
+builder.Services.AddHttpClientInterceptor();
 builder.Services.AddSingleton<ESLocalizationMiddleware>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRadzenComponents();
@@ -44,6 +48,13 @@ builder.Services.AddApplicationServices();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddServiceCollection();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("all", builder => builder.AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod());
+});
 
 var app = builder.Build();
 
@@ -92,4 +103,6 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
    .AddInteractiveServerRenderMode();
 
-app.Run();
+app.UseCors("all");
+
+await app.RunAsync();

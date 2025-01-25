@@ -5,6 +5,9 @@ using Medical.App.Services.SpecialistService;
 using Medical.App.Services;
 using Medical.App.Services.TreatmentService;
 using Medical.Application.Contracts.Identity;
+using Microsoft.AspNetCore.Components.Authorization;
+using Medical.App.Services.AuthService;
+using Medical.App.Services.UserService;
 
 namespace Medical.App.Extensions
 {
@@ -19,6 +22,14 @@ namespace Medical.App.Extensions
             services.AddScoped<IAppointmentService, AppointmentService>();
 
             services.AddScoped<ICurrentUser, CurrentUser>();
+            services.AddScoped<Services.AuthService.IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<HttpInterceptorService>();
+            services.AddScoped<RefreshTokenService>();
+            
+            services.AddOptions();
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 
             return services;
         }

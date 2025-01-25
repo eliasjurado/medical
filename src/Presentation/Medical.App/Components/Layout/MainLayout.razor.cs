@@ -38,5 +38,7 @@ namespace Medical.App.Components.Layout
         {
             sidebarExpanded = !sidebarExpanded;
         }
+
+        private async Task Login() => await Task.Run(() => NavigationManager!.NavigateTo("/login"));
     }
 }

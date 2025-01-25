@@ -6,18 +6,31 @@
     <RadzenHeader>
         <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
             <RadzenColumn Size="5">
-
-
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" class="rz-py-2" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
                     <RadzenSidebarToggle Click="@SidebarToggleClick"></RadzenSidebarToggle>
                     <RadzenImage Path="images/logo.png" style="width: 40px" class="rz-mr-4 rz-border-radius-2" AlternateText="Application logo"></RadzenImage>
                     <RadzenText Text="Thaniwasi" TextStyle="Radzen.Blazor.TextStyle.DisplayH5" class="rz-mb-0" style="color: var(--rz-sidebar-toggle-color);" />
                 </RadzenStack>
-
             </RadzenColumn>
             <RadzenColumn Size="7">
                 <RadzenStack AlignItems="AlignItems.Center" Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem" class="rz-px-2">
-                    <RadzenLink Text=" Ingresar" class="rz-w-fit-content" Path="https://forum.radzen.com/c/radzen-blazor-studio/12" Icon="lock" Target="_blank" Style="font-size: 18px; color: var(--rz-sidebar-toggle-color);"></RadzenLink>
+
+                    <AuthorizeView>
+                        <Authorized>
+                            <RadzenMenu>
+                                <RadzenMenuItem Text="@context.User.Identity?.Name" Style="font-size: 18px; color: var(--rz-sidebar-toggle-color);">
+                                    <RadzenMenuItem Text="Perfil" Icon="person"></RadzenMenuItem>
+                                    <RadzenMenuItem Text="Configuración" Icon="settings"></RadzenMenuItem>
+                                    <RadzenMenuItem Text="Cerrar Sesión" Icon="power_settings_new" Path="/logout"></RadzenMenuItem>
+                                </RadzenMenuItem>
+                            </RadzenMenu>
+                        </Authorized>
+                        <NotAuthorized>
+                            <RadzenLink Text=" Ingresar" class="rz-w-fit-content" Path="/login" Icon="lock_open" Target="_self" Style="font-size: 18px; color: var(--rz-sidebar-toggle-color);" />
+                        </NotAuthorized>
+                    </AuthorizeView>
+
+
                     <RadzenAppearanceToggle />
                 </RadzenStack>
             </RadzenColumn>
