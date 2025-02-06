@@ -5,7 +5,7 @@ namespace Medical.Domain.Enums;
 public enum TypeAppointmentId
 {
     [Display(Description = "Consulta")]
-    Consulta,
+    Consult,
     [Display(Description = "Control")]
     Control
 }

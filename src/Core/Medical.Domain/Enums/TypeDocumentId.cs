@@ -10,5 +10,5 @@ public enum TypeDocumentId
     [Display(Description = "CE")]
     CE,
     [Display(Description = "Pasaporte")]
-    Pasaporte
+    Passport
 }
