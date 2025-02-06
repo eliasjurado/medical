@@ -53,7 +53,7 @@ public class AppointmentController : ControllerBase
         return Ok(response);
     }
 
-    [HttpPost("admin")]//, Authorize(Roles = "Administrador")]
+    [HttpPost("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> AddAppointment(AppointmentDto appointment)
     {
         await _mediator.Send(new AddAppointmentCommandRequest(appointment));

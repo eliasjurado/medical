@@ -1,12 +1,13 @@
 ﻿using Blazored.LocalStorage;
+using Medical.App.Services;
+using Medical.App.Services.AuthService;
 using Medical.Domain.Dto.Auth;
 using Medical.Domain.Dto.Response.Concrete;
 using Medical.Domain.Dto.User;
-using Medical.App.Services;
-using Medical.App.Services.AuthService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
+using Radzen;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -20,7 +21,11 @@ namespace Medical.App.Components.Pages
         public AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
         [Inject]
+        public NotificationService NotificationService { get; set; }
+
+        [Inject]
         public NavigationManager? NavigationManager { get; set; }
+
         [Inject]
         public ILocalStorageService? LocalStorage { get; set; }
 
@@ -53,8 +58,10 @@ namespace Medical.App.Components.Pages
             currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
         }
 
-        private async Task HandleLogin()
+        private async Task HandleLogin(LoginArgs args)
         {
+            user.Email = args.Username;
+            user.Password = args.Password;
             var result = await AuthService!.Login(user);
             response = result;
             if (result != null)
@@ -71,6 +78,14 @@ namespace Medical.App.Components.Pages
                 else
                 {
                     errorMessage = result.Messages.FirstOrDefault()!;
+                    var message = new NotificationMessage
+                    {
+                        Severity = NotificationSeverity.Error,
+                        Summary = Resource.Constants.LOGIN_FORM_TITLE,
+                        Detail = errorMessage ?? Resource.Constants.LOGIN_FORM_ERROR,
+                        Duration = 4000
+                    };
+                    NotificationService.Notify(message);
                 }
             }
         }

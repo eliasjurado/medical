@@ -1,9 +1,7 @@
-﻿@using Medical.App.Models
-@using Medical.App.Services.AppointmentService
-@using Medical.Domain.Dto.Appointment
-@inject DialogService DialogService
+﻿@inject DialogService DialogService
 @inject TooltipService TooltipService
 @inject IAppointmentService appointmentService
+@inject HttpInterceptorService Interceptor
 @page "/citas"
 
 <h3>Citas</h3>
@@ -29,8 +27,10 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
     {
         await base.OnInitializedAsync();
 
-        await appointmentService.GetAppointments();
-        appointments = appointmentService.Appointments.Select(x =>
+        Interceptor.RegisterEvent();       
+        await appointmentService.GetAdminAppointments();
+        appointmentService.OnChange += StateHasChanged;
+        appointments = appointmentService.AdminAppointments.Select(x =>
         new AppointmentViewModel
         {
             Id=x.Id,
@@ -45,6 +45,12 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
             TypeAppointmentId = x.TypeAppointmentId,
             TypeShiftId = x.TypeShiftId
         }).ToList();
+    }
+
+    public void Dispose()
+    {
+        Interceptor.DisposeEvent();
+        appointmentService.OnChange -= StateHasChanged;
     }
 
     async void OnSlotRender(SchedulerSlotRenderEventArgs args)

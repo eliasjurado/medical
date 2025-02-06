@@ -29,6 +29,7 @@ namespace Medical.App.Services.PacientService
                 AdminPacients = result.Data!;
 
                 await GetPacients();
+                OnChange!.Invoke();
             }
         }
 
@@ -52,6 +53,7 @@ namespace Medical.App.Services.PacientService
                 AdminPacients = result.Data!;
 
                 await GetPacients();
+                OnChange!.Invoke();
             }
         }
 
@@ -96,6 +98,7 @@ namespace Medical.App.Services.PacientService
                 AdminPacients = result.Data!;
 
                 await GetPacients();
+                OnChange!.Invoke();
             }
         }
     }

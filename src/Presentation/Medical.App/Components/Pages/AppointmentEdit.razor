@@ -1,11 +1,4 @@
-﻿@using Medical.App.Models
-@using Medical.App.Services.PacientService
-@using Medical.App.Services.SpecialistService
-@using Medical.App.Services.TreatmentService
-@using Medical.Domain.Dto.Pacient
-@using Medical.Domain.Dto.Specialist
-@using Medical.Domain.Dto.Treatment
-@using Medical.Domain.Enums
+﻿@inject HttpInterceptorService Interceptor
 @inject DialogService DialogService
 @inject IPacientService pacientService
 @inject ITreatmentService treatmentService
@@ -20,7 +13,7 @@
             <RadzenRequiredValidator Component="Paciente" Text="Paciente is required" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-            <RadzenLabel Text="Consultorio" Style="width: 6rem;" />
+            <RadzenLabel Text="Servicio" Style="width: 6rem;" />
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
             Data=@treatments TextProperty="@nameof(TreatmentDto.Name)" ValueProperty="@nameof(TreatmentDto.Name)" AllowClear="true" @bind-Value=@model.TreatmentName Style="width: 20rem" Name="Consultorio" />
             <RadzenRequiredValidator Component="Consultorio" Text="Consultorio is required" />
@@ -46,15 +39,15 @@
             <RadzenRequiredValidator Component="TypeShift" Text="Turno is required" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-            <RadzenLabel Text="Inicio" Style="width: 6rem;" />
+            <RadzenLabel Text="Cita" Style="width: 6rem;" />
             <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
             <RadzenRequiredValidator Component="StartDateTime" Text="Inicio is required" />
         </RadzenStack>
-        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+        @* <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Fin" Style="width: 6rem;" />
             <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
             <RadzenRequiredValidator Component="EndDateTime" Text="Fin is required" />
-        </RadzenStack>
+        </RadzenStack> *@
         <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
             <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
         </RadzenStack>
@@ -76,6 +69,7 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
 
         await pacientService.GetPacients();
         pacients = pacientService.Pacients;
@@ -85,6 +79,11 @@
 
         await specialistService.GetSpecialists();
         specialists = specialistService.Specialists;
+    }
+
+    public void Dispose()
+    {
+        Interceptor.DisposeEvent();
     }
 
     protected async override void OnParametersSet()

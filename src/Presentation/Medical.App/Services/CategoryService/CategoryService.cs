@@ -27,7 +27,8 @@ namespace Medical.App.Services.CategoryService
             {
                 AdminCategories = result.Data!;
 
-                await GetCategories();
+                await GetCategories(); 
+                OnChange?.Invoke();
             }
         }
 
@@ -51,6 +52,7 @@ namespace Medical.App.Services.CategoryService
                 AdminCategories = result.Data!;
 
                 await GetCategories();
+                OnChange?.Invoke();
             }
         }
 
@@ -85,6 +87,7 @@ namespace Medical.App.Services.CategoryService
                 AdminCategories = result.Data!;
 
                 await GetCategories();
+                OnChange?.Invoke();
             }
         }
     }

@@ -30,6 +30,7 @@ namespace Medical.App.Services.AppointmentService
                 AdminAppointments = result.Data!;
 
                 await GetAppointments();
+                OnChange!.Invoke();
             }
         }
 
@@ -53,7 +54,8 @@ namespace Medical.App.Services.AppointmentService
                 AdminAppointments = result.Data!;
 
                 await GetAppointments();
-            }
+                OnChange!.Invoke();
+            }            
         }
 
         public async Task GetAdminAppointments()
@@ -86,6 +88,7 @@ namespace Medical.App.Services.AppointmentService
                 AdminAppointments = result.Data!;
 
                 await GetAppointments();
+                OnChange!.Invoke();
             }
         }
     }
