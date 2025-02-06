@@ -1,6 +1,7 @@
 ﻿using Medical.App.CustomExceptions;
 using Medical.App.Services.AuthService;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System.Net;
 using System.Net.Http.Headers;
 using Toolbelt.Blazor;
@@ -30,18 +31,25 @@ public class HttpInterceptorService
 
     public async Task InterceptBeforeHttpAsync(object sender, HttpClientInterceptorEventArgs e)
     {
-        var absPath = e.Request.RequestUri!.AbsolutePath;
-
-        var isUserAuthenticated = await _authService.IsUserAuthenticated();
-
-        if (!absPath.Contains("auth") && isUserAuthenticated)
+        try
         {
-            var token = await _refreshTokenService.TryRefreshToken();
+            var absPath = e.Request.RequestUri!.AbsolutePath;
 
-            if (!string.IsNullOrEmpty(token))
+            var isUserAuthenticated = await _authService.IsUserAuthenticated();
+
+            if (!absPath.Contains("auth") && isUserAuthenticated)
             {
-                e.Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
+                var token = await _refreshTokenService.TryRefreshToken();
+
+                if (!string.IsNullOrEmpty(token))
+                {
+                    e.Request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
+                }
             }
+        }
+        catch (JSDisconnectedException ex)
+        {
+            //Ignore
         }
     }
 
@@ -49,7 +57,7 @@ public class HttpInterceptorService
     {
         string message = string.Empty;
 
-        if (!e.Response.IsSuccessStatusCode)
+        if (e.Response is not null && !e.Response.IsSuccessStatusCode)
         {
             var statusCode = e.Response.StatusCode;
 
