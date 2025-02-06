@@ -46,15 +46,21 @@
     <RadzenSidebar @bind-Expanded="@sidebarExpanded" style="z-index: 2; width: 200px">
         <RadzenPanelMenu>
             <RadzenPanelMenuItem Text="Home" Path="" />
-            <RadzenPanelMenuItem Text="Pacientes" Icon="person">
-                <RadzenPanelMenuItem Text="Citas" Path="/citas" />
-                <RadzenPanelMenuItem Text="Paciente" Path="/paciente" />
-            </RadzenPanelMenuItem>
-            <RadzenPanelMenuItem Text="Sistema" Icon="settings">
-                <RadzenPanelMenuItem Text="Categoría" Path="/categoria" />
-                <RadzenPanelMenuItem Text="Consultorio" Path="/consultorio" />
-                <RadzenPanelMenuItem Text="Especialista" Path="/especialista" />
-            </RadzenPanelMenuItem>
+            <AuthorizeView>
+                <Authorized>
+                    <RadzenPanelMenuItem Text="Pacientes" Icon="person">
+                        <RadzenPanelMenuItem Text="Citas" Path="/citas" />
+                        <RadzenPanelMenuItem Text="Paciente" Path="/paciente" />
+                    </RadzenPanelMenuItem>
+                    <RadzenPanelMenuItem Text="Sistema" Icon="settings">
+                        <RadzenPanelMenuItem Text="Categoría" Path="/categoria" />
+                        <RadzenPanelMenuItem Text="Servicio" Path="/servicio" />
+                        <RadzenPanelMenuItem Text="Especialista" Path="/especialista" />
+                    </RadzenPanelMenuItem>
+                </Authorized>
+                <NotAuthorized>
+                </NotAuthorized>
+            </AuthorizeView>           
         </RadzenPanelMenu>
         <RadzenStack AlignItems="Radzen.AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
             <RadzenText Text="Thaniwasi v1.0.0" TextStyle="Radzen.Blazor.TextStyle.Caption" Style="color:lightgrey" TagName="Radzen.Blazor.TagName.P" TextAlign="Radzen.TextAlign.Center" />
