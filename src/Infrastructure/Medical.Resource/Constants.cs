@@ -39,6 +39,7 @@
         public static string LOGIN_FORM_EMAIL_PLACEHOLDER = "Por favor ingrese su correo electrónico";
         public static string LOGIN_FORM_PASSWORD_PLACEHOLDER = "Por favor ingrese su correo contraseña";
         public static string LOGIN_FORM_SUBMIT = "Ingresar";
+        public static string LOGIN_FORM_ERROR = "Usuario o contraseña inválidos";
         public static string LOGIN_FORM_FORGOT_PASSWORD = "Olvidé mi contraseña";
         public static string LOGIN_FORM_REGISTER = "Registrarse";
 

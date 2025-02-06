@@ -14,7 +14,7 @@
         public static string NoDataFound => "No Data found";
         public static string IssueWithData => "There is some issue with the data";
         public static string CheckCredentials => "Please check login credentials";
-        public static string UserNameOrPasswordIsIncorrect => "Username or password is incorrect";
+        public static string UserNameOrPasswordIsIncorrect => "Usuario o contraseña incorrectos";
         public static string ConfirmYourEmail => "Please confirm your email";
         public static string PasswordDontMatchWithConfirmation => "Password doesn't match its confirmation";
         public static string RegisterSuccessfully => "Register successfuly please look at your mail box for account confirmation.";
