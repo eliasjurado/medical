@@ -6,11 +6,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="@NavigationManager.BaseUri" />
+    <HeadOutlet @rendermode="new InteractiveServerRenderMode(prerender: false)" />
     <RadzenTheme @rendermode="@InteractiveServer" Theme="material" />
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="_content/Radzen.Blazor/css/material-wcag.css"> <!-- Load WCAG 2.2 AA compliant colors -->
-    <link rel="icon" href="favicon.ico" />
-    <HeadOutlet @rendermode="new InteractiveServerRenderMode(prerender: false)" />
+    <link rel="icon" href="favicon.ico" />    
 </head>
 
 <body>
