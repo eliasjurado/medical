@@ -7,12 +7,13 @@ public class SpecialistDto
     public int Id { get; set; }
     public TypeDocumentId? TypeDocumentId { get; set; }
     public string NumDocument { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
+    public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string FullName { get; set; } = string.Empty;
     public string SpecialtyName { get; set; } = string.Empty;
     public string CollegeName { get; set; } = string.Empty;
-    public string CollegeId { get; set; } = string.Empty;
+    public string CollegeCode { get; set; } = string.Empty;
+    public string RneCode { get; set; } = string.Empty;
     public TypeSexId? TypeSexId { get; set; }
     public DateTime Birthdate { get; set; } = DateTime.MinValue;
     public string Address { get; set; } = string.Empty;
