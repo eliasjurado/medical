@@ -3,7 +3,6 @@ using Medical.Application.Features.Pacient.Commands.AddPacient;
 using Medical.Application.Features.Pacient.Commands.DeletePacient;
 using Medical.Application.Features.Pacient.Commands.UpdatePacient;
 using Medical.Application.Features.Pacient.Queries.GetPacients;
-using Medical.Application.Features.Specialist.Queries.GetSpecialists;
 using Medical.Domain.Dto.Pacient;
 using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;

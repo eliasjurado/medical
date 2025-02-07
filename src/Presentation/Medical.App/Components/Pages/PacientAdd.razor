@@ -9,7 +9,7 @@
                 <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeDocumentId)).Cast<Enum>())" @bind-Value=@model.TypeDocumentId
                                 AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeDocumentId">
                 </RadzenDropDown>
-                <RadzenRequiredValidator Component="TypeShift" Text="Turno is required" />
+                <RadzenRequiredValidator Component="TypeDocumentId" Text="Tipo Documento is required" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="N° Documento" Style="width: 6rem;" />
@@ -53,16 +53,6 @@
 
 @code {
     PacientDto model = new PacientDto();
-
-    protected override async Task OnInitializedAsync()
-    {
-        Interceptor.RegisterEvent();
-    }
-
-    public void Dispose()
-    {
-        Interceptor.DisposeEvent();
-    }
 
     async void OnSubmit(PacientDto model)
     {

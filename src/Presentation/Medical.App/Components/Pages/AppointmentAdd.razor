@@ -41,7 +41,7 @@
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Cita" Style="width: 6rem;" />
-                <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
+                <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 15rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
                 <RadzenRequiredValidator Component="StartDateTime" Text="Inicio is required" />
             </RadzenStack>
            @*  <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
@@ -75,7 +75,6 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        Interceptor.RegisterEvent();
 
         await pacientService.GetPacients();
         pacients = pacientService.Pacients;
@@ -85,11 +84,6 @@
 
         await specialistService.GetSpecialists();
         specialists = specialistService.Specialists;
-    }
-
-    public void Dispose()
-    {
-        Interceptor.DisposeEvent();
     }
 
     protected async override void OnParametersSet()

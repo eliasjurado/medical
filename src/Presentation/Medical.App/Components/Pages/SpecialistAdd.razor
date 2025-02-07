@@ -9,7 +9,7 @@
                 <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeDocumentId)).Cast<Enum>())" @bind-Value=@model.TypeDocumentId
                                 AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeDocumentId">
                 </RadzenDropDown>
-                <RadzenRequiredValidator Component="TypeShift" Text="Turno is required" />
+                <RadzenRequiredValidator Component="TypeDocumentId" Text="Tipo Documento is required" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="N° Documento" Style="width: 6rem;" />
@@ -20,6 +20,23 @@
                 <RadzenLabel Text="Nombres y Apellidos" Style="width: 6rem;" />
                 <RadzenTextBox @bind-Value=@model.FullName Name="FullName" Style="width: 20rem" />
                 <RadzenRequiredValidator Component="FullName" Text="Nombres y Apellidos is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Especialidad" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.SpecialtyName Name="SpecialtyName" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="SpecialtyName" Text="Especialidad is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Colegio Profesional" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.CollegeName Name="CollegeName" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° Colegiatura" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.CollegeCode Name="CollegeCode" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° RNE" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.RneCode Name="RneCode" Style="width: 20rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Sexo" Style="width: 6rem;" />
@@ -53,16 +70,6 @@
 
 @code {
     SpecialistDto model = new SpecialistDto();
-
-    protected override async Task OnInitializedAsync()
-    {
-        Interceptor.RegisterEvent();
-    }
-
-    public void Dispose()
-    {
-        Interceptor.DisposeEvent();
-    }
 
     async void OnSubmit(SpecialistDto model)
     {

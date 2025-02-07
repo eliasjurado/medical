@@ -9,13 +9,17 @@
     <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Especialista" Click=@AddRow />
 </RadzenStack>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
-                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems >
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres Completos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="Código" Frozen="true" Width="50px" TextAlign="TextAlign.Center">
+            <Template Context="model">
+                @model.Id.ToString().PadLeft(6, '0')
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres y Apellidos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.SpecialtyName)" Title="Especialidad" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeName)" Title="N° Colegiatura" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeId)" Title="N° RNE" Frozen="true" Width="90px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeCode)" Title="N° Colegiatura" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.RneCode)" Title="N° RNE" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">
                 <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
@@ -53,7 +57,7 @@
         if (data != null)
         {
             await specialistService.AddSpecialist(data);
-            selectedItems.Add(data);
+            items = specialistService.AdminSpecialists.AsQueryable();
         }
     }
 
@@ -68,13 +72,11 @@
 
     async Task DeleteRow(SpecialistDto model)
     {
-        Interceptor.RegisterEvent();
         var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el especialista {model.FullName}?", "Eliminar Especialista", new ConfirmOptions() { OkButtonText = "Sí", CancelButtonText = "No" });
 
         if (isDeleted.Value)
         {
             await specialistService.DeleteSpecialist(model.Id);
-            specialistService.OnChange += StateHasChanged;
             items = specialistService.AdminSpecialists.AsQueryable();
         }
     }

@@ -1,5 +1,86 @@
-﻿<h3>SpecialistEdit</h3>
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="SpecialistDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+    <RadzenColumn Size="12" SizeMD="6">
+        <RadzenStack Gap="1rem">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Tipo Documento" Style="width: 6rem;" />
+                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeDocumentId)).Cast<Enum>())" @bind-Value=@model.TypeDocumentId
+                                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeDocumentId">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="TypeDocumentId" Text="Tipo Documento is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° Documento" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.NumDocument Name="Documento" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="Documento" Text="N° Documento is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Nombres y Apellidos" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.FullName Name="FullName" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="FullName" Text="Nombres y Apellidos is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Especialidad" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.SpecialtyName Name="SpecialtyName" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="SpecialtyName" Text="Especialidad is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Colegio Profesional" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.CollegeName Name="CollegeName" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° Colegiatura" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.CollegeCode Name="CollegeCode" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° RNE" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.RneCode Name="RneCode" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Sexo" Style="width: 6rem;" />
+                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSexId)).Cast<Enum>())" @bind-Value=@model.TypeSexId
+                                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSexId">
+                </RadzenDropDown>
+                <RadzenRequiredValidator Component="TypeSexId" Text="Sexo is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="FecNac" Style="width: 6rem;" />
+                <RadzenDatePicker Name="Birthdate" @bind-Value="@model.Birthdate" ShowTime="false" Style="width: 12rem;" DateFormat="dd/MM/yyyy" />
+                <RadzenRequiredValidator Component="Birthdate" Text="FecNac is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Dirección" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.Address Name="Address" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="Address" Text="Dirección is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Teléfono" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.Phone Name="Phone" Style="width: 20rem" />
+                <RadzenRequiredValidator Component="Phone" Text="Teléfono is required" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenColumn>
+
+</RadzenTemplateForm>
 
 @code {
+    [Parameter]
+    public SpecialistDto Param { get; set; }
 
+    SpecialistDto model = new SpecialistDto();
+
+    async void OnSubmit(SpecialistDto model)
+    {
+        DialogService.Close(model);
+    }
+
+    protected async override void OnParametersSet()
+    {
+        model = Param;
+    }
 }

@@ -226,18 +226,10 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
-                <strong>Inicio</strong>
+                <strong>Cita</strong>
             </RadzenText>
             <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
-                @args.Data.StartDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
-            </RadzenText>
-        </RadzenStack>
-        <RadzenStack Orientation="Orientation.Horizontal" Gap="4px">
-            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color); width: 90px;">
-                <strong>Fin</strong>
-            </RadzenText>
-            <RadzenText TextStyle="TextStyle.Body2" Style="color: var(--rz-tooltip-color);">
-                @args.Data.EndDateTime.ToString("hh:mm ⋅ dddd, MMMM d")
+                @args.Data.StartDateTime.ToString("h:mm tt⋅ dddd, MMMM d")
             </RadzenText>
         </RadzenStack>
     </RadzenStack>, new TooltipOptions { Position = TooltipPosition.Bottom, Duration = null });
