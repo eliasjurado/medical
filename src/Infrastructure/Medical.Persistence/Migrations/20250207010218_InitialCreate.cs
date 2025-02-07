@@ -41,8 +41,9 @@ namespace Medical.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TypeDocumentId = table.Column<int>(type: "int", nullable: false),
                     NumDocument = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeSexId = table.Column<int>(type: "int", nullable: false),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -67,11 +68,13 @@ namespace Medical.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TypeDocumentId = table.Column<int>(type: "int", nullable: false),
                     NumDocument = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SpecialtyName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CollegeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CollegeId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CollegeCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RneCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TypeSexId = table.Column<int>(type: "int", nullable: false),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -205,8 +208,8 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedUtc", "IsActive", "IsDeleted", "LastModifiedBy", "LastModifiedUtc", "Name", "Url" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2025, 1, 9, 20, 15, 41, 799, DateTimeKind.Utc).AddTicks(7733), true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bienes", "bienes" },
-                    { 2, null, new DateTime(2025, 1, 9, 20, 15, 41, 799, DateTimeKind.Utc).AddTicks(7738), true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Servicios", "servicios" }
+                    { 1, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(167), true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bienes", "bienes" },
+                    { 2, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(175), true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Servicios", "servicios" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,47 +217,47 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "CreatedUtc", "DurationMinutes", "IsActive", "IsDeleted", "LastModifiedBy", "LastModifiedUtc", "Name" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(920), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ácido Hialurónico" },
-                    { 2, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(923), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Acupuntura" },
-                    { 3, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(925), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Autohemoterapia Mayor" },
-                    { 4, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(926), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Autohemoterapia Menor" },
-                    { 5, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(927), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biodescodificación" },
-                    { 6, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(928), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biomagnetismo" },
-                    { 7, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(929), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Botox" },
-                    { 8, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(930), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta De Fitomedicina" },
-                    { 9, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(930), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Estética" },
-                    { 10, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(931), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Homeopática" },
-                    { 11, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(932), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Traumatología" },
-                    { 12, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(933), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Via Online" },
-                    { 13, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(934), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Control De Continuador" },
-                    { 14, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(935), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Control Prenatal" },
-                    { 15, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(936), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Digitupuntura" },
-                    { 16, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(936), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Drenaje Linfático" },
-                    { 17, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(937), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecografía" },
-                    { 18, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(938), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Electroestimulación Muscular" },
-                    { 19, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(939), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gineco-Obstetricia" },
-                    { 20, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(940), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hilos Tensores" },
-                    { 21, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(941), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Laboratorio Clínico" },
-                    { 22, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(942), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lavado Y Ozonoterapia Vaginal" },
-                    { 23, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(942), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Limpieza Facial Profunda" },
-                    { 24, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(943), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lipotransferencia" },
-                    { 25, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(944), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Magnetoterapia" },
-                    { 26, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(945), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Descontracturante" },
-                    { 27, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(946), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Reductor" },
-                    { 28, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(947), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Relajante" },
-                    { 29, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(948), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ozonoterapia Rectal" },
-                    { 30, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(949), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papanicolau" },
-                    { 31, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(950), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peeling Químico" },
-                    { 32, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(951), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peptonas" },
-                    { 33, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(951), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plasma Rico En Plaquetas" },
-                    { 34, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(952), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Podología" },
-                    { 35, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(953), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Quiropraxia" },
-                    { 36, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(954), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radiofrecuencia" },
-                    { 37, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(955), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Suero Ozonizado" },
-                    { 38, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(956), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia De Vitaminas" },
-                    { 39, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(957), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia Física Y Rehabilitación" },
-                    { 40, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(957), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia Neural" },
-                    { 41, null, new DateTime(2025, 1, 9, 20, 15, 41, 800, DateTimeKind.Utc).AddTicks(958), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ultrasonido" }
+                    { 1, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3668), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ácido Hialurónico" },
+                    { 2, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3672), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Acupuntura" },
+                    { 3, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3673), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Autohemoterapia Mayor" },
+                    { 4, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3674), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Autohemoterapia Menor" },
+                    { 5, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3676), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biodescodificación" },
+                    { 6, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3677), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biomagnetismo" },
+                    { 7, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3678), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Botox" },
+                    { 8, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3679), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta De Fitomedicina" },
+                    { 9, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3680), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Estética" },
+                    { 10, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3681), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Homeopática" },
+                    { 11, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3682), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Traumatología" },
+                    { 12, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3684), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Consulta Via Online" },
+                    { 13, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3685), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Control De Continuador" },
+                    { 14, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3686), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Control Prenatal" },
+                    { 15, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3687), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Digitupuntura" },
+                    { 16, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3688), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Drenaje Linfático" },
+                    { 17, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3689), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ecografía" },
+                    { 18, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3690), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Electroestimulación Muscular" },
+                    { 19, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3691), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gineco-Obstetricia" },
+                    { 20, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3692), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hilos Tensores" },
+                    { 21, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3693), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Laboratorio Clínico" },
+                    { 22, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3694), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lavado Y Ozonoterapia Vaginal" },
+                    { 23, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3695), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Limpieza Facial Profunda" },
+                    { 24, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3696), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Lipotransferencia" },
+                    { 25, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3697), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Magnetoterapia" },
+                    { 26, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3698), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Descontracturante" },
+                    { 27, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3699), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Reductor" },
+                    { 28, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3700), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Masaje Relajante" },
+                    { 29, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3701), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ozonoterapia Rectal" },
+                    { 30, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3702), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Papanicolau" },
+                    { 31, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3764), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peeling Químico" },
+                    { 32, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3766), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Peptonas" },
+                    { 33, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3767), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Plasma Rico En Plaquetas" },
+                    { 34, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3768), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Podología" },
+                    { 35, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3769), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Quiropraxia" },
+                    { 36, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3770), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Radiofrecuencia" },
+                    { 37, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3771), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Suero Ozonizado" },
+                    { 38, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3772), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia De Vitaminas" },
+                    { 39, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3773), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia Física Y Rehabilitación" },
+                    { 40, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3774), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terapia Neural" },
+                    { 41, null, new DateTime(2025, 2, 7, 1, 2, 17, 490, DateTimeKind.Utc).AddTicks(3775), 30, true, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ultrasonido" }
                 });
 
             migrationBuilder.InsertData(
@@ -262,9 +265,8 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "TypeAppointmentId", "Name" },
                 values: new object[,]
                 {
-                    { 0, "None" },
-                    { 1, "Consulta" },
-                    { 2, "Control" }
+                    { 0, "Consult" },
+                    { 1, "Control" }
                 });
 
             migrationBuilder.InsertData(
@@ -272,11 +274,10 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "TypeDocumentId", "Name" },
                 values: new object[,]
                 {
-                    { 0, "None" },
-                    { 1, "DNI" },
-                    { 2, "CI" },
-                    { 3, "CE" },
-                    { 4, "Pasaporte" }
+                    { 0, "DNI" },
+                    { 1, "CI" },
+                    { 2, "CE" },
+                    { 3, "Passport" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,9 +285,8 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "TypeSexId", "Name" },
                 values: new object[,]
                 {
-                    { 0, "None" },
-                    { 1, "Femenino" },
-                    { 2, "Masculino" }
+                    { 0, "Female" },
+                    { 1, "Male" }
                 });
 
             migrationBuilder.InsertData(
@@ -294,10 +294,9 @@ namespace Medical.Persistence.Migrations
                 columns: new[] { "TypeShiftId", "Name" },
                 values: new object[,]
                 {
-                    { 0, "None" },
-                    { 1, "Dia" },
-                    { 2, "Tarde" },
-                    { 3, "Noche" }
+                    { 0, "Morning" },
+                    { 1, "Afternoon" },
+                    { 2, "Night" }
                 });
 
             migrationBuilder.CreateIndex(
