@@ -1,6 +1,8 @@
-﻿using Medical.Domain.Dto.Response.Concrete;
+﻿using Medical.App.Utils;
+using Medical.Domain.Dto.Response.Concrete;
 using Medical.Domain.Dto.Specialist;
-using Medical.Domain.Dto.Treatment;
+using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace Medical.App.Services.SpecialistService
 {
@@ -8,9 +10,13 @@ namespace Medical.App.Services.SpecialistService
     {
         private readonly HttpClient _http;
         private const string CategoryBaseURL = "api/Specialist/";
-        public SpecialistService(HttpClient http)
+        private readonly NavigationManager _navigationManager;
+        private readonly NotificationService _notificationService;
+        public SpecialistService(HttpClient http, NavigationManager navigationManager, NotificationService notificationService)
         {
             _http = http;
+            _navigationManager = navigationManager;
+            _notificationService = notificationService;
         }
 
         public List<SpecialistDto> Specialists { get; set; } = new List<SpecialistDto>();
@@ -20,15 +26,22 @@ namespace Medical.App.Services.SpecialistService
 
         public async Task AddSpecialist(SpecialistDto specialist)
         {
-            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", specialist);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminSpecialists = result.Data!;
+                var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", specialist);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
 
-                await GetSpecialists();
+                if (result != null && result.Success)
+                {
+                    AdminSpecialists = result.Data!;
+
+                    await GetSpecialists();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
@@ -42,61 +55,95 @@ namespace Medical.App.Services.SpecialistService
 
         public async Task DeleteSpecialist(int specialistId)
         {
-            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{specialistId}");
-
-            var result = (await response.Content
-               .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminSpecialists = result.Data!;
+                var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{specialistId}");
 
-                await GetSpecialists();
+                var result = (await response.Content
+                   .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
+
+                if (result != null && result.Success)
+                {
+                    AdminSpecialists = result.Data!;
+
+                    await GetSpecialists();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
         public async Task GetAdminSpecialists()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<SpecialistDto>>>($"{CategoryBaseURL}admin");
-            if (response != null && response.Success)
+            try
             {
-                AdminSpecialists = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<SpecialistDto>>>($"{CategoryBaseURL}admin");
+                if (response != null && response.Success)
+                {
+                    AdminSpecialists = response.Data!;
+                }
             }
-
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
         }
 
         public async Task GetSpecialists()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<SpecialistDto>>>($"{CategoryBaseURL}");
-
-            if (response != null && response.Success)
+            try
             {
-                Specialists = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<SpecialistDto>>>($"{CategoryBaseURL}");
+
+                if (response != null && response.Success)
+                {
+                    Specialists = response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }           
         }
 
         public async Task<SpecialistDto?> GetSpecialistByFullName(string fullName)
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<SpecialistDto>>($"{CategoryBaseURL}name?name={fullName}");
-
-            if (response != null && response.Success)
+            try
             {
-                return response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<SpecialistDto>>($"{CategoryBaseURL}name?name={fullName}");
+
+                if (response != null && response.Success)
+                {
+                    return response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }           
             return null;
         }
 
         public async Task UpdateSpecialist(SpecialistDto specialist)
         {
-            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", specialist);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminSpecialists = result.Data!;
+                var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", specialist);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<SpecialistDto>>>());
 
-                await GetSpecialists();
+                if (result != null && result.Success)
+                {
+                    AdminSpecialists = result.Data!;
+
+                    await GetSpecialists();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 

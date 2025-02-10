@@ -1,6 +1,8 @@
-﻿using Medical.Domain.Dto.Pacient;
+﻿using Medical.App.Utils;
+using Medical.Domain.Dto.Pacient;
 using Medical.Domain.Dto.Response.Concrete;
-using Medical.Domain.Dto.Specialist;
+using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace Medical.App.Services.PacientService
 {
@@ -8,9 +10,13 @@ namespace Medical.App.Services.PacientService
     {
         private readonly HttpClient _http;
         private const string PacientBaseURL = "api/Pacient/";
-        public PacientService(HttpClient http)
+        private readonly NavigationManager _navigationManager;
+        private readonly NotificationService _notificationService;
+        public PacientService(HttpClient http, NavigationManager navigationManager, NotificationService notificationService)
         {
             _http = http;
+            _navigationManager = navigationManager;
+            _notificationService = notificationService;
         }
 
         public List<PacientDto> Pacients { get; set; } = new List<PacientDto>();
@@ -20,16 +26,23 @@ namespace Medical.App.Services.PacientService
 
         public async Task AddPacient(PacientDto pacient)
         {
-            var response = await _http.PostAsJsonAsync($"{PacientBaseURL}admin", pacient);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminPacients = result.Data!;
+                var response = await _http.PostAsJsonAsync($"{PacientBaseURL}admin", pacient);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
 
-                await GetPacients();
-                OnChange!.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminPacients = result.Data!;
+
+                    await GetPacients();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
@@ -43,62 +56,96 @@ namespace Medical.App.Services.PacientService
 
         public async Task DeletePacient(int pacientId)
         {
-            var response = await _http.DeleteAsync($"{PacientBaseURL}admin/{pacientId}");
-
-            var result = (await response.Content
-               .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminPacients = result.Data!;
+                var response = await _http.DeleteAsync($"{PacientBaseURL}admin/{pacientId}");
 
-                await GetPacients();
-                OnChange!.Invoke();
+                var result = (await response.Content
+                   .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
+
+                if (result != null && result.Success)
+                {
+                    AdminPacients = result.Data!;
+
+                    await GetPacients();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
         public async Task GetAdminPacients()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<PacientDto>>>($"{PacientBaseURL}admin");
-            if (response != null && response.Success)
+            try
             {
-                AdminPacients = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<PacientDto>>>($"{PacientBaseURL}admin");
+                if (response != null && response.Success)
+                {
+                    AdminPacients = response.Data!;
+                }
             }
-
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
         }
 
         public async Task GetPacients()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<PacientDto>>>($"{PacientBaseURL}");
-
-            if (response != null && response.Success)
+            try
             {
-                Pacients = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<PacientDto>>>($"{PacientBaseURL}");
+
+                if (response != null && response.Success)
+                {
+                    Pacients = response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }            
         }
 
         public async Task<PacientDto?> GetPacientByFullName(string fullName)
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<PacientDto>>($"{PacientBaseURL}name?name={fullName}");
-
-            if (response != null && response.Success)
+            try
             {
-                return response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<PacientDto>>($"{PacientBaseURL}name?name={fullName}");
+
+                if (response != null && response.Success)
+                {
+                    return response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }            
             return null;
         }
         public async Task UpdatePacient(PacientDto pacient)
         {
-            var response = await _http.PutAsJsonAsync($"{PacientBaseURL}admin", pacient);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminPacients = result.Data!;
+                var response = await _http.PutAsJsonAsync($"{PacientBaseURL}admin", pacient);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<PacientDto>>>());
 
-                await GetPacients();
-                OnChange!.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminPacients = result.Data!;
+
+                    await GetPacients();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
     }

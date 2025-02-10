@@ -1,7 +1,8 @@
-﻿using Medical.Domain.Dto.Appointment;
+﻿using Medical.App.Utils;
+using Medical.Domain.Dto.Appointment;
 using Medical.Domain.Dto.Response.Concrete;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace Medical.App.Services.AppointmentService
 {
@@ -9,9 +10,13 @@ namespace Medical.App.Services.AppointmentService
     {
         private readonly HttpClient _http;
         private const string AppointmentBaseURL = "api/Appointment/";
-        public AppointmentService(HttpClient http)
+        private readonly NavigationManager _navigationManager;
+        private readonly NotificationService _notificationService;
+        public AppointmentService(HttpClient http, NavigationManager navigationManager, NotificationService notificationService)
         {
             _http = http;
+            _navigationManager = navigationManager;
+            _notificationService = notificationService;
         }
 
         public List<AppointmentDto> Appointments { get; set; } = new List<AppointmentDto>();
@@ -21,16 +26,23 @@ namespace Medical.App.Services.AppointmentService
 
         public async Task AddAppointment(AppointmentDto appointment)
         {
-            var response = await _http.PostAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminAppointments = result.Data!;
+                var response = await _http.PostAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
 
-                await GetAppointments();
-                OnChange!.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminAppointments = result.Data!;
+
+                    await GetAppointments();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
@@ -44,51 +56,78 @@ namespace Medical.App.Services.AppointmentService
 
         public async Task DeleteAppointment(int appointmentId)
         {
-            var response = await _http.DeleteAsync($"{AppointmentBaseURL}admin/{appointmentId}");
-
-            var result = (await response.Content
-               .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminAppointments = result.Data!;
+                var response = await _http.DeleteAsync($"{AppointmentBaseURL}admin/{appointmentId}");
 
-                await GetAppointments();
-                OnChange!.Invoke();
-            }            
+                var result = (await response.Content
+                   .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
+
+                if (result != null && result.Success)
+                {
+                    AdminAppointments = result.Data!;
+
+                    await GetAppointments();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
         }
 
         public async Task GetAdminAppointments()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}admin");
-            if (response != null && response.Success)
+            try
             {
-                AdminAppointments = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}admin");
+                if (response != null && response.Success)
+                {
+                    AdminAppointments = response.Data!;
+                }
             }
-
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
         }
 
         public async Task GetAppointments()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}");
-            if (response != null && response.Success)
+            try
             {
-                Appointments = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<AppointmentDto>>>($"{AppointmentBaseURL}");
+                if (response != null && response.Success)
+                {
+                    Appointments = response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }            
         }
 
         public async Task UpdateAppointment(AppointmentDto appointment)
         {
-            var response = await _http.PutAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminAppointments = result.Data!;
+                var response = await _http.PutAsJsonAsync($"{AppointmentBaseURL}admin", appointment);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<AppointmentDto>>>());
 
-                await GetAppointments();
-                OnChange!.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminAppointments = result.Data!;
+
+                    await GetAppointments();
+                    OnChange!.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
     }

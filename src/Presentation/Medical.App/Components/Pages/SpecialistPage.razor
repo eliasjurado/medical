@@ -17,8 +17,9 @@
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres y Apellidos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.SpecialtyName)" Title="Especialidad" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.ProfessionName)" Title="Profesión" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.CollegeCode)" Title="N° Colegiatura" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.SpecialtyName)" Title="Especialidad" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.RneCode)" Title="N° RNE" Frozen="true" Width="100px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">
@@ -74,7 +75,7 @@
     {
         var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el especialista {model.FullName}?", "Eliminar Especialista", new ConfirmOptions() { OkButtonText = "Sí", CancelButtonText = "No" });
 
-        if (isDeleted.Value)
+        if (isDeleted.GetValueOrDefault())
         {
             await specialistService.DeleteSpecialist(model.Id);
             items = specialistService.AdminSpecialists.AsQueryable();

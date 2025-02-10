@@ -2,6 +2,7 @@
 using Medical.App.Services.AuthService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Radzen;
 using System.Net;
 using System.Net.Http.Headers;
 using Toolbelt.Blazor;
@@ -14,13 +15,15 @@ public class HttpInterceptorService
     private readonly NavigationManager _navManager;
     private readonly RefreshTokenService _refreshTokenService;
     private readonly IAuthService _authService;
+    public NotificationService _notificationService;
 
-    public HttpInterceptorService(HttpClientInterceptor interceptor, NavigationManager navManager, RefreshTokenService refreshTokenService, IAuthService authService)
+    public HttpInterceptorService(HttpClientInterceptor interceptor, NavigationManager navManager, RefreshTokenService refreshTokenService, IAuthService authService, NotificationService notificationService)
     {
         _interceptor = interceptor;
         _navManager = navManager;
         _refreshTokenService = refreshTokenService;
         _authService = authService;
+        _notificationService = notificationService;
     }
 
     public void RegisterEvent()
@@ -64,20 +67,29 @@ public class HttpInterceptorService
             switch (statusCode)
             {
                 case HttpStatusCode.NotFound:
-                    _navManager.NavigateTo("/404");
+                    //_navManager.NavigateTo("/404");
                     message = "The requested resorce was not found.";
                     break;
                 case HttpStatusCode.Unauthorized:
-                    _navManager.NavigateTo("/unauthorized");
+                    //_navManager.NavigateTo("/login");
                     message = "User is not authorized";
                     break;
                 default:
-                    _navManager.NavigateTo("/500");
+                    //_navManager.NavigateTo("/500");
                     message = "Something went wrong, please contact Administrator";
                     break;
             }
 
-            throw new HttpResponseException(message);
+            var notification = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = statusCode.ToString(),
+                Detail = message,
+                Duration = 2000,
+                CloseOnClick = true
+            };
+            //_notificationService.Notify(notification);
+            //throw new HttpResponseException(message);
         }
     }
 

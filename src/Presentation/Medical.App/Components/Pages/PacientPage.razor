@@ -77,7 +77,7 @@
     {
         var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el paciente {model.FullName}?", "Eliminar Paciente", new ConfirmOptions() { OkButtonText = "Sí", CancelButtonText = "No" });
         
-        if(isDeleted.Value){
+        if(isDeleted.GetValueOrDefault()){
             await pacientService.DeletePacient(model.Id);
             items = pacientService.AdminPacients.AsQueryable();
         }

@@ -1,5 +1,8 @@
-﻿using Medical.Domain.Dto.Category;
+﻿using Medical.App.Utils;
+using Medical.Domain.Dto.Category;
 using Medical.Domain.Dto.Response.Concrete;
+using Microsoft.AspNetCore.Components;
+using Radzen;
 
 namespace Medical.App.Services.CategoryService
 {
@@ -7,9 +10,13 @@ namespace Medical.App.Services.CategoryService
     {
         private readonly HttpClient _http;
         private const string CategoryBaseURL = "api/Category/";
-        public CategoryService(HttpClient http)
+        private readonly NavigationManager _navigationManager;
+        private readonly NotificationService _notificationService;
+        public CategoryService(HttpClient http, NavigationManager navigationManager, NotificationService notificationService)
         {
             _http = http;
+            _navigationManager = navigationManager;
+            _notificationService = notificationService;
         }
 
         public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
@@ -19,16 +26,23 @@ namespace Medical.App.Services.CategoryService
 
         public async Task AddCategory(CategoryDto category)
         {
-            var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", category);
-            var result = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminCategories = result.Data!;
+                var response = await _http.PostAsJsonAsync($"{CategoryBaseURL}admin", category);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
 
-                await GetCategories(); 
-                OnChange?.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminCategories = result.Data!;
+
+                    await GetCategories();
+                    OnChange?.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
@@ -42,52 +56,79 @@ namespace Medical.App.Services.CategoryService
 
         public async Task DeleteCategory(int categoryId)
         {
-            var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{categoryId}");
-
-            var result = (await response.Content
-               .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminCategories = result.Data!;
+                var response = await _http.DeleteAsync($"{CategoryBaseURL}admin/{categoryId}");
 
-                await GetCategories();
-                OnChange?.Invoke();
+                var result = (await response.Content
+                   .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
+
+                if (result != null && result.Success)
+                {
+                    AdminCategories = result.Data!;
+
+                    await GetCategories();
+                    OnChange?.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
 
         public async Task GetAdminCategories()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<CategoryDto>>>($"{CategoryBaseURL}admin");
-            if (response != null && response.Success)
+            try
             {
-                AdminCategories = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<CategoryDto>>>($"{CategoryBaseURL}admin");
+                if (response != null && response.Success)
+                {
+                    AdminCategories = response.Data!;
+                }
             }
-
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
         }
 
         public async Task GetCategories()
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<List<CategoryDto>>>($"{CategoryBaseURL}");
-
-            if (response != null && response.Success)
+            try
             {
-                Categories = response.Data!;
+                var response = await _http.GetFromJsonAsync<ApiResponse<List<CategoryDto>>>($"{CategoryBaseURL}");
+
+                if (response != null && response.Success)
+                {
+                    Categories = response.Data!;
+                }
             }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }           
         }
 
         public async Task UpdateCategory(CategoryDto category)
         {
-            var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", category);
-            var result  = (await response.Content
-                .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
-
-            if (result != null && result.Success)
+            try
             {
-                AdminCategories = result.Data!;
+                var response = await _http.PutAsJsonAsync($"{CategoryBaseURL}admin", category);
+                var result = (await response.Content
+                    .ReadFromJsonAsync<ApiResponse<List<CategoryDto>>>());
 
-                await GetCategories();
-                OnChange?.Invoke();
+                if (result != null && result.Success)
+                {
+                    AdminCategories = result.Data!;
+
+                    await GetCategories();
+                    OnChange?.Invoke();
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
             }
         }
     }

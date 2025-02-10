@@ -64,7 +64,7 @@ Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.O
         Interceptor.RegisterEvent();
         var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el servicio {model.Name}?", "Eliminar Servicio", new ConfirmOptions() { OkButtonText = "Sí", CancelButtonText = "No" });
 
-        if (isDeleted.Value)
+        if (isDeleted.GetValueOrDefault())
         {
             await treatmentService.DeleteTreatment(model.Id);
             treatmentService.OnChange += StateHasChanged;
