@@ -38,9 +38,9 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.NumDocument?.Contains(model.NumDocument, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                if (!string.IsNullOrEmpty(model.Name))
+                if (!string.IsNullOrEmpty(model.FirstName))
                 {
-                    items = items.Where(item => item.Name?.Contains(model.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+                    items = items.Where(item => item.FirstName?.Contains(model.FirstName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
                 if (!string.IsNullOrEmpty(model.LastName))
@@ -58,7 +58,7 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.Phone?.Contains(model.Phone, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                isSearched = !string.IsNullOrEmpty(model.NumDocument) || !string.IsNullOrEmpty(model.Name) || !string.IsNullOrEmpty(model.LastName) || !string.IsNullOrEmpty(model.Address) || !string.IsNullOrEmpty(model.Phone);
+                isSearched = !string.IsNullOrEmpty(model.NumDocument) || !string.IsNullOrEmpty(model.FirstName) || !string.IsNullOrEmpty(model.LastName) || !string.IsNullOrEmpty(model.Address) || !string.IsNullOrEmpty(model.Phone);
             }
 
             if (options.Searches.Count != 0)
@@ -108,7 +108,7 @@ namespace Medical.UI.Components.Pages
                     Id = model.Id,
                     TypeDocumentId = model.TypeDocumentId,
                     NumDocument = model.NumDocument,
-                    Name = model.Name,
+                    FirstName = model.FirstName,
                     LastName = model.LastName,
                     TypeSexId = model.TypeSexId,
                     Birthdate = model.Birthdate,
@@ -128,7 +128,7 @@ namespace Medical.UI.Components.Pages
                 {
                     item.TypeDocumentId = model.TypeDocumentId;
                     item.NumDocument = model.NumDocument;
-                    item.Name = model.Name;
+                    item.FirstName = model.FirstName;
                     item.LastName = model.LastName;
                     item.TypeSexId = model.TypeSexId;
                     item.Birthdate = model.Birthdate;

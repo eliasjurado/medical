@@ -33,9 +33,9 @@ namespace Medical.UI.Components.Pages
             // Handling advanced queries
             if (options.SearchModel is AppointmentDto model)
             {
-                if (!string.IsNullOrEmpty(model.Pacient.Name))
+                if (!string.IsNullOrEmpty(model.Pacient.FirstName))
                 {
-                    items = items.Where(item => item.Pacient.Name?.Contains(model.Pacient.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+                    items = items.Where(item => item.Pacient.FirstName?.Contains(model.Pacient.FirstName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
                 if (!string.IsNullOrEmpty(model.Pacient.LastName))
@@ -48,9 +48,9 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.Treatment.Name?.Contains(model.Treatment.Name, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                if (!string.IsNullOrEmpty(model.Specialist!.Name))
+                if (!string.IsNullOrEmpty(model.Specialist!.FirstName))
                 {
-                    items = items.Where(item => item.Specialist!.Name?.Contains(model.Specialist.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+                    items = items.Where(item => item.Specialist!.FirstName?.Contains(model.Specialist.FirstName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
                 if (!string.IsNullOrEmpty(model.Specialist!.LastName))
@@ -58,7 +58,7 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.Specialist!.LastName?.Contains(model.Specialist.LastName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                isSearched = !string.IsNullOrEmpty(model.Pacient.Name) || !string.IsNullOrEmpty(model.Pacient.LastName) || !string.IsNullOrEmpty(model.Treatment.Name) || !string.IsNullOrEmpty(model.Specialist!.Name) || !string.IsNullOrEmpty(model.Specialist!.LastName);
+                isSearched = !string.IsNullOrEmpty(model.Pacient.FirstName) || !string.IsNullOrEmpty(model.Pacient.LastName) || !string.IsNullOrEmpty(model.Treatment.Name) || !string.IsNullOrEmpty(model.Specialist!.FirstName) || !string.IsNullOrEmpty(model.Specialist!.LastName);
             }
 
             if (options.Searches.Count != 0)

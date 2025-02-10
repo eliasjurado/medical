@@ -38,9 +38,9 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.NumDocument?.Contains(model.NumDocument, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                if (!string.IsNullOrEmpty(model.Name))
+                if (!string.IsNullOrEmpty(model.FirstName))
                 {
-                    items = items.Where(item => item.Name?.Contains(model.Name, StringComparison.OrdinalIgnoreCase) ?? false);
+                    items = items.Where(item => item.FirstName?.Contains(model.FirstName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
                 if (!string.IsNullOrEmpty(model.LastName))
@@ -58,9 +58,9 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.CollegeName?.Contains(model.CollegeName, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                if (!string.IsNullOrEmpty(model.CollegeId))
+                if (!string.IsNullOrEmpty(model.CollegeCode))
                 {
-                    items = items.Where(item => item.CollegeId?.Contains(model.CollegeId, StringComparison.OrdinalIgnoreCase) ?? false);
+                    items = items.Where(item => item.CollegeCode?.Contains(model.CollegeCode, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
                 if (!string.IsNullOrEmpty(model.Address))
@@ -73,7 +73,7 @@ namespace Medical.UI.Components.Pages
                     items = items.Where(item => item.Phone?.Contains(model.Phone, StringComparison.OrdinalIgnoreCase) ?? false);
                 }
 
-                isSearched = !string.IsNullOrEmpty(model.NumDocument) || !string.IsNullOrEmpty(model.Name) || !string.IsNullOrEmpty(model.LastName) || !string.IsNullOrEmpty(model.SpecialtyName) || !string.IsNullOrEmpty(model.CollegeName) || !string.IsNullOrEmpty(model.CollegeId) || !string.IsNullOrEmpty(model.Address) || !string.IsNullOrEmpty(model.Phone);
+                isSearched = !string.IsNullOrEmpty(model.NumDocument) || !string.IsNullOrEmpty(model.FirstName) || !string.IsNullOrEmpty(model.LastName) || !string.IsNullOrEmpty(model.SpecialtyName) || !string.IsNullOrEmpty(model.CollegeName) || !string.IsNullOrEmpty(model.CollegeCode) || !string.IsNullOrEmpty(model.Address) || !string.IsNullOrEmpty(model.Phone);
             }
 
             if (options.Searches.Count != 0)
@@ -123,11 +123,11 @@ namespace Medical.UI.Components.Pages
                     Id = model.Id,
                     TypeDocumentId = model.TypeDocumentId,
                     NumDocument = model.NumDocument,
-                    Name = model.Name,
+                    FirstName = model.FirstName,
                     LastName = model.LastName,
                     SpecialtyName = model.SpecialtyName,
                     CollegeName = model.CollegeName,
-                    CollegeId = model.CollegeId,
+                    CollegeCode = model.CollegeCode,
                     TypeSexId = model.TypeSexId,
                     Birthdate = model.Birthdate,
                     Address = model.Address,
@@ -146,11 +146,11 @@ namespace Medical.UI.Components.Pages
                 {
                     item.TypeDocumentId = model.TypeDocumentId;
                     item.NumDocument = model.NumDocument;
-                    item.Name = model.Name;
+                    item.FirstName = model.FirstName;
                     item.LastName = model.LastName;
                     item.SpecialtyName = model.SpecialtyName;
                     item.CollegeName = model.CollegeName;
-                    item.CollegeId = model.CollegeId;
+                    item.CollegeCode = model.CollegeCode;
                     item.TypeSexId = model.TypeSexId;
                     item.Birthdate = model.Birthdate;
                     item.Address = model.Address;
