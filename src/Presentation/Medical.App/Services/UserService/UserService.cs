@@ -12,7 +12,7 @@ namespace Medical.App.Services.UserService
 
         public UserService(HttpClient http, IOptions<ApiSettings> apiSettings)
         {
-            _http = new HttpClient() { BaseAddress = new Uri(apiSettings.Value.ApiHub!.Auth!) };
+            _http = http;
         }
 
         public async Task<ApiResponse<string>> ChangePassword(UserChangePassword request)

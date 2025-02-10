@@ -17,9 +17,9 @@ namespace Medical.App.Services.AuthService
         private readonly ILocalStorageService _localStorage;
         private readonly NavigationManager _navigationManager;
 
-        public AuthService(HttpClient http, AuthenticationStateProvider authStateProvider, ILocalStorageService localStorage, NavigationManager navigationManager, Application.Contracts.Identity.IAuthService authService, IOptions<ApiSettings> apiSettings)
+        public AuthService(HttpClient http, AuthenticationStateProvider authStateProvider, ILocalStorageService localStorage, NavigationManager navigationManager, Application.Contracts.Identity.IAuthService authService)
         {
-            _http = new HttpClient() { BaseAddress = new Uri(apiSettings.Value.ApiHub?.Auth!) };
+            _http = http;
             _authStateProvider = authStateProvider;
             _localStorage = localStorage;
             _navigationManager = navigationManager;
