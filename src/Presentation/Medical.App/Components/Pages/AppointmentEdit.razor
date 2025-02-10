@@ -10,46 +10,46 @@
             <RadzenLabel Text="Paciente" Style="width: 6rem;" />
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
             Data=@pacients TextProperty="@nameof(PacientDto.FullName)" ValueProperty="@nameof(PacientDto.FullName)" AllowClear="true" @bind-Value=@model.PacientFullName Style="width: 20rem" Name="Paciente" />
-            <RadzenRequiredValidator Component="Paciente" Text="Paciente is required" />
+            <RadzenRequiredValidator Component="Paciente" Text="Paciente es requerido" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Servicio" Style="width: 6rem;" />
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
             Data=@treatments TextProperty="@nameof(TreatmentDto.Name)" ValueProperty="@nameof(TreatmentDto.Name)" AllowClear="true" @bind-Value=@model.TreatmentName Style="width: 20rem" Name="Consultorio" />
-            <RadzenRequiredValidator Component="Consultorio" Text="Consultorio is required" />
+            <RadzenRequiredValidator Component="Consultorio" Text="Consultorio es requerido" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Especialista" Style="width: 6rem;" />
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
             Data=@specialists TextProperty="@nameof(SpecialistDto.FullName)" ValueProperty="@nameof(SpecialistDto.FullName)" AllowClear="true" @bind-Value=@model.SpecialistFullName Style="width: 20rem" Name="Especialista" />
-            <RadzenRequiredValidator Component="Especialista" Text="Especialista is required" />
+            <RadzenRequiredValidator Component="Especialista" Text="Especialista es requerido" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Tipo" Style="width: 6rem;" />
             <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeAppointmentId)).Cast<Enum>())" @bind-Value=@model.TypeAppointmentId
             AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeAppointment">
             </RadzenDropDown>
-            <RadzenRequiredValidator Component="TypeAppointment" Text="Tipo is required" />
+            <RadzenRequiredValidator Component="TypeAppointment" Text="Tipo es requerido" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Turno" Style="width: 6rem;" />
             <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeShiftId)).Cast<Enum>())" @bind-Value=@model.TypeShiftId
             AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeShift">
             </RadzenDropDown>
-            <RadzenRequiredValidator Component="TypeShift" Text="Turno is required" />
+            <RadzenRequiredValidator Component="TypeShift" Text="Turno es requerido" />
         </RadzenStack>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Cita" Style="width: 6rem;" />
             <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
-            <RadzenRequiredValidator Component="StartDateTime" Text="Inicio is required" />
+            <RadzenRequiredValidator Component="StartDateTime" Text="Inicio es requerido" />
         </RadzenStack>
         @* <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Fin" Style="width: 6rem;" />
             <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
-            <RadzenRequiredValidator Component="EndDateTime" Text="Fin is required" />
+            <RadzenRequiredValidator Component="EndDateTime" Text="Fin es requerido" />
         </RadzenStack> *@
         <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-            <RadzenButton ButtonType="ButtonType.Submit" Text="Save" />
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
         </RadzenStack>
     </RadzenStack>
 </RadzenTemplateForm>
