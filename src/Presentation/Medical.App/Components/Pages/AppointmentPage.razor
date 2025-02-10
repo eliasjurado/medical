@@ -5,16 +5,40 @@
 @page "/citas"
 
 <h3>Citas</h3>
-
+<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5 rz-align-items-center">
+    <RadzenLabel Text="Ver por" Style="width: 4rem;" />
+    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" TValue="string" Value=@textParam Data=@options Change=@SetTextProp />
+</RadzenStack>
 <RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="AppointmentViewModel" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
-TextProperty="PacientFullName" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
-AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
+                 TextProperty="@textProp" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
+                 AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
     <RadzenDayView Text="Día" TimeFormat="hh tt" />
     <RadzenWeekView Text="Semana" />
     <RadzenMonthView Text="Mes" />
 </RadzenScheduler>
 
 @code {
+    string[] options = ["Paciente", "Especialista", "Tratamiento"];
+    string textParam = "Paciente";
+    string textProp = "PacientFullName";
+
+    void SetTextProp(object args)
+    {
+        textParam = args.ToString();
+        if (textParam.Equals("Paciente"))
+        {
+            textProp = "PacientFullName";
+        }
+        if (textParam.Equals("Especialista"))
+        {
+            textProp = "SpecialistFullName";
+        }
+        if (textParam.Equals("Tratamiento"))
+        {
+            textProp = "TreatmentName";
+        }
+    }
+
     RadzenScheduler<AppointmentViewModel> scheduler;
     // EventConsole console;
     Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
@@ -27,18 +51,18 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
     {
         await base.OnInitializedAsync();
 
-        Interceptor.RegisterEvent();       
+        Interceptor.RegisterEvent();
         await appointmentService.GetAdminAppointments();
         appointmentService.OnChange += StateHasChanged;
         appointments = appointmentService.AdminAppointments.Select(x =>
         new AppointmentViewModel
         {
-            Id=x.Id,
+            Id = x.Id,
             StartDateTime = x.StartDateTime,
             EndDateTime = x.EndDateTime,
             PacientId = x.IdPacient,
             PacientFullName = x.Pacient.FullName,
-            SpecialistId=x.IdSpecialist,
+            SpecialistId = x.IdSpecialist,
             SpecialistFullName = x.Specialist.FullName,
             TreatmentId = x.IdTreatment,
             TreatmentName = x.Treatment.Name,
@@ -85,7 +109,7 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
             AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita", new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
 
             if (data != null)
-            {             
+            {
                 var appointment = new AppointmentDto
                         {
                             Id = data.Id,
@@ -140,16 +164,16 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
             args.Data.TypeShiftId = data.TypeShiftId;
 
             var appointment = new AppointmentDto
-                {
-                    Id = args.Data.Id,
-                    StartDateTime = args.Data.StartDateTime,
-                    EndDateTime = args.Data.EndDateTime,
-                    IdPacient = args.Data.PacientId,
-                    IdSpecialist = args.Data.SpecialistId,
-                    IdTreatment = args.Data.TreatmentId,
-                    TypeAppointmentId = args.Data.TypeAppointmentId.Value,
-                    TypeShiftId = args.Data.TypeShiftId.Value
-                };
+                    {
+                        Id = args.Data.Id,
+                        StartDateTime = args.Data.StartDateTime,
+                        EndDateTime = args.Data.EndDateTime,
+                        IdPacient = args.Data.PacientId,
+                        IdSpecialist = args.Data.SpecialistId,
+                        IdTreatment = args.Data.TreatmentId,
+                        TypeAppointmentId = args.Data.TypeAppointmentId.Value,
+                        TypeShiftId = args.Data.TypeShiftId.Value
+                    };
 
             await appointmentService.UpdateAppointment(appointment);
         }
@@ -175,6 +199,18 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
             draggedAppointment.StartDateTime = draggedAppointment.StartDateTime + args.TimeSpan;
 
             draggedAppointment.EndDateTime = draggedAppointment.EndDateTime + args.TimeSpan;
+            var appointment = new AppointmentDto
+                    {
+                        Id = draggedAppointment.Id,
+                        StartDateTime = draggedAppointment.StartDateTime,
+                        EndDateTime = draggedAppointment.EndDateTime,
+                        IdPacient = draggedAppointment.PacientId,
+                        IdSpecialist = draggedAppointment.SpecialistId,
+                        IdTreatment = draggedAppointment.TreatmentId,
+                        TypeAppointmentId = draggedAppointment.TypeAppointmentId.Value,
+                        TypeShiftId = draggedAppointment.TypeShiftId.Value
+                    };
+            await appointmentService.UpdateAppointment(appointment);
 
             await scheduler.Reload();
         }
@@ -232,7 +268,7 @@ AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnte
                 @args.Data.StartDateTime.ToString("h:mm tt⋅ dddd, MMMM d")
             </RadzenText>
         </RadzenStack>
-    </RadzenStack>, new TooltipOptions { Position = TooltipPosition.Bottom, Duration = null });
+    </RadzenStack>, new TooltipOptions { Position = TooltipPosition.Right, Duration = null });
     }
 
     void OnAppointmentMouseLeave(SchedulerAppointmentMouseEventArgs<AppointmentViewModel> args)
