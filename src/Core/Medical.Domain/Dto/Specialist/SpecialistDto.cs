@@ -10,9 +10,10 @@ public class SpecialistDto
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string FullName { get; set; } = string.Empty;
-    public string SpecialtyName { get; set; } = string.Empty;
+    public string ProfessionName { get; set; } = string.Empty;    
     public string CollegeName { get; set; } = string.Empty;
     public string CollegeCode { get; set; } = string.Empty;
+    public string SpecialtyName { get; set; } = string.Empty;
     public string RneCode { get; set; } = string.Empty;
     public TypeSexId? TypeSexId { get; set; }
     public DateTime Birthdate { get; set; } = DateTime.MinValue;

@@ -10,9 +10,10 @@ public class Specialist : BaseAuditableEntity<int>
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? FullName { get; set; }
-    public string? SpecialtyName { get; set; }
+    public string? ProfessionName { get; set; }
     public string? CollegeName { get; set; }
     public string? CollegeCode { get; set; }
+    public string? SpecialtyName { get; set; }
     public string? RneCode { get; set; }
     public TypeSexId TypeSexId { get; set; }
     public DateTime Birthdate { get; set; }
