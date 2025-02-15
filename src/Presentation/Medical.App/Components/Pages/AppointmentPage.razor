@@ -7,7 +7,7 @@
 <h3>Citas</h3>
 <RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5 rz-align-items-center">
     <RadzenLabel Text="Ver por" Style="width: 4rem;" />
-    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" TValue="string" Value=@textParam Data=@options Change=@SetTextProp />
+    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
 </RadzenStack>
 <RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="AppointmentViewModel" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
                  TextProperty="@textProp" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
@@ -18,26 +18,13 @@
 </RadzenScheduler>
 
 @code {
-    string[] options = ["Paciente", "Especialista", "Tratamiento"];
-    string textParam = "Paciente";
-    string textProp = "PacientFullName";
+    List<DropDownViewModel<string>> options = new() {
+        new () {Value="PacientFullName",Text= "Paciente"},
+        new () {Value="SpecialistFullName",Text= "Especialista"},
+        new () {Value="TreatmentName",Text= "Tratamiento"}
+            };
 
-    void SetTextProp(object args)
-    {
-        textParam = args.ToString();
-        if (textParam.Equals("Paciente"))
-        {
-            textProp = "PacientFullName";
-        }
-        if (textParam.Equals("Especialista"))
-        {
-            textProp = "SpecialistFullName";
-        }
-        if (textParam.Equals("Tratamiento"))
-        {
-            textProp = "TreatmentName";
-        }
-    }
+    string textProp = "PacientFullName";
 
     RadzenScheduler<AppointmentViewModel> scheduler;
     // EventConsole console;
