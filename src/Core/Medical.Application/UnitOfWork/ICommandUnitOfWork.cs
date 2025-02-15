@@ -7,5 +7,6 @@ public interface ICommandUnitOfWork<Tkey>
     IPacientCommandRepository PacientCommand { get; }
     ITreatmentCommandRepository TreatmentCommand { get; }
     ISpecialistCommandRepository SpecialistCommand { get; }
+    IBrandCommandRepository BrandCommand { get; }
     Task<int> SaveAsync();
 }

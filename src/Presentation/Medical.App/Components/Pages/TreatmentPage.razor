@@ -50,6 +50,7 @@ Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.O
         {
             await treatmentService.AddTreatment(data);
             selectedItems.Add(data);
+            items = treatmentService.AdminTreatments.AsQueryable();
         }
     }
 

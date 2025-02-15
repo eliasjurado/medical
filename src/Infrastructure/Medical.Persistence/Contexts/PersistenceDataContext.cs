@@ -14,6 +14,7 @@ namespace Medical.Server.Contexts
         public DbSet<Treatment> Treatments { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Brand> Brands { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

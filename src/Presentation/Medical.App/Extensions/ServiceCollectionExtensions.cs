@@ -8,6 +8,7 @@ using Medical.Application.Contracts.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 using Medical.App.Services.AuthService;
 using Medical.App.Services.UserService;
+using Medical.App.Services.BrandService;
 
 namespace Medical.App.Extensions
 {
@@ -20,6 +21,7 @@ namespace Medical.App.Extensions
             services.AddScoped<ITreatmentService, TreatmentService>();
             services.AddScoped<ISpecialistService, SpecialistService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IBrandService, BrandService>();
 
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<Services.AuthService.IAuthService, AuthService>();

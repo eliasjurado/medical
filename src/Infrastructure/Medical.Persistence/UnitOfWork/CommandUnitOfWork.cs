@@ -16,12 +16,14 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private TreatmentCommandRepository? _treatmentCommand;
     private SpecialistCommandRepository? _specialistCommand;
     private AppointmentCommandRepository? _appointmentCommand;
+    private BrandCommandRepository? _brandCommand;
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));
     public ITreatmentCommandRepository TreatmentCommand => _treatmentCommand ?? (_treatmentCommand = new TreatmentCommandRepository(_context));
     public ISpecialistCommandRepository SpecialistCommand => _specialistCommand ?? (_specialistCommand = new SpecialistCommandRepository(_context));
     public IAppointmentCommandRepository AppointmentCommand => _appointmentCommand ?? (_appointmentCommand = new AppointmentCommandRepository(_context));
+    public IBrandCommandRepository BrandCommand => _brandCommand ?? (_brandCommand = new BrandCommandRepository(_context));
 
     public async Task<int> SaveAsync()
     {

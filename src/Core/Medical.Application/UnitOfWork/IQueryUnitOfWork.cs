@@ -7,4 +7,5 @@ public interface IQueryUnitOfWork
     IPacientQueryRepository PacientQuery { get; }
     ITreatmentQueryRepository TreatmentQuery { get; }
     ISpecialistQueryRepository SpecialistQuery { get; }
+    IBrandQueryRepository BrandQuery { get; }
 }

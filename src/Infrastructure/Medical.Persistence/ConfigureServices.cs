@@ -25,6 +25,7 @@ public static class ConfigureServices
         services.AddScoped<ITreatmentCommandRepository, TreatmentCommandRepository>();
         services.AddScoped<ISpecialistCommandRepository, SpecialistCommandRepository>();
         services.AddScoped<IAppointmentCommandRepository, AppointmentCommandRepository>();
+        services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
 
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
@@ -32,6 +33,7 @@ public static class ConfigureServices
         services.AddScoped<ITreatmentQueryRepository, TreatmentQueryRepository>();
         services.AddScoped<ISpecialistQueryRepository, SpecialistQueryRepository>();
         services.AddScoped<IAppointmentQueryRepository, AppointmentQueryRepository>();
+        services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
 
         return services;
     }
