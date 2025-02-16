@@ -4,6 +4,7 @@ using Medical.Server.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical.Persistence.Migrations
 {
     [DbContext(typeof(PersistenceDataContext))]
-    partial class PersistenceDataContextModelSnapshot : ModelSnapshot
+    [Migration("20250216161431_AddFiscalUnit")]
+    partial class AddFiscalUnit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +162,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(4468),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(666),
                             IsActive = true,
                             IsDeleted = false,
                             LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -169,7 +172,7 @@ namespace Medical.Persistence.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(4472),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(671),
                             IsActive = true,
                             IsDeleted = false,
                             LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -213,618 +216,6 @@ namespace Medical.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FiscalUnits");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Code = "NIU",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5570),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UNIDAD"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Code = "MMT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5572),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILIMETRO"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Code = "MMK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5573),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILIMETRO CUADRADO"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Code = "MMQ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5574),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILIMETRO CUBICO"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Code = "MIL",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5575),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILLARES"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Code = "UM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5576),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILLON DE UNIDADES"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Code = "ONZ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5577),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ONZAS"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Code = "PF",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5637),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PALETAS"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Code = "PK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5638),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PAQUETE"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Code = "PR",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5639),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PAR"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Code = "FOT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5640),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PIES"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Code = "FTK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5640),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PIES CUADRADOS"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Code = "FTQ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5641),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PIES CUBICOS"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Code = "C62",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5642),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PIEZAS"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Code = "PG",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5643),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PLACAS"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Code = "ST",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5644),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PLIEGO"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Code = "INH",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5645),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "PULGADAS"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Code = "RM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5645),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "RESMA"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Code = "DR",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5646),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "TAMBOR"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Code = "STN",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5647),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "TONELADA CORTA"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            Code = "LTN",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5648),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "TONELADA LARGA"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            Code = "TNE",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5649),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "TONELADAS"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            Code = "TU",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5650),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "TUBOS"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            Code = "ZZ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5650),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "UNIDAD (SERVICIOS)"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Code = "GLL",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5651),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "US GALON (3,78L)"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Code = "YRD",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5652),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "YARDA"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Code = "YDK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5653),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "YARDA CUADRADA"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Code = "MLT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5654),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILILITRO"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            Code = "MGM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5654),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MILIGRAMOS"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            Code = "MTQ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5655),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "METRO CUBICO"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            Code = "MTK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5656),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "METRO CUADRADO"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            Code = "MTR",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5657),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "METRO"
-                        },
-                        new
-                        {
-                            Id = 33,
-                            Code = "4A",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5658),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BOBINAS"
-                        },
-                        new
-                        {
-                            Id = 34,
-                            Code = "BJ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5658),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BALDE"
-                        },
-                        new
-                        {
-                            Id = 35,
-                            Code = "BLL",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5659),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BARRILES"
-                        },
-                        new
-                        {
-                            Id = 36,
-                            Code = "BG",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5660),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BOLSA"
-                        },
-                        new
-                        {
-                            Id = 37,
-                            Code = "BO",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5661),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "BOTELLAS"
-                        },
-                        new
-                        {
-                            Id = 38,
-                            Code = "BX",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5661),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CAJA"
-                        },
-                        new
-                        {
-                            Id = 39,
-                            Code = "CT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5662),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CARTONES"
-                        },
-                        new
-                        {
-                            Id = 40,
-                            Code = "CMK",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5663),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CENTIMETRO CUADRADO"
-                        },
-                        new
-                        {
-                            Id = 41,
-                            Code = "CMQ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5664),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CENTIMETRO CUBICO"
-                        },
-                        new
-                        {
-                            Id = 42,
-                            Code = "CMT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5664),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CENTIMETRO LINEAL"
-                        },
-                        new
-                        {
-                            Id = 43,
-                            Code = "CEN",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5665),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CIENTO DE UNIDADES"
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Code = "CY",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5666),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CILINDRO"
-                        },
-                        new
-                        {
-                            Id = 45,
-                            Code = "CJ",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5667),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "CONOS"
-                        },
-                        new
-                        {
-                            Id = 46,
-                            Code = "DZN",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5668),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "DOCENA"
-                        },
-                        new
-                        {
-                            Id = 47,
-                            Code = "DZP",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5669),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "DOCENA POR 10**6"
-                        },
-                        new
-                        {
-                            Id = 48,
-                            Code = "BE",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5669),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "FARDO"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            Code = "GLI",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5670),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "GALON INGLES (4,54L)"
-                        },
-                        new
-                        {
-                            Id = 50,
-                            Code = "GRM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5671),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "GRAMO"
-                        },
-                        new
-                        {
-                            Id = 51,
-                            Code = "GRO",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5672),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "GRUESA"
-                        },
-                        new
-                        {
-                            Id = 52,
-                            Code = "HLT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5673),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "HECTOLITRO"
-                        },
-                        new
-                        {
-                            Id = 53,
-                            Code = "LEF",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5674),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "HOJA"
-                        },
-                        new
-                        {
-                            Id = 54,
-                            Code = "KGM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5674),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "KILOGRAMO"
-                        },
-                        new
-                        {
-                            Id = 55,
-                            Code = "KTM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5675),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "KILOMETRO"
-                        },
-                        new
-                        {
-                            Id = 56,
-                            Code = "KWM",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5676),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "KILOVATIO HORA"
-                        },
-                        new
-                        {
-                            Id = 57,
-                            Code = "KT",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5677),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "kit"
-                        },
-                        new
-                        {
-                            Id = 58,
-                            Code = "CA",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5677),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LATAS"
-                        },
-                        new
-                        {
-                            Id = 59,
-                            Code = "LBR",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5678),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LIBRAS"
-                        },
-                        new
-                        {
-                            Id = 60,
-                            Code = "LTR",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5679),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "LITRO"
-                        },
-                        new
-                        {
-                            Id = 61,
-                            Code = "MWH",
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(5680),
-                            IsActive = true,
-                            IsDeleted = false,
-                            LastModifiedUtc = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "MEGAWATT HORA"
-                        });
                 });
 
             modelBuilder.Entity("Medical.Domain.Entities.Pacient", b =>
@@ -1006,7 +397,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 1,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8329),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3969),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1017,7 +408,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 2,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8331),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3972),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1028,7 +419,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 3,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8332),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3973),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1039,7 +430,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 4,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8333),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3974),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1050,7 +441,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 5,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8334),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3975),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1061,7 +452,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 6,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8335),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3976),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1072,7 +463,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 7,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8336),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3977),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1083,7 +474,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 8,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8337),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3978),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1094,7 +485,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 9,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8338),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3979),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1105,7 +496,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 10,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8338),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3980),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1116,7 +507,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 11,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8383),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3981),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1127,7 +518,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 12,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8384),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3981),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1138,7 +529,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 13,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8385),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3982),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1149,7 +540,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 14,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8386),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(3983),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1160,7 +551,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 15,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8387),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4031),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1171,7 +562,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 16,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8387),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4032),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1182,7 +573,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 17,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8388),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4033),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1193,7 +584,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 18,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8389),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4034),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1204,7 +595,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 19,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8390),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4035),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1215,7 +606,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 20,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8391),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4036),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1226,7 +617,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 21,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8391),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4037),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1237,7 +628,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 22,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8392),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4038),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1248,7 +639,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 23,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8393),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4039),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1259,7 +650,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 24,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8394),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4040),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1270,7 +661,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 25,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8394),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4040),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1281,7 +672,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 26,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8395),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4041),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1292,7 +683,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 27,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8396),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4042),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1303,7 +694,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 28,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8396),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4043),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1314,7 +705,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 29,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8397),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4044),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1325,7 +716,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 30,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8398),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4045),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1336,7 +727,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 31,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8398),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4046),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1347,7 +738,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 32,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8399),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4047),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1358,7 +749,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 33,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8400),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4048),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1369,7 +760,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 34,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8401),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4049),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1380,7 +771,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 35,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8401),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4050),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1391,7 +782,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 36,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8402),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4050),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1402,7 +793,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 37,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8403),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4051),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1413,7 +804,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 38,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8404),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4052),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1424,7 +815,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 39,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8405),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4053),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1435,7 +826,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 40,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8405),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4054),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,
@@ -1446,7 +837,7 @@ namespace Medical.Persistence.Migrations
                         {
                             Id = 41,
                             Cost = 1m,
-                            CreatedUtc = new DateTime(2025, 2, 16, 16, 32, 18, 525, DateTimeKind.Utc).AddTicks(8406),
+                            CreatedUtc = new DateTime(2025, 2, 16, 16, 14, 30, 875, DateTimeKind.Utc).AddTicks(4055),
                             DurationMinutes = 30,
                             IsActive = true,
                             IsDeleted = false,

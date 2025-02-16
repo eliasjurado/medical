@@ -1,0 +1,77 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@inject ITreatmentService treatmentService
+@page "/articulo"
+
+<h3>Artículo</h3>
+
+<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
+    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Artículo" Click=@AddRow />
+</RadzenStack>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
+Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(TreatmentDto.Id)" Filterable="false" Title="Código" Frozen="true" Width="50px" TextAlign="TextAlign.Center" >
+            <Template Context="model">
+                @model.Id.ToString().PadLeft(6, '0')
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(TreatmentDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(TreatmentDto.Cost)" Title="Costo" Width="100px" TextAlign="TextAlign.Right" FormatString="{0:C2}" Frozen="true" />
+        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="model">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<TreatmentDto> items;
+    IList<TreatmentDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
+
+        await treatmentService.GetAdminTreatments();
+        treatmentService.OnChange += StateHasChanged;
+        items = treatmentService.AdminTreatments.AsQueryable();
+
+        selectedItems = new List<TreatmentDto>() { items.FirstOrDefault() };
+    }
+
+    async Task AddRow()
+    {
+        TreatmentDto data = await DialogService.OpenAsync<TreatmentAdd>("Nuevo Artículo");
+        if (data != null)
+        {
+            await treatmentService.AddTreatment(data);
+            selectedItems.Add(data);
+        }
+    }
+
+    async Task EditRow(TreatmentDto model)
+    {
+        TreatmentDto data = await DialogService.OpenAsync<TreatmentEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model } });
+        if (data != null)
+        {
+            await treatmentService.UpdateTreatment(data);
+        }
+    }
+
+    async Task DeleteRow(TreatmentDto model)
+    {
+        Interceptor.RegisterEvent();
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el artículo: {model.Name}?", "Eliminar Artículo", new ConfirmOptions() { OkButtonText = "Sí", CancelButtonText = "No" });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            await treatmentService.DeleteTreatment(model.Id);
+            treatmentService.OnChange += StateHasChanged;
+            items = treatmentService.AdminTreatments.AsQueryable();
+        }
+    }
+}

@@ -17,6 +17,8 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private SpecialistCommandRepository? _specialistCommand;
     private AppointmentCommandRepository? _appointmentCommand;
     private BrandCommandRepository? _brandCommand;
+    private FiscalUnitCommandRepository? _fiscalUnitCommand;
+    
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));
@@ -24,6 +26,7 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     public ISpecialistCommandRepository SpecialistCommand => _specialistCommand ?? (_specialistCommand = new SpecialistCommandRepository(_context));
     public IAppointmentCommandRepository AppointmentCommand => _appointmentCommand ?? (_appointmentCommand = new AppointmentCommandRepository(_context));
     public IBrandCommandRepository BrandCommand => _brandCommand ?? (_brandCommand = new BrandCommandRepository(_context));
+    public IFiscalUnitCommandRepository FiscalUnitCommand => _fiscalUnitCommand ?? (_fiscalUnitCommand = new FiscalUnitCommandRepository(_context));
 
     public async Task<int> SaveAsync()
     {

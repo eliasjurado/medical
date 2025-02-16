@@ -15,6 +15,8 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     private SpecialistQueryRepository? _specialistQuery;
     private AppointmentQueryRepository? _appointmentQuery;
     private BrandQueryRepository? _brandQuery;
+    private FiscalUnitQueryRepository? _fiscalUnitQuery;
+    
 
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
     public IPacientQueryRepository PacientQuery => _pacientQuery ?? (_pacientQuery = new PacientQueryRepository(_context));
@@ -22,4 +24,5 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     public ISpecialistQueryRepository SpecialistQuery => _specialistQuery ?? (_specialistQuery = new SpecialistQueryRepository(_context));
     public IAppointmentQueryRepository AppointmentQuery => _appointmentQuery ?? (_appointmentQuery = new AppointmentQueryRepository(_context));
     public IBrandQueryRepository BrandQuery => _brandQuery ?? (_brandQuery = new BrandQueryRepository(_context));
+    public IFiscalUnitQueryRepository FiscalUnitQuery => _fiscalUnitQuery ?? (_fiscalUnitQuery = new FiscalUnitQueryRepository(_context));
 }

@@ -1,14 +1,15 @@
-﻿using Medical.App.Services.AppointmentService;
+﻿using Medical.App.Services;
+using Medical.App.Services.AppointmentService;
+using Medical.App.Services.AuthService;
+using Medical.App.Services.BrandService;
 using Medical.App.Services.CategoryService;
+using Medical.App.Services.FiscalUnitService;
 using Medical.App.Services.PacientService;
 using Medical.App.Services.SpecialistService;
-using Medical.App.Services;
 using Medical.App.Services.TreatmentService;
+using Medical.App.Services.UserService;
 using Medical.Application.Contracts.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
-using Medical.App.Services.AuthService;
-using Medical.App.Services.UserService;
-using Medical.App.Services.BrandService;
 
 namespace Medical.App.Extensions
 {
@@ -22,13 +23,15 @@ namespace Medical.App.Extensions
             services.AddScoped<ISpecialistService, SpecialistService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IBrandService, BrandService>();
+            services.AddScoped<IFiscalUnitService, FiscalUnitService>();
+
 
             services.AddScoped<ICurrentUser, CurrentUser>();
             services.AddScoped<Services.AuthService.IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<HttpInterceptorService>();
             services.AddScoped<RefreshTokenService>();
-            
+
             services.AddOptions();
             services.AddAuthorizationCore();
             services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
