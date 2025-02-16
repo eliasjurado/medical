@@ -110,11 +110,11 @@ public class BrandService : IBrandService
         }           
     }
 
-    public async Task UpdateBrand(BrandDto Brand)
+    public async Task UpdateBrand(BrandDto item)
     {
         try
         {
-            var response = await _http.PutAsJsonAsync($"{BaseURL}admin", Brand);
+            var response = await _http.PutAsJsonAsync($"{BaseURL}admin", item);
             var result = (await response.Content
                 .ReadFromJsonAsync<ApiResponse<List<BrandDto>>>());
 
