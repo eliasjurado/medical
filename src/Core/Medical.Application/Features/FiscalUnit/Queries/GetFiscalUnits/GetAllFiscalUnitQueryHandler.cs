@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.FiscalUnit;
+﻿using Medical.Domain.Dto.Fiscal;
 
 namespace Medical.Application.Features.FiscalUnit.Queries.GetFiscalUnits;
 

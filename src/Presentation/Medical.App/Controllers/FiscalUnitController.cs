@@ -3,7 +3,7 @@ using Medical.Application.Features.FiscalUnit.Commands.AddFiscalUnit;
 using Medical.Application.Features.FiscalUnit.Commands.DeleteFiscalUnit;
 using Medical.Application.Features.FiscalUnit.Commands.UpdateFiscalUnit;
 using Medical.Application.Features.FiscalUnit.Queries.GetFiscalUnits;
-using Medical.Domain.Dto.FiscalUnit;
+using Medical.Domain.Dto.Fiscal;
 using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;
 using Microsoft.AspNetCore.Authorization;

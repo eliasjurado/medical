@@ -1,5 +1,5 @@
 ﻿using Medical.App.Utils;
-using Medical.Domain.Dto.FiscalUnit;
+using Medical.Domain.Dto.Fiscal;
 using Medical.Domain.Dto.Response.Concrete;
 using Microsoft.AspNetCore.Components;
 using Radzen;

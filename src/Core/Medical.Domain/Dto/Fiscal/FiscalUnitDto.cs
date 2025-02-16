@@ -1,4 +1,4 @@
-﻿namespace Medical.Domain.Dto.FiscalUnit;
+﻿namespace Medical.Domain.Dto.Fiscal;
 
 public class FiscalUnitDto
 {
