@@ -8,16 +8,12 @@
 <RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
     <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Especialista" Click=@AddRow />
 </RadzenStack>
-<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true"
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="Código" Frozen="true" Width="50px" TextAlign="TextAlign.Center">
-            <Template Context="model">
-                @model.Id.ToString().PadLeft(6, '0')
-            </Template>
-        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center"/>
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres y Apellidos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
-        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Birthdate)" Title="Edad" Frozen="true" Width="80px" Sortable="true" Filterable="true" >
+        <RadzenDataGridColumn Property="@nameof(SpecialistDto.Birthdate)" Title="Edad" Frozen="true" Width="80px" Sortable="true" Filterable="false" >
             <Template Context="model">
                 @(Convert.ToInt32((DateTime.Today - model.Birthdate).TotalDays / 365.2425))
             </Template>

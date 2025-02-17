@@ -13,12 +13,12 @@
                 <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Abreviatura" Style="width: 6rem;" />
+                <RadzenLabel Text="Código" Style="width: 6rem;" />
                 <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 20rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:6rem"></div>
-                <RadzenRequiredValidator Component="Code" Text="Abreviatura es requerido" />
+                <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />

@@ -18,7 +18,10 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private AppointmentCommandRepository? _appointmentCommand;
     private BrandCommandRepository? _brandCommand;
     private FiscalUnitCommandRepository? _fiscalUnitCommand;
-    
+    private FiscalSegmentCommandRepository? _fiscalSegmentCommand;
+    private FiscalFamilyCommandRepository? _fiscalFamilyCommand;
+    private FiscalClassCommandRepository? _fiscalClassCommand;
+    private FiscalProductCommandRepository? _fiscalProductCommand;
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));
@@ -27,6 +30,10 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     public IAppointmentCommandRepository AppointmentCommand => _appointmentCommand ?? (_appointmentCommand = new AppointmentCommandRepository(_context));
     public IBrandCommandRepository BrandCommand => _brandCommand ?? (_brandCommand = new BrandCommandRepository(_context));
     public IFiscalUnitCommandRepository FiscalUnitCommand => _fiscalUnitCommand ?? (_fiscalUnitCommand = new FiscalUnitCommandRepository(_context));
+    public IFiscalSegmentCommandRepository FiscalSegmentCommand => _fiscalSegmentCommand ?? (_fiscalSegmentCommand = new FiscalSegmentCommandRepository(_context));
+    public IFiscalFamilyCommandRepository FiscalFamilyCommand => _fiscalFamilyCommand ?? (_fiscalFamilyCommand = new FiscalFamilyCommandRepository(_context));
+    public IFiscalClassCommandRepository FiscalClassCommand => _fiscalClassCommand ?? (_fiscalClassCommand = new FiscalClassCommandRepository(_context));
+    public IFiscalProductCommandRepository FiscalProductCommand => _fiscalProductCommand ?? (_fiscalProductCommand = new FiscalProductCommandRepository(_context));
 
     public async Task<int> SaveAsync()
     {

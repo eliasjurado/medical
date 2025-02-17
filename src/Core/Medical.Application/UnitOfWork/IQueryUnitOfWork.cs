@@ -1,6 +1,4 @@
-﻿using Medical.Application.Repositories.Queries;
-
-namespace Medical.Application.UnitOfWork;
+﻿namespace Medical.Application.UnitOfWork;
 
 public interface IQueryUnitOfWork
 {
@@ -11,5 +9,9 @@ public interface IQueryUnitOfWork
     ISpecialistQueryRepository SpecialistQuery { get; }
     IBrandQueryRepository BrandQuery { get; }
     IFiscalUnitQueryRepository FiscalUnitQuery { get; }
-    
+    IFiscalSegmentQueryRepository FiscalSegmentQuery { get; }
+    IFiscalFamilyQueryRepository FiscalFamilyQuery { get; }
+    IFiscalClassQueryRepository FiscalClassQuery { get; }
+    IFiscalProductQueryRepository FiscalProductQuery { get; }
+
 }

@@ -3,6 +3,10 @@ using Medical.App.Services.AppointmentService;
 using Medical.App.Services.AuthService;
 using Medical.App.Services.BrandService;
 using Medical.App.Services.CategoryService;
+using Medical.App.Services.FiscalClassService;
+using Medical.App.Services.FiscalFamilyService;
+using Medical.App.Services.FiscalProductService;
+using Medical.App.Services.FiscalSegmentService;
 using Medical.App.Services.FiscalUnitService;
 using Medical.App.Services.PacientService;
 using Medical.App.Services.SpecialistService;
@@ -24,6 +28,10 @@ namespace Medical.App.Extensions
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IFiscalUnitService, FiscalUnitService>();
+            services.AddScoped<IFiscalSegmentService, FiscalSegmentService>();
+            services.AddScoped<IFiscalFamilyService, FiscalFamilyService>();
+            services.AddScoped<IFiscalClassService, FiscalClassService>();
+            services.AddScoped<IFiscalProductService, FiscalProductService>();
 
 
             services.AddScoped<ICurrentUser, CurrentUser>();

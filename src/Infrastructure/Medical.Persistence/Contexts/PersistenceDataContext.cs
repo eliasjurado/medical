@@ -16,7 +16,11 @@ namespace Medical.Server.Contexts
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<FiscalUnit> FiscalUnits { get; set; }
-        
+        public DbSet<FiscalSegment> FiscalSegments { get; set; }
+        public DbSet<FiscalFamily> FiscalFamilies { get; set; }
+        public DbSet<FiscalClass> FiscalClasses { get; set; }
+        public DbSet<FiscalProduct> FiscalProducts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);

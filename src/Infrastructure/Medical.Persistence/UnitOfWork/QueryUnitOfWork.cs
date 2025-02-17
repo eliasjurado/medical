@@ -16,7 +16,11 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     private AppointmentQueryRepository? _appointmentQuery;
     private BrandQueryRepository? _brandQuery;
     private FiscalUnitQueryRepository? _fiscalUnitQuery;
-    
+    private FiscalSegmentQueryRepository? _fiscalSegmentQuery;
+    private FiscalFamilyQueryRepository? _fiscalFamilyQuery;
+    private FiscalClassQueryRepository? _fiscalClassQuery;
+    private FiscalProductQueryRepository? _fiscalProductQuery;
+
 
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
     public IPacientQueryRepository PacientQuery => _pacientQuery ?? (_pacientQuery = new PacientQueryRepository(_context));
@@ -25,4 +29,8 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     public IAppointmentQueryRepository AppointmentQuery => _appointmentQuery ?? (_appointmentQuery = new AppointmentQueryRepository(_context));
     public IBrandQueryRepository BrandQuery => _brandQuery ?? (_brandQuery = new BrandQueryRepository(_context));
     public IFiscalUnitQueryRepository FiscalUnitQuery => _fiscalUnitQuery ?? (_fiscalUnitQuery = new FiscalUnitQueryRepository(_context));
+    public IFiscalSegmentQueryRepository FiscalSegmentQuery => _fiscalSegmentQuery ?? (_fiscalSegmentQuery = new FiscalSegmentQueryRepository(_context));
+    public IFiscalFamilyQueryRepository FiscalFamilyQuery => _fiscalFamilyQuery ?? (_fiscalFamilyQuery = new FiscalFamilyQueryRepository(_context));
+    public IFiscalClassQueryRepository FiscalClassQuery => _fiscalClassQuery ?? (_fiscalClassQuery = new FiscalClassQueryRepository(_context));
+    public IFiscalProductQueryRepository FiscalProductQuery => _fiscalProductQuery ?? (_fiscalProductQuery = new FiscalProductQueryRepository(_context));
 }
