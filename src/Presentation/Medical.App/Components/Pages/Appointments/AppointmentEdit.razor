@@ -41,13 +41,8 @@
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
             <RadzenLabel Text="Cita" Style="width: 6rem;" />
             <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 12rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
-            <RadzenRequiredValidator Component="StartDateTime" Text="Inicio es requerido" />
+            <RadzenRequiredValidator Component="StartDateTime" Text="Cita es requerido" />
         </RadzenStack>
-        @* <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-            <RadzenLabel Text="Fin" Style="width: 6rem;" />
-            <RadzenDatePicker Name="EndDateTime" @bind-Value="@model.EndDateTime" ShowTime="true" Style="width: 12rem;" DateFormat="dd/MM/yyyy hh:mm" />
-            <RadzenRequiredValidator Component="EndDateTime" Text="Fin es requerido" />
-        </RadzenStack> *@
         <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
             <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
         </RadzenStack>
