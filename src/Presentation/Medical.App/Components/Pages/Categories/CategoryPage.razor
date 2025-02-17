@@ -1,0 +1,31 @@
+﻿@using Medical.App.Services.CategoryService
+@using Medical.Domain.Dto.Category
+@inject ICategoryService categoryService
+@page "/categoria"
+
+<h3>Categoría</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(CategoryDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(CategoryDto.Name)" Title="Nombre" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(CategoryDto.Url)" Title="URL" Width="150px" />
+        <RadzenDataGridColumn Property="@nameof(CategoryDto.IsActive)" Title="Activo" Width="80px" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<CategoryDto> items;
+    IList<CategoryDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await categoryService.GetCategories();
+        items = categoryService.Categories.AsQueryable();
+
+        selectedItems = new List<CategoryDto>() { items.FirstOrDefault() };
+    }
+}

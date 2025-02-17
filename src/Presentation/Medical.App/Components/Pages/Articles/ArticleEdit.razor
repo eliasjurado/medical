@@ -1,0 +1,54 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="ArticleDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
+    <RadzenColumn Size="12" SizeMD="6">
+        <RadzenStack Gap="1rem">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:6rem"></div>
+                <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Nombre Común" Style="width: 10rem;" />
+                <RadzenTextBox @bind-Value=@model.CommonName Name="CommonName" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:10rem"></div>
+                <RadzenRequiredValidator Component="CommonName" Text="Nombre Común es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Descripción" Style="width: 10rem;" />
+                <RadzenTextArea @bind-Value=@model.Description Name="Description" Style="width: 20rem" Rows="3" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:10rem"></div>
+                <RadzenRequiredValidator Component="Description" Text="Descripción es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenColumn>
+
+</RadzenTemplateForm>
+
+@code {
+    [Parameter]
+    public ArticleDto Param { get; set; }
+
+    ArticleDto model = new ArticleDto();
+
+    async void OnSubmit(ArticleDto model)
+    {
+        DialogService.Close(model);
+    }
+
+    protected async override void OnParametersSet()
+    {
+        model = Param;
+    }
+}

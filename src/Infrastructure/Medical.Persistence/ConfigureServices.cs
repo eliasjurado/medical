@@ -26,6 +26,12 @@ public static class ConfigureServices
         services.AddScoped<ISpecialistCommandRepository, SpecialistCommandRepository>();
         services.AddScoped<IAppointmentCommandRepository, AppointmentCommandRepository>();
         services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
+        services.AddScoped<IArticleCommandRepository, ArticleCommandRepository>();
+        services.AddScoped<IFiscalUnitCommandRepository, FiscalUnitCommandRepository>();
+        services.AddScoped<IFiscalSegmentCommandRepository, FiscalSegmentCommandRepository>();
+        services.AddScoped<IFiscalFamilyCommandRepository, FiscalFamilyCommandRepository>();
+        services.AddScoped<IFiscalClassCommandRepository, FiscalClassCommandRepository>();
+        services.AddScoped<IFiscalProductCommandRepository, FiscalProductCommandRepository>();
 
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
@@ -34,6 +40,12 @@ public static class ConfigureServices
         services.AddScoped<ISpecialistQueryRepository, SpecialistQueryRepository>();
         services.AddScoped<IAppointmentQueryRepository, AppointmentQueryRepository>();
         services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
+        services.AddScoped<IArticleQueryRepository, ArticleQueryRepository>();
+        services.AddScoped<IFiscalUnitQueryRepository, FiscalUnitQueryRepository>();
+        services.AddScoped<IFiscalSegmentQueryRepository, FiscalSegmentQueryRepository>();
+        services.AddScoped<IFiscalFamilyQueryRepository, FiscalFamilyQueryRepository>();
+        services.AddScoped<IFiscalClassQueryRepository, FiscalClassQueryRepository>();
+        services.AddScoped<IFiscalProductQueryRepository, FiscalProductQueryRepository>();
 
         return services;
     }

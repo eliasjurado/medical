@@ -1,0 +1,90 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@inject IArticleService ArticleService
+@page "/articulo"
+
+<h3>Artículo</h3>
+
+<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
+    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Artículo" Click=@AddRow />
+</RadzenStack>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.CommonName)" Title="Nombre Común" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.Brand.Name)" Title="Marca" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.UnitCode)" Title="Unidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.Size)" Title="Tamaño" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.Cost)" Title="Costo" Width="100px" FormatString="{0:C2}" Frozen="true">
+            <Template Context="model">
+                <RadzenStack Orientation="Orientation.Horizontal">
+                    <div class="rz-w-25">S/</div>
+                    <div class="rz-w-75 rz-text-align-right">@model.Cost</div>
+                </RadzenStack>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.IsAllowedSale)" Title="En Venta" TextAlign="TextAlign.Center" Width="80px" Sortable="true" Filterable="true" Frozen="true">
+            <Template Context="model">
+                <RadzenCheckBox Value="@model.IsAllowedSale" ReadOnly="true"></RadzenCheckBox>
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="model">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<ArticleDto> items;
+    IList<ArticleDto> selectedItems;
+    DialogOptions dialogOptions = new DialogOptions { Draggable = true, Width = "1130px", Height = "590px", };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
+
+        await ArticleService.GetAdminArticles();
+        ArticleService.OnChange += StateHasChanged;
+        items = ArticleService.AdminArticles.AsQueryable();
+
+        selectedItems = new List<ArticleDto>() { items.FirstOrDefault() };
+    }
+
+    async Task AddRow()
+    {
+        ArticleDto data = await DialogService.OpenAsync<ArticleAdd>("Nuevo Artículo", options: dialogOptions);
+        if (data != null)
+        {
+            await ArticleService.AddArticle(data);
+            selectedItems.Add(data);
+        }
+    }
+
+    async Task EditRow(ArticleDto model)
+    {
+        ArticleDto data = await DialogService.OpenAsync<ArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model } }, dialogOptions);
+        if (data != null)
+        {
+            await ArticleService.UpdateArticle(data);
+        }
+    }
+
+    async Task DeleteRow(ArticleDto model)
+    {
+        Interceptor.RegisterEvent();
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Artículo: {model.Name}?", "Eliminar Artículo", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            await ArticleService.DeleteArticle(model.Id);
+            ArticleService.OnChange += StateHasChanged;
+            items = ArticleService.AdminArticles.AsQueryable();
+        }
+    }
+}

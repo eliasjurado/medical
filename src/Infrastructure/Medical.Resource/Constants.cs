@@ -6,6 +6,9 @@
 
         public static string LANGUAGE_SPANISH_PERU = "es-PE";
 
+        public static string SYSTEM_BOOLEAN_YES = "Sí";
+        public static string SYSTEM_BOOLEAN_NOT = "No";
+
         public static string SYSTEM_PREFIX_NAME = "Sistema";
         public static string SYSTEM_LEAD = "Sistema de Gestión Médica";
         public static string SYSTEM_AUTHOR_NAME = "Medical Systems Services";

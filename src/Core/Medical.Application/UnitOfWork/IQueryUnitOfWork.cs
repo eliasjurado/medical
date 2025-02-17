@@ -13,5 +13,6 @@ public interface IQueryUnitOfWork
     IFiscalFamilyQueryRepository FiscalFamilyQuery { get; }
     IFiscalClassQueryRepository FiscalClassQuery { get; }
     IFiscalProductQueryRepository FiscalProductQuery { get; }
+    IArticleQueryRepository ArticleQuery { get; }
 
 }

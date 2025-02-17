@@ -15,6 +15,7 @@ namespace Medical.Server.Contexts
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Article> Articles { get; set; }
         public DbSet<FiscalUnit> FiscalUnits { get; set; }
         public DbSet<FiscalSegment> FiscalSegments { get; set; }
         public DbSet<FiscalFamily> FiscalFamilies { get; set; }

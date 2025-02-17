@@ -13,6 +13,7 @@ public interface ICommandUnitOfWork<Tkey>
     IFiscalFamilyCommandRepository FiscalFamilyCommand { get; }
     IFiscalClassCommandRepository FiscalClassCommand { get; }
     IFiscalProductCommandRepository FiscalProductCommand { get; }
+    IArticleCommandRepository ArticleCommand { get; }
 
     Task<int> SaveAsync();
 }
