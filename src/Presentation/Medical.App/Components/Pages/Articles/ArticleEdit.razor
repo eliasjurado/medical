@@ -1,54 +1,197 @@
 ﻿@inject HttpInterceptorService Interceptor
 @inject DialogService DialogService
+@inject IBrandService brandService
+@inject IFiscalProductService fiscalProductService
+@inject IFiscalUnitService fiscalUnitService
 
 <RadzenTemplateForm TItem="ArticleDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
-    <RadzenColumn Size="12" SizeMD="6">
-        <RadzenStack Gap="1rem">
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
-                <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre Común" Style="width: 10rem;" />
-                <RadzenTextBox @bind-Value=@model.CommonName Name="CommonName" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:10rem"></div>
-                <RadzenRequiredValidator Component="CommonName" Text="Nombre Común es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Descripción" Style="width: 10rem;" />
-                <RadzenTextArea @bind-Value=@model.Description Name="Description" Style="width: 20rem" Rows="3" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:10rem"></div>
-                <RadzenRequiredValidator Component="Description" Text="Descripción es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
-            </RadzenStack>
-        </RadzenStack>
-    </RadzenColumn>
 
+    <RadzenRow Gap="1rem">
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack Gap="1rem">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Nombre" Style="width: 9rem;" />
+                    <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 22rem" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Nombre Común" Style="width: 9rem;" />
+                    <RadzenTextBox @bind-Value=@model.CommonName Name="CommonName" Style="width: 22rem" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="CommonName" Text="Nombre Común es requerido" />
+                </RadzenStack>
+
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Marca" Style="width: 9rem;" />
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                    Data=@brands TextProperty="@nameof(BrandDto.Name)" ValueProperty="@nameof(BrandDto.Name)" AllowClear="true" @bind-Value=@model.BrandName Style="width: 22rem" Name="IdBrand" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="IdBrand" Text="Marca es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Código" Style="width: 9rem;" />
+                    <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 22rem" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Unidad" Style="width: 9rem;" />
+                    <RadzenTextBox @bind-Value=@model.UnitCode Name="UnitCode" Style="width: 22rem" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="UnitCode" Text="Unidad es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Tamaño" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@model.Size Step="0.01" Name="Size" Style="width: 22rem" Format="0.00" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                    <RadzenNumericRangeValidator Component="Size" Min=0.01 Text="Tamaño debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Descripción" Style="width: 9rem;" />
+                    <RadzenTextArea @bind-Value=@model.Description Name="Description" Style="width: 22rem" Rows="3" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="Description" Text="Descripción es requerido" />
+                </RadzenStack>
+            </RadzenStack>
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack Gap="1rem">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Código Sunat" Style="width: 9rem;" />
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                    Data=@fiscalProducts TextProperty="@nameof(FiscalProductDto.Name)" ValueProperty="@nameof(FiscalProductDto.Name)" AllowClear="true" @bind-Value=@model.FiscalProductName Style="width: 22rem" Name="IdFiscalProduct" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="IdFiscalProduct" Text="Código Sunat es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Unidad Sunat" Style="width: 9rem;" />
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                    Data=@fiscalUnits TextProperty="@nameof(FiscalUnitDto.Name)" ValueProperty="@nameof(FiscalUnitDto.Name)" AllowClear="true" @bind-Value=@model.FiscalUnitName Style="width: 22rem" Name="IdFiscalUnit" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="IdFiscalUnit" Text="Unidad Sunat es requerido" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Costo S/" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@model.Cost Step="0.01" Name="Cost" Style="width: 22rem" Format="0.00" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                    <RadzenNumericRangeValidator Component="Cost" Min=0.01 Text="Costo debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Stock Mínimo" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@model.MinimumStock Step="0.01" Name="MinimumStock" Style="width: 22rem" Format="0.00" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                    <RadzenNumericRangeValidator Component="MinimumStock" Min=0.01 Text="Stock Mínimo debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Neto" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@model.Net Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                    <RadzenNumericRangeValidator Component="Net" Min=0.01 Text="Neto debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Neto Mínimo" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@model.MinimumNet Step="0.01" Name="MinimumNet" Style="width: 22rem" Format="0.00" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                    <RadzenNumericRangeValidator Component="MinimumNet" Min=0.01 Text="Neto Mínimo debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="En Venta" Style="width: 9rem;" />
+                    <RadzenCheckBox @bind-Value=@model.IsAllowedSale />
+                </RadzenStack>
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenRow Gap="1rem" JustifyContent="JustifyContent.Right">
+        <RadzenStack Orientation="Orientation.Horizontal">
+            <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+        </RadzenStack>
+    </RadzenRow>
 </RadzenTemplateForm>
 
 @code {
     [Parameter]
     public ArticleDto Param { get; set; }
 
+    RadzenDropDown<string> radzenDropDown;
+    string value;
+    string brandName = string.Empty;
+    string fiscalProductName = string.Empty;
+    string fiscalUnitName = string.Empty;
+
+    IEnumerable<BrandDto> brands;
+    IEnumerable<FiscalProductDto> fiscalProducts;
+    IEnumerable<FiscalUnitDto> fiscalUnits;
+
     ArticleDto model = new ArticleDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await brandService.GetBrands();
+        brands = brandService.Brands;
+
+        await fiscalProductService.GetFiscalProducts();
+        fiscalProducts = fiscalProductService.FiscalProducts;
+
+        await fiscalUnitService.GetFiscalUnits();
+        fiscalUnits = fiscalUnitService.FiscalUnits;
+    }
 
     async void OnSubmit(ArticleDto model)
     {
+        model.BrandId = (await brandService.GetBrandByName(model.BrandName)).Id;
+        model.FiscalProductId = (await fiscalProductService.GetFiscalProductByName(model.FiscalProductName)).Id;
+        model.FiscalUnitId = (await fiscalUnitService.GetFiscalUnitByName(model.FiscalUnitName)).Id;
         DialogService.Close(model);
     }
 
     protected async override void OnParametersSet()
     {
         model = Param;
+    }
+
+    string searchText = "";
+
+    public string SearchText
+    {
+        get
+        {
+            return searchText;
+        }
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+            }
+        }
     }
 }

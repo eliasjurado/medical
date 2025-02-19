@@ -107,7 +107,25 @@ public class BrandService : IBrandService
         catch (HttpRequestException ex)
         {
             HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
-        }           
+        }
+    }
+
+    public async Task<BrandDto?> GetBrandByName(string name)
+    {
+        try
+        {
+            var response = await _http.GetFromJsonAsync<ApiResponse<BrandDto>>($"{BaseURL}name?name={name}");
+
+            if (response != null && response.Success)
+            {
+                return response.Data!;
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+        }
+        return null;
     }
 
     public async Task UpdateBrand(BrandDto item)

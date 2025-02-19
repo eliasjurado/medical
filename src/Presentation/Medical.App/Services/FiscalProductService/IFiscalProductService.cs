@@ -8,6 +8,7 @@ public interface IFiscalProductService
     List<FiscalProductDto> FiscalProducts { get; set; }
     List<FiscalProductDto> AdminFiscalProducts { get; set; }
     Task GetFiscalProducts();
+    Task<FiscalProductDto?> GetFiscalProductByName(string name);
     Task GetAdminFiscalProducts();
     Task AddFiscalProduct(FiscalProductDto item);
     Task UpdateFiscalProduct(FiscalProductDto item);

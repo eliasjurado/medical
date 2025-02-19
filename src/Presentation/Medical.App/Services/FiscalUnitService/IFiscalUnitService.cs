@@ -8,6 +8,7 @@ public interface IFiscalUnitService
     List<FiscalUnitDto> FiscalUnits { get; set; }
     List<FiscalUnitDto> AdminFiscalUnits { get; set; }
     Task GetFiscalUnits();
+    Task<FiscalUnitDto?> GetFiscalUnitByName(string name);
     Task GetAdminFiscalUnits();
     Task AddFiscalUnit(FiscalUnitDto item);
     Task UpdateFiscalUnit(FiscalUnitDto item);

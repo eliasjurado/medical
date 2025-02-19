@@ -1,6 +1,6 @@
 ﻿@inject HttpInterceptorService Interceptor
 @inject DialogService DialogService
-@inject IArticleService ArticleService
+@inject IArticleService articleService
 @page "/articulo"
 
 <h3>Artículo</h3>
@@ -14,7 +14,7 @@
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.CommonName)" Title="Nombre Común" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
-        <RadzenDataGridColumn Property="@nameof(ArticleDto.Brand.Name)" Title="Marca" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.BrandName)" Title="Marca" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.UnitCode)" Title="Unidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Size)" Title="Tamaño" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Cost)" Title="Costo" Width="100px" FormatString="{0:C2}" Frozen="true">
@@ -27,7 +27,7 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(ArticleDto.IsAllowedSale)" Title="En Venta" TextAlign="TextAlign.Center" Width="80px" Sortable="true" Filterable="true" Frozen="true">
             <Template Context="model">
-                <RadzenCheckBox Value="@model.IsAllowedSale" ReadOnly="true"></RadzenCheckBox>
+                <RadzenCheckBox Value="@model.IsAllowedSale" ReadOnly="true"/>
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
@@ -49,9 +49,9 @@
         await base.OnInitializedAsync();
         Interceptor.RegisterEvent();
 
-        await ArticleService.GetAdminArticles();
-        ArticleService.OnChange += StateHasChanged;
-        items = ArticleService.AdminArticles.AsQueryable();
+        await articleService.GetAdminArticles();
+        articleService.OnChange += StateHasChanged;
+        items = articleService.AdminArticles.AsQueryable();
 
         selectedItems = new List<ArticleDto>() { items.FirstOrDefault() };
     }
@@ -61,8 +61,9 @@
         ArticleDto data = await DialogService.OpenAsync<ArticleAdd>("Nuevo Artículo", options: dialogOptions);
         if (data != null)
         {
-            await ArticleService.AddArticle(data);
+            await articleService.AddArticle(data);
             selectedItems.Add(data);
+            items = articleService.AdminArticles.AsQueryable();
         }
     }
 
@@ -71,7 +72,7 @@
         ArticleDto data = await DialogService.OpenAsync<ArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model } }, dialogOptions);
         if (data != null)
         {
-            await ArticleService.UpdateArticle(data);
+            await articleService.UpdateArticle(data);
         }
     }
 
@@ -82,9 +83,9 @@
 
         if (isDeleted.GetValueOrDefault())
         {
-            await ArticleService.DeleteArticle(model.Id);
-            ArticleService.OnChange += StateHasChanged;
-            items = ArticleService.AdminArticles.AsQueryable();
+            await articleService.DeleteArticle(model.Id);
+            articleService.OnChange += StateHasChanged;
+            items = articleService.AdminArticles.AsQueryable();
         }
     }
 }

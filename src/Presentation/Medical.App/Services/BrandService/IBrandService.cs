@@ -8,6 +8,7 @@ public interface IBrandService
     List<BrandDto> Brands { get; set; }
     List<BrandDto> AdminBrands { get; set; }
     Task GetBrands();
+    Task<BrandDto?> GetBrandByName(string name);
     Task GetAdminBrands();
     Task AddBrand(BrandDto item);
     Task UpdateBrand(BrandDto item);

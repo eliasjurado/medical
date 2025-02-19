@@ -29,6 +29,13 @@ public class FiscalProductController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("name")]
+    public async Task<ActionResult<IResponse>> GetFiscalProductByName(string name)
+    {
+        var response = await _mediator.Send(new GetFiscalProductByNameQueryRequest(name));
+        return Ok(response);
+    }
+
     [HttpGet("admin"), Authorize(Roles = "Administrador")]
     public async Task<ActionResult<IResponse>> GetAdminFiscalProducts()
     {
