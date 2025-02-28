@@ -61,7 +61,7 @@
     async Task DeleteRow(BrandDto model)
     {
         Interceptor.RegisterEvent();
-        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar la Marca: {model.Name}?", "Eliminar Marca", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar la Marca: {model.Name}?", "Eliminar Marca", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
 
         if (isDeleted.GetValueOrDefault())
         {

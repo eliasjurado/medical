@@ -1,14 +1,7 @@
-using System.Net.Http;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.JSInterop;
 using Radzen;
-using Radzen.Blazor;
 
 namespace Medical.App.Components.Layout
 {
@@ -32,7 +25,21 @@ namespace Medical.App.Components.Layout
         [Inject]
         protected NotificationService NotificationService { get; set; }
 
+        [Inject]
+        private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
+
         private bool sidebarExpanded = true;
+
+        protected override async Task OnInitializedAsync()
+        {
+            await base.OnInitializedAsync();
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            if(!authState.User.Identity.IsAuthenticated)
+            {
+                await Login();
+            }
+        }
 
         void SidebarToggleClick()
         {

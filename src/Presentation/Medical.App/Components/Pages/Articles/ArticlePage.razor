@@ -15,7 +15,7 @@
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.CommonName)" Title="Nombre Común" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.BrandName)" Title="Marca" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
-        <RadzenDataGridColumn Property="@nameof(ArticleDto.UnitCode)" Title="Unidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.FiscalUnitName)" Title="Unidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Size)" Title="Tamaño" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Cost)" Title="Costo" Width="100px" FormatString="{0:C2}" Frozen="true">
             <Template Context="model">
@@ -79,7 +79,7 @@
     async Task DeleteRow(ArticleDto model)
     {
         Interceptor.RegisterEvent();
-        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Artículo: {model.Name}?", "Eliminar Artículo", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Artículo: {model.Name}?", "Eliminar Artículo", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
 
         if (isDeleted.GetValueOrDefault())
         {

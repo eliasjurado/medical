@@ -12,13 +12,11 @@ public class Article : BaseAuditableEntity<int>
     public int BrandId { get; set; }
     public virtual Brand? Brand { get; set; }
     public string? Code { get; set; }
-    public string? UnitCode { get; set; }
     public int FiscalUnitId { get; set; }
     public virtual FiscalUnit? FiscalUnit { get; set; }
     public decimal Cost { get; set; } = 1;
     public decimal MinimumStock { get; set; }
     public decimal Size { get; set; }
-    public decimal Net { get; set; }
-    public decimal MinimumNet { get; set; }
+    public decimal NetPrice { get; set; }
     public bool IsAllowedSale { get; set; }
 }

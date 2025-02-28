@@ -81,7 +81,7 @@
 
     async Task DeleteRow(PacientDto model)
     {
-        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el paciente {model.FullName}?", "Eliminar Paciente", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Paciente: {model.FullName}?", "Eliminar Paciente", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
 
         if (isDeleted.GetValueOrDefault())
         {

@@ -85,6 +85,7 @@
 
     void OnSubmit(AppointmentViewModel model)
     {
+        model.EndDateTime = model.StartDateTime.AddMinutes(Constants.APPOINTMENTS_DEFAULT_TIME_ELAPSE);
         DialogService.Close(model);
     }
 

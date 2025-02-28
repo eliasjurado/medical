@@ -63,7 +63,7 @@
     async Task DeleteRow(FiscalSegmentDto model)
     {
         Interceptor.RegisterEvent();
-        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Segmento: {model.Name}?", "Eliminar Segmento", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Segmento: {model.Name}?", "Eliminar Segmento", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
 
         if (isDeleted.GetValueOrDefault())
         {

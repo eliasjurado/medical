@@ -40,7 +40,8 @@ namespace Medical.App.Components.Pages.Login
         {
             await LocalStorage!.RemoveItemAsync("authToken");
             await AuthenticationStateProvider!.GetAuthenticationStateAsync();
-            NavigationManager!.NavigateTo(returnUrl);
+            //NavigationManager!.NavigateTo(returnUrl);
+            NavigationManager!.NavigateTo("/login");
         }
 
     }

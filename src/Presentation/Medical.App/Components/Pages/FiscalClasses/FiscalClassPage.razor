@@ -4,10 +4,10 @@
 @page "/sunatclase"
 
 <h3>Sunat</h3>
-<h4>Familia</h4>
+<h4>Clase</h4>
 
 <RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
-    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nueva Familia" Click=@AddRow />
+    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nueva Clase" Click=@AddRow />
 </RadzenStack>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
@@ -43,7 +43,7 @@
 
     async Task AddRow()
     {
-        FiscalClassDto data = await DialogService.OpenAsync<FiscalClassAdd>("Nueva Familia");
+        FiscalClassDto data = await DialogService.OpenAsync<FiscalClassAdd>("Nueva Clase");
         if (data != null)
         {
             await service.AddFiscalClass(data);
@@ -54,7 +54,7 @@
 
     async Task EditRow(FiscalClassDto model)
     {
-        FiscalClassDto data = await DialogService.OpenAsync<FiscalClassEdit>("Editar Familia", new Dictionary<string, object> { { "Param", model } });
+        FiscalClassDto data = await DialogService.OpenAsync<FiscalClassEdit>("Editar Clase", new Dictionary<string, object> { { "Param", model } });
         if (data != null)
         {
             await service.UpdateFiscalClass(data);
@@ -64,7 +64,7 @@
     async Task DeleteRow(FiscalClassDto model)
     {
         Interceptor.RegisterEvent();
-        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar la Familia: {model.Name}?", "Eliminar Familia", new ConfirmOptions() { OkButtonText = Resource.Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Resource.Constants.SYSTEM_BOOLEAN_NOT });
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar la Clase: {model.Name}?", "Eliminar Clase", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
 
         if (isDeleted.GetValueOrDefault())
         {

@@ -9,11 +9,28 @@
     <RadzenLabel Text="Ver por" Style="width: 4rem;" />
     <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
 </RadzenStack>
-<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10" @ref=@scheduler SlotRender=@OnSlotRender style="height: 768px;" TItem="AppointmentViewModel" Data=@appointments StartProperty="StartDateTime" EndProperty="EndDateTime" ShowHeader=@showHeader
-                 TextProperty="@textProp" SelectedIndex="2" SlotSelect=@OnSlotSelect AppointmentSelect=@OnAppointmentSelect AppointmentRender=@OnAppointmentRender
-                 AppointmentMove=@OnAppointmentMove AppointmentMouseEnter=@OnAppointmentMouseEnter AppointmentMouseLeave=@OnAppointmentMouseLeave TodayText="Hoy" NextText="Siguiente" PrevText="Anterior">
-    <RadzenDayView Text="Día" TimeFormat="hh tt" />
-    <RadzenWeekView Text="Semana" />
+<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10"
+                 @ref=@scheduler
+                 SlotRender=@OnSlotRender
+                 style="height: 768px;"
+                 TItem="AppointmentViewModel"
+                 Data=@appointments
+                 StartProperty="StartDateTime"
+                 EndProperty="EndDateTime"
+                 ShowHeader=@showHeader
+                 TextProperty="@textProp"
+                 SelectedIndex="1"
+                 SlotSelect=@OnSlotSelect
+                 AppointmentSelect=@OnAppointmentSelect
+                 AppointmentRender=@OnAppointmentRender
+                 AppointmentMove=@OnAppointmentMove
+                 AppointmentMouseEnter=@OnAppointmentMouseEnter
+                 AppointmentMouseLeave=@OnAppointmentMouseLeave
+                 TodayText="Hoy"
+                 NextText="Siguiente"
+                 PrevText="Anterior">
+    <RadzenDayView Text="Día" TimeFormat="hh tt" StartTime="TimeSpan.FromHours(0)" />
+    <RadzenWeekView Text="Semana" StartTime="TimeSpan.FromHours(0)" />
     <RadzenMonthView Text="Mes" />
 </RadzenScheduler>
 
@@ -22,7 +39,7 @@
         new () {Value="PacientFullName",Text= "Paciente"},
         new () {Value="SpecialistFullName",Text= "Especialista"},
         new () {Value="TreatmentName",Text= "Servicio"}
-            };
+                        };
 
     string textProp = "PacientFullName";
 
@@ -42,20 +59,20 @@
         await appointmentService.GetAdminAppointments();
         appointmentService.OnChange += StateHasChanged;
         appointments = appointmentService.AdminAppointments.Select(x =>
-        new AppointmentViewModel
-        {
-            Id = x.Id,
-            StartDateTime = x.StartDateTime,
-            EndDateTime = x.EndDateTime,
-            PacientId = x.IdPacient,
-            PacientFullName = x.Pacient.FullName,
-            SpecialistId = x.IdSpecialist,
-            SpecialistFullName = x.Specialist.FullName,
-            TreatmentId = x.IdTreatment,
-            TreatmentName = x.Treatment.Name,
-            TypeAppointmentId = x.TypeAppointmentId,
-            TypeShiftId = x.TypeShiftId
-        }).ToList();
+    new AppointmentViewModel
+            {
+                Id = x.Id,
+                StartDateTime = x.StartDateTime,
+                EndDateTime = x.EndDateTime,
+                PacientId = x.IdPacient,
+                PacientFullName = x.Pacient.FullName,
+                SpecialistId = x.IdSpecialist,
+                SpecialistFullName = x.Specialist.FullName,
+                TreatmentId = x.IdTreatment,
+                TreatmentName = x.Treatment.Name,
+                TypeAppointmentId = x.TypeAppointmentId,
+                TypeShiftId = x.TypeShiftId
+            }).ToList();
     }
 
     public void Dispose()
@@ -90,30 +107,26 @@
     async Task OnSlotSelect(SchedulerSlotSelectEventArgs args)
     {
         // console.Log($"SlotSelect: Start={args.Start} End={args.End}");
+        AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita", new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
 
-        if (args.View.Text != "Year")
+        if (data != null)
         {
-            AppointmentViewModel data = await DialogService.OpenAsync<AppointmentAdd>("Nueva Cita", new Dictionary<string, object> { { "Start", args.Start }, { "End", args.End } });
+            var appointment = new AppointmentDto
+                    {
+                        Id = data.Id,
+                        StartDateTime = data.StartDateTime,
+                        EndDateTime = data.EndDateTime,
+                        IdPacient = data.PacientId,
+                        IdSpecialist = data.SpecialistId,
+                        IdTreatment = data.TreatmentId,
+                        TypeAppointmentId = data.TypeAppointmentId.Value,
+                        TypeShiftId = data.TypeShiftId.Value
+                    };
 
-            if (data != null)
-            {
-                var appointment = new AppointmentDto
-                        {
-                            Id = data.Id,
-                            StartDateTime = data.StartDateTime,
-                            EndDateTime = data.EndDateTime,
-                            IdPacient = data.PacientId,
-                            IdSpecialist = data.SpecialistId,
-                            IdTreatment = data.TreatmentId,
-                            TypeAppointmentId = data.TypeAppointmentId.Value,
-                            TypeShiftId = data.TypeShiftId.Value
-                        };
-
-                await appointmentService.AddAppointment(appointment);
-                appointments.Add(data);
-                // Either call the Reload method or reassign the Data property of the Scheduler
-                await scheduler.Reload();
-            }
+            await appointmentService.AddAppointment(appointment);
+            appointments.Add(data);
+            // Either call the Reload method or reassign the Data property of the Scheduler
+            await scheduler.Reload();
         }
     }
 

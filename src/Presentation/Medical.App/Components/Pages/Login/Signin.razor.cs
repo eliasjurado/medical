@@ -4,6 +4,7 @@ using Medical.App.Services.AuthService;
 using Medical.Domain.Dto.Auth;
 using Medical.Domain.Dto.Response.Concrete;
 using Medical.Domain.Dto.User;
+using Medical.Resource;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
@@ -81,8 +82,8 @@ namespace Medical.App.Components.Pages.Login
                     var message = new NotificationMessage
                     {
                         Severity = NotificationSeverity.Error,
-                        Summary = Resource.Constants.LOGIN_FORM_TITLE,
-                        Detail = errorMessage ?? Resource.Constants.LOGIN_FORM_ERROR,
+                        Summary = Constants.LOGIN_FORM_TITLE,
+                        Detail = errorMessage ?? Constants.LOGIN_FORM_ERROR,
                         Duration = 4000
                     };
                     NotificationService.Notify(message);

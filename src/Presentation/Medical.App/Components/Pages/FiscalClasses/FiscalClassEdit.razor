@@ -1,31 +1,31 @@
-﻿@inject HttpInterceptorService Interceptor
+﻿@inject HttpInterceptorService Interceptor20rem
 @inject DialogService DialogService
 
 <RadzenTemplateForm TItem="FiscalClassDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 20rem" />
+                <RadzenLabel Text="Nombre" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 22rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
+                <div style="width:9rem"></div>
                 <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Código" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 20rem" />
+                <RadzenLabel Text="Código" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 22rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
+                <div style="width:9rem"></div>
                 <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Código Familia" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.FamilyCode Name="FamilyCode" Style="width: 20rem" />
+                <RadzenLabel Text="Código Familia" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@model.FamilyCode Name="FamilyCode" Style="width: 22rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
+                <div style="width:9rem"></div>
                 <RadzenRequiredValidator Component="FamilyCode" Text="Código Familia es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">

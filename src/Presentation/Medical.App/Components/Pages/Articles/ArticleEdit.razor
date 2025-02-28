@@ -44,14 +44,6 @@
                     <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Unidad" Style="width: 9rem;" />
-                    <RadzenTextBox @bind-Value=@model.UnitCode Name="UnitCode" Style="width: 22rem" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
-                    <RadzenRequiredValidator Component="UnitCode" Text="Unidad es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Tamaño" Style="width: 9rem;" />
                     <RadzenNumeric @bind-Value=@model.Size Step="0.01" Name="Size" Style="width: 22rem" Format="0.00" />
                 </RadzenStack>
@@ -107,19 +99,11 @@
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Neto" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.Net Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
+                    <RadzenNumeric @bind-Value=@model.NetPrice Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <div style="width:6rem"></div>
                     <RadzenNumericRangeValidator Component="Net" Min=0.01 Text="Neto debe ser mayor a cero" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Neto Mínimo" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.MinimumNet Step="0.01" Name="MinimumNet" Style="width: 22rem" Format="0.00" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
-                    <RadzenNumericRangeValidator Component="MinimumNet" Min=0.01 Text="Neto Mínimo debe ser mayor a cero" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="En Venta" Style="width: 9rem;" />

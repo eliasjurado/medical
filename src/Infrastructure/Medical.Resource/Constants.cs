@@ -67,6 +67,12 @@
 
         #endregion
 
+        #region Appointments
+
+        public static int APPOINTMENTS_DEFAULT_TIME_ELAPSE = 30;
+
+        #endregion
+
         #region Colors
 
         public static string COLOR_PRIMARY = "#217439";
