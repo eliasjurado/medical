@@ -1,9 +1,11 @@
 ﻿using Medical.Domain.Common;
+using Medical.Domain.Enums;
 
 namespace Medical.Domain.Entities;
 
 public class Category : BaseAuditableEntity<int>
 {
-    public string Name { get; set; } = string.Empty;
-    public string Url { get; set; } = string.Empty;
+    public string? Name { get; set; }
+    public string? Code { get; set; }
+    public TypeArticleId TypeArticleId { get; set; }
 }

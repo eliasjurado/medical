@@ -2,12 +2,13 @@
 using Medical.Application.Features.Category.Commands.DeleteCategory;
 using Medical.Application.Features.Category.Commands.UpdateCategory;
 using Medical.Application.Features.Category.Queries.GetCategories;
-using Medical.Domain.Dto.Category;
 using Medical.Domain.Dto.Response.Concrete;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Medical.Domain.Dto.Response.Abstract;
+using Medical.Domain.Dto.Sales;
+using Medical.Application.Features.FiscalUnit.Queries.GetFiscalUnits;
 
 namespace Medical.App.Controllers;
 
@@ -26,6 +27,13 @@ public class CategoryController : ControllerBase
     public async Task<ActionResult<IResponse>> GetCategories()
     {
         var response = await _mediator.Send(new GetAllCategoryQueryRequest());
+        return Ok(response);
+    }
+
+    [HttpGet("name")]
+    public async Task<ActionResult<IResponse>> GetCategoryByName(string name)
+    {
+        var response = await _mediator.Send(new GetCategoryByNameQueryRequest(name));
         return Ok(response);
     }
 

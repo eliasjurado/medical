@@ -21,12 +21,15 @@ public static class ConfigureServices
 
         //Commands
         services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
+        services.AddScoped<ISubCategoryCommandRepository, SubCategoryCommandRepository>();
         services.AddScoped<IPacientCommandRepository, PacientCommandRepository>();
         services.AddScoped<ITreatmentCommandRepository, TreatmentCommandRepository>();
+        services.AddScoped<IWarehouseCommandRepository, WarehouseCommandRepository>();
         services.AddScoped<ISpecialistCommandRepository, SpecialistCommandRepository>();
         services.AddScoped<IAppointmentCommandRepository, AppointmentCommandRepository>();
         services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
         services.AddScoped<IArticleCommandRepository, ArticleCommandRepository>();
+        services.AddScoped<IArticleStockCommandRepository, ArticleStockCommandRepository>();
         services.AddScoped<IFiscalUnitCommandRepository, FiscalUnitCommandRepository>();
         services.AddScoped<IFiscalSegmentCommandRepository, FiscalSegmentCommandRepository>();
         services.AddScoped<IFiscalFamilyCommandRepository, FiscalFamilyCommandRepository>();
@@ -35,12 +38,15 @@ public static class ConfigureServices
 
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
+        services.AddScoped<ISubCategoryQueryRepository, SubCategoryQueryRepository>();
         services.AddScoped<IPacientQueryRepository, PacientQueryRepository>();
         services.AddScoped<ITreatmentQueryRepository, TreatmentQueryRepository>();
+        services.AddScoped<IWarehouseQueryRepository, WarehouseQueryRepository>();
         services.AddScoped<ISpecialistQueryRepository, SpecialistQueryRepository>();
         services.AddScoped<IAppointmentQueryRepository, AppointmentQueryRepository>();
         services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
         services.AddScoped<IArticleQueryRepository, ArticleQueryRepository>();
+        services.AddScoped<IArticleStockQueryRepository, ArticleStockQueryRepository>();
         services.AddScoped<IFiscalUnitQueryRepository, FiscalUnitQueryRepository>();
         services.AddScoped<IFiscalSegmentQueryRepository, FiscalSegmentQueryRepository>();
         services.AddScoped<IFiscalFamilyQueryRepository, FiscalFamilyQueryRepository>();

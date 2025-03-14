@@ -1,0 +1,29 @@
+﻿@inject ISubCategoryService subCategoryService
+@page "/subcategoria"
+
+<h3>SubCategoría</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(SubCategoryDto.Id)" Filterable="false" Title="ID" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(SubCategoryDto.Name)" Title="Nombre" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SubCategoryDto.Code)" Title="Código" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        <RadzenDataGridColumn Property="@nameof(SubCategoryDto.CategoryName)" Title="Categoría" Width="150px" />
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<SubCategoryDto> items;
+    IList<SubCategoryDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await subCategoryService.GetSubCategories();
+        items = subCategoryService.SubCategories.AsQueryable();
+
+        selectedItems = new List<SubCategoryDto>() { items.FirstOrDefault() };
+    }
+}

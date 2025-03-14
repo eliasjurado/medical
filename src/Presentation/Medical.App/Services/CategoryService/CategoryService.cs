@@ -1,6 +1,7 @@
 ﻿using Medical.App.Utils;
-using Medical.Domain.Dto.Category;
+using Medical.Domain.Dto.Fiscal;
 using Medical.Domain.Dto.Response.Concrete;
+using Medical.Domain.Dto.Sales;
 using Microsoft.AspNetCore.Components;
 using Radzen;
 
@@ -107,7 +108,25 @@ namespace Medical.App.Services.CategoryService
             catch (HttpRequestException ex)
             {
                 HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
-            }           
+            }
+        }
+
+        public async Task<CategoryDto?> GetCategoryByName(string name)
+        {
+            try
+            {
+                var response = await _http.GetFromJsonAsync<ApiResponse<CategoryDto>>($"{CategoryBaseURL}name?name={name}");
+
+                if (response != null && response.Success)
+                {
+                    return response.Data!;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                HttpHelpers.HandleRequestException(ex, _navigationManager, _notificationService);
+            }
+            return null;
         }
 
         public async Task UpdateCategory(CategoryDto category)

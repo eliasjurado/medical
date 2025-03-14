@@ -1,6 +1,7 @@
 ﻿using Medical.App.Services;
 using Medical.App.Services.AppointmentService;
 using Medical.App.Services.ArticleService;
+using Medical.App.Services.ArticleStockService;
 using Medical.App.Services.AuthService;
 using Medical.App.Services.BrandService;
 using Medical.App.Services.CategoryService;
@@ -11,8 +12,10 @@ using Medical.App.Services.FiscalSegmentService;
 using Medical.App.Services.FiscalUnitService;
 using Medical.App.Services.PacientService;
 using Medical.App.Services.SpecialistService;
+using Medical.App.Services.SubCategoryService;
 using Medical.App.Services.TreatmentService;
 using Medical.App.Services.UserService;
+using Medical.App.Services.WarehouseService;
 using Medical.Application.Contracts.Identity;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -23,17 +26,20 @@ namespace Medical.App.Extensions
         public static IServiceCollection AddServiceCollection(this IServiceCollection services)
         {
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IPacientService, PacientService>();
             services.AddScoped<ITreatmentService, TreatmentService>();
             services.AddScoped<ISpecialistService, SpecialistService>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IArticleService, ArticleService>();
+            services.AddScoped<IArticleStockService, ArticleStockService>();
             services.AddScoped<IFiscalUnitService, FiscalUnitService>();
             services.AddScoped<IFiscalSegmentService, FiscalSegmentService>();
             services.AddScoped<IFiscalFamilyService, FiscalFamilyService>();
             services.AddScoped<IFiscalClassService, FiscalClassService>();
             services.AddScoped<IFiscalProductService, FiscalProductService>();
+            services.AddScoped<IWarehouseService, WarehouseService>();
 
 
             services.AddScoped<ICurrentUser, CurrentUser>();

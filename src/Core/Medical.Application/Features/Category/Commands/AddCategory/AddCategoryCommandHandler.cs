@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Category;
+﻿using Medical.Domain.Dto.Sales;
 
 namespace Medical.Application.Features.Category.Commands.AddCategory;
 

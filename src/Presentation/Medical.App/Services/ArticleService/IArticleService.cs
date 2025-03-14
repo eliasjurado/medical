@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Article;
+﻿using Medical.Domain.Dto.Sales;
 
 namespace Medical.App.Services.ArticleService;
 

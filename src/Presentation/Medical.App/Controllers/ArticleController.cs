@@ -3,7 +3,7 @@ using Medical.Application.Features.Article.Commands.AddArticle;
 using Medical.Application.Features.Article.Commands.DeleteArticle;
 using Medical.Application.Features.Article.Commands.UpdateArticle;
 using Medical.Application.Features.Article.Queries.GetArticles;
-using Medical.Domain.Dto.Article;
+using Medical.Domain.Dto.Sales;
 using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;
 using Microsoft.AspNetCore.Authorization;

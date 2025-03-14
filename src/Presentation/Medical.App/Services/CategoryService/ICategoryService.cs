@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Category;
+﻿using Medical.Domain.Dto.Sales;
 
 namespace Medical.App.Services.CategoryService
 {
@@ -8,6 +8,7 @@ namespace Medical.App.Services.CategoryService
         List<CategoryDto> Categories { get; set; }
         List<CategoryDto> AdminCategories { get; set; }
         Task GetCategories();
+        Task<CategoryDto?> GetCategoryByName(string name);
         Task GetAdminCategories();
         Task AddCategory(CategoryDto category);
         Task UpdateCategory(CategoryDto category);

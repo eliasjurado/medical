@@ -10,12 +10,15 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     }
 
     private CategoryQueryRepository? _categoryQuery;
+    private SubCategoryQueryRepository? _subCategoryQuery;
     private PacientQueryRepository? _pacientQuery;
     private TreatmentQueryRepository? _treatmentQuery;
+    private WarehouseQueryRepository? _warehouseQuery;
     private SpecialistQueryRepository? _specialistQuery;
     private AppointmentQueryRepository? _appointmentQuery;
     private BrandQueryRepository? _brandQuery;
     private ArticleQueryRepository? _articleQuery;
+    private ArticleStockQueryRepository? _articleStockQuery;
     private FiscalUnitQueryRepository? _fiscalUnitQuery;
     private FiscalSegmentQueryRepository? _fiscalSegmentQuery;
     private FiscalFamilyQueryRepository? _fiscalFamilyQuery;
@@ -24,12 +27,15 @@ public class QueryUnitOfWork : IQueryUnitOfWork
 
 
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
+    public ISubCategoryQueryRepository SubCategoryQuery => _subCategoryQuery ?? (_subCategoryQuery = new SubCategoryQueryRepository(_context));
     public IPacientQueryRepository PacientQuery => _pacientQuery ?? (_pacientQuery = new PacientQueryRepository(_context));
     public ITreatmentQueryRepository TreatmentQuery => _treatmentQuery ?? (_treatmentQuery = new TreatmentQueryRepository(_context));
+    public IWarehouseQueryRepository WarehouseQuery => _warehouseQuery ?? (_warehouseQuery = new WarehouseQueryRepository(_context));
     public ISpecialistQueryRepository SpecialistQuery => _specialistQuery ?? (_specialistQuery = new SpecialistQueryRepository(_context));
     public IAppointmentQueryRepository AppointmentQuery => _appointmentQuery ?? (_appointmentQuery = new AppointmentQueryRepository(_context));
     public IBrandQueryRepository BrandQuery => _brandQuery ?? (_brandQuery = new BrandQueryRepository(_context));
     public IArticleQueryRepository ArticleQuery => _articleQuery ?? (_articleQuery = new ArticleQueryRepository(_context));
+    public IArticleStockQueryRepository ArticleStockQuery => _articleStockQuery ?? (_articleStockQuery = new ArticleStockQueryRepository(_context));
     public IFiscalUnitQueryRepository FiscalUnitQuery => _fiscalUnitQuery ?? (_fiscalUnitQuery = new FiscalUnitQueryRepository(_context));
     public IFiscalSegmentQueryRepository FiscalSegmentQuery => _fiscalSegmentQuery ?? (_fiscalSegmentQuery = new FiscalSegmentQueryRepository(_context));
     public IFiscalFamilyQueryRepository FiscalFamilyQuery => _fiscalFamilyQuery ?? (_fiscalFamilyQuery = new FiscalFamilyQueryRepository(_context));

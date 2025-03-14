@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Article;
+﻿using Medical.Domain.Dto.Sales;
 
 namespace Medical.Application.Features.Article.Queries.GetArticles;
 
@@ -21,12 +21,12 @@ public class GetAllArticleQueryHandler : IRequestHandler<GetAllArticleQueryReque
 
         if (request.forAdmin)
         {
-            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!]);
+            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!, v => v.SubCategory!]);
             dtoList = _mapper.Map<List<ArticleDto>>(list).ToList();
         }
         else
         {
-            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!]);
+            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!, v => v.SubCategory!]);
             dtoList = _mapper.Map<List<ArticleDto>>(list).ToList();
         }
 

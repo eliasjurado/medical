@@ -1,4 +1,5 @@
 ﻿using Medical.Domain.Enums;
+using Medical.Domain.Extensions;
 using System.Reflection;
 
 namespace Medical.Server.Contexts
@@ -11,11 +12,14 @@ namespace Medical.Server.Contexts
 
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Treatment> Treatments { get; set; }
         public DbSet<Specialist> Specialists { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<ArticleStock> ArticlesStock { get; set; }
         public DbSet<FiscalUnit> FiscalUnits { get; set; }
         public DbSet<FiscalSegment> FiscalSegments { get; set; }
         public DbSet<FiscalFamily> FiscalFamilies { get; set; }
@@ -36,7 +40,7 @@ namespace Medical.Server.Contexts
                         .Select(e => new TypeAppointment()
                         {
                             TypeAppointmentId = e,
-                            Name = e.ToString()
+                            Name = e.GetDisplayDescription()
                         })
                 );
 
@@ -47,7 +51,7 @@ namespace Medical.Server.Contexts
                         .Select(e => new TypeDocument()
                         {
                             TypeDocumentId = e,
-                            Name = e.ToString()
+                            Name = e.GetDisplayDescription()
                         })
                 );
 
@@ -58,7 +62,7 @@ namespace Medical.Server.Contexts
                         .Select(e => new TypeSex()
                         {
                             TypeSexId = e,
-                            Name = e.ToString()
+                            Name = e.GetDisplayDescription()
                         })
                 );
 
@@ -69,7 +73,27 @@ namespace Medical.Server.Contexts
                         .Select(e => new TypeShift()
                         {
                             TypeShiftId = e,
-                            Name = e.ToString()
+                            Name = e.GetDisplayDescription()
+                        })
+                );
+            modelBuilder.Entity<TypeArticle>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeArticleId))
+                        .Cast<TypeArticleId>()
+                        .Select(e => new TypeArticle()
+                        {
+                            TypeArticleId = e,
+                            Name = e.GetDisplayDescription()
+                        })
+                );
+            modelBuilder.Entity<TypeArticleStockAction>()
+                .HasData(
+                    Enum.GetValues(typeof(TypeArticleStockActionId))
+                        .Cast<TypeArticleStockActionId>()
+                        .Select(e => new TypeArticleStockAction()
+                        {
+                            TypeArticleStockActionId = e,
+                            Name = e.GetDisplayDescription()
                         })
                 );
             //modelBuilder.Entity<CartItem>()

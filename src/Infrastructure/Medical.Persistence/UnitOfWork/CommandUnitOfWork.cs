@@ -12,12 +12,15 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     }
 
     private CategoryCommandRepository? _categoryCommand;
+    private SubCategoryCommandRepository? _subCategoryCommand;
     private PacientCommandRepository? _pacientCommand;
     private TreatmentCommandRepository? _treatmentCommand;
+    private WarehouseCommandRepository? _warehouseCommand;
     private SpecialistCommandRepository? _specialistCommand;
     private AppointmentCommandRepository? _appointmentCommand;
     private BrandCommandRepository? _brandCommand;
     private ArticleCommandRepository? _articleCommand;
+    private ArticleStockCommandRepository? _articleStockCommand;
     private FiscalUnitCommandRepository? _fiscalUnitCommand;
     private FiscalSegmentCommandRepository? _fiscalSegmentCommand;
     private FiscalFamilyCommandRepository? _fiscalFamilyCommand;
@@ -25,12 +28,15 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private FiscalProductCommandRepository? _fiscalProductCommand;
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
+    public ISubCategoryCommandRepository SubCategoryCommand => _subCategoryCommand ?? (_subCategoryCommand = new SubCategoryCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));
     public ITreatmentCommandRepository TreatmentCommand => _treatmentCommand ?? (_treatmentCommand = new TreatmentCommandRepository(_context));
+    public IWarehouseCommandRepository WarehouseCommand => _warehouseCommand ?? (_warehouseCommand = new WarehouseCommandRepository(_context));
     public ISpecialistCommandRepository SpecialistCommand => _specialistCommand ?? (_specialistCommand = new SpecialistCommandRepository(_context));
     public IAppointmentCommandRepository AppointmentCommand => _appointmentCommand ?? (_appointmentCommand = new AppointmentCommandRepository(_context));
     public IBrandCommandRepository BrandCommand => _brandCommand ?? (_brandCommand = new BrandCommandRepository(_context));
     public IArticleCommandRepository ArticleCommand => _articleCommand ?? (_articleCommand = new ArticleCommandRepository(_context));
+    public IArticleStockCommandRepository ArticleStockCommand => _articleStockCommand ?? (_articleStockCommand = new ArticleStockCommandRepository(_context));
     public IFiscalUnitCommandRepository FiscalUnitCommand => _fiscalUnitCommand ?? (_fiscalUnitCommand = new FiscalUnitCommandRepository(_context));
     public IFiscalSegmentCommandRepository FiscalSegmentCommand => _fiscalSegmentCommand ?? (_fiscalSegmentCommand = new FiscalSegmentCommandRepository(_context));
     public IFiscalFamilyCommandRepository FiscalFamilyCommand => _fiscalFamilyCommand ?? (_fiscalFamilyCommand = new FiscalFamilyCommandRepository(_context));

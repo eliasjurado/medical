@@ -1,5 +1,5 @@
 ﻿using Medical.App.Utils;
-using Medical.Domain.Dto.Article;
+using Medical.Domain.Dto.Sales;
 using Medical.Domain.Dto.Response.Concrete;
 using Microsoft.AspNetCore.Components;
 using Radzen;

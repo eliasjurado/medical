@@ -4,8 +4,10 @@ public interface IQueryUnitOfWork
 {
     IAppointmentQueryRepository AppointmentQuery { get; }
     ICategoryQueryRepository CategoryQuery { get; }
+    ISubCategoryQueryRepository SubCategoryQuery { get; }
     IPacientQueryRepository PacientQuery { get; }
     ITreatmentQueryRepository TreatmentQuery { get; }
+    IWarehouseQueryRepository WarehouseQuery { get; }
     ISpecialistQueryRepository SpecialistQuery { get; }
     IBrandQueryRepository BrandQuery { get; }
     IFiscalUnitQueryRepository FiscalUnitQuery { get; }
@@ -14,5 +16,5 @@ public interface IQueryUnitOfWork
     IFiscalClassQueryRepository FiscalClassQuery { get; }
     IFiscalProductQueryRepository FiscalProductQuery { get; }
     IArticleQueryRepository ArticleQuery { get; }
-
+    IArticleStockQueryRepository ArticleStockQuery { get; }
 }

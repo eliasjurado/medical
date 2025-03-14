@@ -3,6 +3,7 @@
 @inject IBrandService brandService
 @inject IFiscalProductService fiscalProductService
 @inject IFiscalUnitService fiscalUnitService
+@inject ISubCategoryService subCategoryService
 
 <RadzenTemplateForm TItem="ArticleDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
 
@@ -25,7 +26,6 @@
                     <div style="width:9rem"></div>
                     <RadzenRequiredValidator Component="CommonName" Text="Nombre Común es requerido" />
                 </RadzenStack>
-
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Marca" Style="width: 9rem;" />
                     <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
@@ -50,6 +50,15 @@
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <div style="width:6rem"></div>
                     <RadzenNumericRangeValidator Component="Size" Min=0.01 Text="Tamaño debe ser mayor a cero" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="SubCategoría" Style="width: 9rem;" />
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                    Data=@subCategories TextProperty="@nameof(SubCategoryDto.Name)" ValueProperty="@nameof(SubCategoryDto.Name)" AllowClear="true" @bind-Value=@model.SubCategoryName Style="width: 22rem" Name="IdSubCategory" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:9rem"></div>
+                    <RadzenRequiredValidator Component="IdSubCategory" Text="SubCategoría es requerido" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Descripción" Style="width: 9rem;" />
@@ -98,6 +107,13 @@
                     <RadzenNumericRangeValidator Component="MinimumStock" Min=0.01 Text="Stock Mínimo debe ser mayor a cero" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <RadzenLabel Text="Stock Actual" Style="width: 9rem;" />
+                    <RadzenNumeric @bind-Value=@stock Step="0.01" Name="Stock" Style="width: 22rem" Format="0.00" ReadOnly="true" />
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                    <div style="width:6rem"></div>
+                </RadzenStack>
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Neto" Style="width: 9rem;" />
                     <RadzenNumeric @bind-Value=@model.NetPrice Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
                 </RadzenStack>
@@ -127,8 +143,10 @@
     string fiscalUnitName = string.Empty;
 
     IEnumerable<BrandDto> brands;
+    IEnumerable<SubCategoryDto> subCategories;
     IEnumerable<FiscalProductDto> fiscalProducts;
     IEnumerable<FiscalUnitDto> fiscalUnits;
+    int stock;
 
     ArticleDto model = new ArticleDto();
 
@@ -144,6 +162,9 @@
 
         await fiscalUnitService.GetFiscalUnits();
         fiscalUnits = fiscalUnitService.FiscalUnits;
+
+        await subCategoryService.GetSubCategories();
+        subCategories = subCategoryService.SubCategories;
     }
 
     async void OnSubmit(ArticleDto model)
@@ -151,6 +172,7 @@
         model.BrandId = (await brandService.GetBrandByName(model.BrandName)).Id;
         model.FiscalProductId = (await fiscalProductService.GetFiscalProductByName(model.FiscalProductName)).Id;
         model.FiscalUnitId = (await fiscalUnitService.GetFiscalUnitByName(model.FiscalUnitName)).Id;
+        model.SubCategoryId = (await subCategoryService.GetSubCategoryByName(model.SubCategoryName)).Id;
         DialogService.Close(model);
     }
 
