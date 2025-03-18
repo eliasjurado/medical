@@ -1,0 +1,37 @@
+﻿@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="ArticleStockDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+    <RadzenColumn Size="12" SizeMD="6">
+        <RadzenStack Gap="1rem">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.ArticleName Name="Name" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:6rem"></div>
+                <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenColumn>
+
+</RadzenTemplateForm>
+
+@code {
+    [Parameter]
+    public ArticleStockDto Param { get; set; }
+
+    ArticleStockDto model = new ArticleStockDto();
+
+    async void OnSubmit(ArticleStockDto model)
+    {
+        DialogService.Close(model);
+    }
+
+    protected async override void OnParametersSet()
+    {
+        model = Param;
+    }
+}

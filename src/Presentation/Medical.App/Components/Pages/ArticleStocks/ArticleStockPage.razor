@@ -1,0 +1,93 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@inject IArticleStockService articleStockService
+@page "/stock"
+
+<h3>Movimiento de Stock</h3>
+
+<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
+    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Movimiento de Stock" Click=@AddRow />
+</RadzenStack>
+
+<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5 rz-align-items-center">
+    <RadzenLabel Text="Artículo" Style="width: 4rem;" />
+    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
+    <RadzenLabel Text="Almacén" Style="width: 4rem;" />
+    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
+</RadzenStack>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.ArticleName)" Title="Artículo" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.WarehouseName)" Title="Almacén" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.Quantity)" Title="Cantidad" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.TypeArticleStockActionId)" Title="Tipo" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.InventoryDateTime)" Title="Fecha" Frozen="true" Width="150px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy hh:mm tt}" />
+        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="model">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    List<DropDownViewModel<string>> options = new() {
+        new () {Value="",Text= "Seleccione"},
+        new () {Value="SpecialistFullName",Text= "Especialista"},
+        new () {Value="TreatmentName",Text= "Servicio"}
+                        };
+
+    string textProp = "";
+
+    IQueryable<ArticleStockDto> items;
+    IList<ArticleStockDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
+
+        await articleStockService.GetAdminArticleStocks();
+        articleStockService.OnChange += StateHasChanged;
+        items = articleStockService.AdminArticleStocks.AsQueryable();
+
+        selectedItems = new List<ArticleStockDto>() { items.FirstOrDefault() };
+    }
+
+    async Task AddRow()
+    {
+        ArticleStockDto data = await DialogService.OpenAsync<ArticleStockAdd>("Nuevo Movimiento de Stock");
+        if (data != null)
+        {
+            await articleStockService.AddArticleStock(data);
+            selectedItems.Add(data);
+            items = articleStockService.AdminArticleStocks.AsQueryable();
+        }
+    }
+
+    async Task EditRow(ArticleStockDto model)
+    {
+        ArticleStockDto data = await DialogService.OpenAsync<ArticleStockEdit>("Editar Movimiento de Stock", new Dictionary<string, object> { { "Param", model } });
+        if (data != null)
+        {
+            await articleStockService.UpdateArticleStock(data);
+        }
+    }
+
+    async Task DeleteRow(ArticleStockDto model)
+    {
+        Interceptor.RegisterEvent();
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Movimiento de Stock correspondiente al Artículo: {model.ArticleName}?", "Eliminar Movimiento de Stock", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            await articleStockService.DeleteArticleStock(model.Id);
+            articleStockService.OnChange += StateHasChanged;
+            items = articleStockService.AdminArticleStocks.AsQueryable();
+        }
+    }
+}

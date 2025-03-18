@@ -21,12 +21,12 @@ public class GetAllArticleStockQueryHandler : IRequestHandler<GetAllArticleStock
 
         if (request.forAdmin)
         {
-            var list = await _query.ArticleStockQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.Article!]);
+            var list = await _query.ArticleStockQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.Article!, y => y.Warehouse!]);
             dtoList = _mapper.Map<List<ArticleStockDto>>(list).ToList();
         }
         else
         {
-            var list = await _query.ArticleStockQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.Article!]);
+            var list = await _query.ArticleStockQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.Article!, y => y.Warehouse!]);
             dtoList = _mapper.Map<List<ArticleStockDto>>(list).ToList();
         }
 

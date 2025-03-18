@@ -3,9 +3,9 @@ using Medical.Application.Features.Article.Commands.AddArticle;
 using Medical.Application.Features.Article.Commands.DeleteArticle;
 using Medical.Application.Features.Article.Commands.UpdateArticle;
 using Medical.Application.Features.Article.Queries.GetArticles;
-using Medical.Domain.Dto.Sales;
 using Medical.Domain.Dto.Response.Abstract;
 using Medical.Domain.Dto.Response.Concrete;
+using Medical.Domain.Dto.Sales;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +26,13 @@ public class ArticleController : ControllerBase
     public async Task<ActionResult<IResponse>> GetArticles()
     {
         var response = await _mediator.Send(new GetAllArticleQueryRequest());
+        return Ok(response);
+    }
+
+    [HttpGet("name")]
+    public async Task<ActionResult<IResponse>> GetArticleByName(string name)
+    {
+        var response = await _mediator.Send(new GetArticleByNameQueryRequest(name));
         return Ok(response);
     }
 
