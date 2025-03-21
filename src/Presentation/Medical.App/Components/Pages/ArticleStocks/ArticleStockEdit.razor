@@ -1,37 +1,108 @@
 ﻿@inject DialogService DialogService
+@inject IArticleService articleService
+@inject IWarehouseService warehouseService
 
-<RadzenTemplateForm TItem="ArticleStockDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+<RadzenTemplateForm TItem="ArticleStockDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.ArticleName Name="Name" Style="width: 20rem" />
+                <RadzenLabel Text="Artículo" Style="width: 9rem;" />
+                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Style="width: 22rem" Name="IdArticle" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
-                <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="IdArticle" Text="Artículo es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Cantidad" Style="width: 9rem;" />
+                <RadzenNumeric @bind-Value=@model.Quantity Step="0.01" Name="Quantity" Style="width: 22rem" Format="0.00" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Almacén" Style="width: 9rem;" />
+                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
+                                Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@model.WarehouseName Style="width: 22rem" Name="IdWarehouse" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="IdWarehouse" Text="Almacén es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Tipo Movimiento" Style="width: 9rem;" />
+                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeArticleStockActionId)).Cast<Enum>())" @bind-Value=@model.TypeArticleStockActionId
+                                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 22rem" Name="TypeArticleStockActionId" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="TypeArticleStockActionId" Text="Tipo Movimiento es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Fecha Movimiento" Style="width: 9rem;" />
+                <RadzenDatePicker Name="InventoryDateTime" @bind-Value="@model.InventoryDateTime" ShowTime="true" Style="width: 15rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="InventoryDateTime" Text="Fecha Movimiento es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>
         </RadzenStack>
     </RadzenColumn>
-
 </RadzenTemplateForm>
 
 @code {
     [Parameter]
     public ArticleStockDto Param { get; set; }
 
+    RadzenDropDown<string> radzenDropDown;
+
+    IEnumerable<ArticleDto> articles;
+    IEnumerable<WarehouseDto> warehouses;
+
     ArticleStockDto model = new ArticleStockDto();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await articleService.GetArticles();
+        articles = articleService.Articles;
+
+        await warehouseService.GetWarehouses();
+        warehouses = warehouseService.Warehouses;
+    }
 
     async void OnSubmit(ArticleStockDto model)
     {
+        model.ArticleId = (await articleService.GetArticleByName(model.ArticleName)).Id;
+        model.WarehouseId = (await warehouseService.GetWarehouseByName(model.WarehouseName)).Id;
         DialogService.Close(model);
     }
 
     protected async override void OnParametersSet()
     {
         model = Param;
+    }
+
+    string searchText = "";
+
+    public string SearchText
+    {
+        get
+        {
+            return searchText;
+        }
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+            }
+        }
     }
 }
