@@ -6,11 +6,11 @@
     <RadzenHeader>
         <RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0">
             <RadzenColumn Size="5">
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="Radzen.AlignItems.Center" class="rz-py-2" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
+                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" class="rz-py-2" Style="padding: var(--rz-panel-menu-item-padding); border-bottom: var(--rz-panel-menu-item-border);">
                     <RadzenSidebarToggle Click="@SidebarToggleClick"></RadzenSidebarToggle>
                     <a href="/" class="rz-display-flex" style="align-items: center;">
                         <RadzenImage Path="images/logo.png" style="width: 40px" class="rz-mr-4 rz-border-radius-2" AlternateText="Application logo"></RadzenImage>
-                        <RadzenText Text="Thaniwasi" TextStyle="Radzen.Blazor.TextStyle.DisplayH5" class="rz-mb-0" style="color: var(--rz-sidebar-toggle-color);" />
+                        <RadzenText Text="Thaniwasi" TextStyle="TextStyle.DisplayH5" class="rz-mb-0" style="color: var(--rz-sidebar-toggle-color);" />
                     </a>
                 </RadzenStack>
             </RadzenColumn>
@@ -65,7 +65,7 @@
                         <RadzenPanelMenuItem Text="Categoría" Path="/categoria" />
                         <RadzenPanelMenuItem Text="SubCategoría" Path="/subcategoria" />
                         <RadzenPanelMenuItem Text="Almacén" Path="/almacen" />
-                        <RadzenPanelMenuItem Text="Movimiento de Stock" Path="/stock" />
+                        <RadzenPanelMenuItem Text="Stock" Path="/stock" />
                     </RadzenPanelMenuItem>
                     <RadzenPanelMenuItem Text="Sunat" Icon="account_balance">
                         <RadzenPanelMenuItem Text="Producto" Path="/sunatproducto" />
@@ -79,9 +79,9 @@
                 </NotAuthorized>
             </AuthorizeView>
         </RadzenPanelMenu>
-        <RadzenStack AlignItems="Radzen.AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
-            <RadzenText Text="Thaniwasi v1.0.0" TextStyle="Radzen.Blazor.TextStyle.Caption" Style="color:lightgrey" TagName="Radzen.Blazor.TagName.P" TextAlign="Radzen.TextAlign.Center" />
-            <RadzenText Text="Copyright Ⓒ 2025" TextStyle="Radzen.Blazor.TextStyle.Caption" Style="color:lightgrey" class="rz-mb-0" TagName="Radzen.Blazor.TagName.P" TextAlign="Radzen.TextAlign.Center" />
+        <RadzenStack AlignItems="AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
+            <RadzenText Text="Thaniwasi v1.0.0" TextStyle="TextStyle.Caption" Style="color:lightgrey" TagName="TagName.P" TextAlign="TextAlign.Center" />
+            <RadzenText Text="Copyright Ⓒ 2025" TextStyle="TextStyle.Caption" Style="color:lightgrey" class="rz-mb-0" TagName="TagName.P" TextAlign="TextAlign.Center" />
         </RadzenStack>
 
     </RadzenSidebar>
