@@ -36,14 +36,6 @@
                     <RadzenRequiredValidator Component="IdBrand" Text="Marca es requerido" />
                 </RadzenStack>
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Código" Style="width: 9rem;" />
-                    <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 22rem" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
-                    <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                     <RadzenLabel Text="Tamaño" Style="width: 9rem;" />
                     <RadzenNumeric @bind-Value=@model.Size Step="0.01" Name="Size" Style="width: 22rem" Format="0.00" />
                 </RadzenStack>

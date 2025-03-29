@@ -13,6 +13,7 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
 
     private CategoryCommandRepository? _categoryCommand;
     private SubCategoryCommandRepository? _subCategoryCommand;
+    private ClientCommandRepository? _clientCommand;
     private PacientCommandRepository? _pacientCommand;
     private TreatmentCommandRepository? _treatmentCommand;
     private WarehouseCommandRepository? _warehouseCommand;
@@ -29,6 +30,7 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
 
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public ISubCategoryCommandRepository SubCategoryCommand => _subCategoryCommand ?? (_subCategoryCommand = new SubCategoryCommandRepository(_context));
+    public IClientCommandRepository ClientCommand => _clientCommand ?? (_clientCommand = new ClientCommandRepository(_context));
     public IPacientCommandRepository PacientCommand => _pacientCommand ?? (_pacientCommand = new PacientCommandRepository(_context));
     public ITreatmentCommandRepository TreatmentCommand => _treatmentCommand ?? (_treatmentCommand = new TreatmentCommandRepository(_context));
     public IWarehouseCommandRepository WarehouseCommand => _warehouseCommand ?? (_warehouseCommand = new WarehouseCommandRepository(_context));

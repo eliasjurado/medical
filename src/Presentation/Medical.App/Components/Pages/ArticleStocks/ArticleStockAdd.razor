@@ -8,7 +8,7 @@
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Artículo" Style="width: 9rem;" />
                 <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Style="width: 22rem" Name="IdArticle" />
+                Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Style="width: 22rem" Name="IdArticle" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:9rem"></div>
@@ -20,12 +20,28 @@
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:9rem"></div>
-                <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" />
+                @* <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" /> *@
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Código de Barras" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@model.BarCode Name="BarCode" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="BarCode" Text="Código de Barras es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Fecha Vencimiento" Style="width: 9rem;" />
+                <RadzenDatePicker Name="ExpireDate" @bind-Value="@model.ExpireDate" ShowTime="false" Style="width: 15rem;" DateFormat="dd/MM/yyyy" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="ExpireDate" Text="Fecha Vencimiento es requerido" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Almacén" Style="width: 9rem;" />
                 <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@model.WarehouseName Style="width: 22rem" Name="IdWarehouse" />
+                Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@model.WarehouseName Style="width: 22rem" Name="IdWarehouse" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:9rem"></div>
@@ -34,7 +50,7 @@
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Tipo Movimiento" Style="width: 9rem;" />
                 <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeArticleStockActionId)).Cast<Enum>())" @bind-Value=@model.TypeArticleStockActionId
-                                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 22rem" Name="TypeArticleStockActionId" />
+                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 22rem" Name="TypeArticleStockActionId" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:9rem"></div>
@@ -75,6 +91,11 @@
 
     async void OnSubmit(ArticleStockDto model)
     {
+        model.Quantity = int.Abs(model.Quantity);
+        if (model.TypeArticleStockActionId == TypeArticleStockActionId.Sale || model.TypeArticleStockActionId == TypeArticleStockActionId.Withdrawal || model.TypeArticleStockActionId == TypeArticleStockActionId.Wastage)
+        {
+            model.Quantity = model.Quantity * -1;
+        }
         model.ArticleId = (await articleService.GetArticleByName(model.ArticleName)).Id;
         model.WarehouseId = (await warehouseService.GetWarehouseByName(model.WarehouseName)).Id;
         DialogService.Close(model);

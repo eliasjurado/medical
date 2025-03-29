@@ -13,7 +13,6 @@ public class Article : BaseAuditableEntity<int>
     public virtual FiscalProduct? FiscalProduct { get; set; }
     public int BrandId { get; set; }
     public virtual Brand? Brand { get; set; }
-    public string? Code { get; set; }
     public int FiscalUnitId { get; set; }
     public virtual FiscalUnit? FiscalUnit { get; set; }
     public decimal Cost { get; set; }

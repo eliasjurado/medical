@@ -17,11 +17,11 @@
         <RadzenDataGridColumn Property="@nameof(ArticleDto.BrandName)" Title="Marca" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.FiscalUnitName)" Title="Unidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleDto.Size)" Title="Tamaño" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
-        <RadzenDataGridColumn Property="@nameof(ArticleDto.Cost)" Title="Costo" Width="100px" FormatString="{0:C2}" Frozen="true">
+        <RadzenDataGridColumn Property="@nameof(ArticleDto.NetPrice)" Title="Neto" Width="100px" FormatString="{0:C2}" Frozen="true">
             <Template Context="model">
                 <RadzenStack Orientation="Orientation.Horizontal">
                     <div class="rz-w-25">S/</div>
-                    <div class="rz-w-75 rz-text-align-right">@model.Cost</div>
+                    <div class="rz-w-75 rz-text-align-right">@model.NetPrice</div>
                 </RadzenStack>
             </Template>
         </RadzenDataGridColumn>

@@ -5,4 +5,6 @@ namespace Medical.Domain.Entities;
 public class Brand : BaseAuditableEntity<int>
 {
     public string? Name { get; set; }
+    public string? BusinessName { get; set; }
+    public string? RucCode { get; set; }
 }

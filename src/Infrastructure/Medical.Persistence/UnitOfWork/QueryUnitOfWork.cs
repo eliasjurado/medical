@@ -11,6 +11,7 @@ public class QueryUnitOfWork : IQueryUnitOfWork
 
     private CategoryQueryRepository? _categoryQuery;
     private SubCategoryQueryRepository? _subCategoryQuery;
+    private ClientQueryRepository? _clientQuery;
     private PacientQueryRepository? _pacientQuery;
     private TreatmentQueryRepository? _treatmentQuery;
     private WarehouseQueryRepository? _warehouseQuery;
@@ -28,6 +29,7 @@ public class QueryUnitOfWork : IQueryUnitOfWork
 
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
     public ISubCategoryQueryRepository SubCategoryQuery => _subCategoryQuery ?? (_subCategoryQuery = new SubCategoryQueryRepository(_context));
+    public IClientQueryRepository ClientQuery => _clientQuery ?? (_clientQuery = new ClientQueryRepository(_context));
     public IPacientQueryRepository PacientQuery => _pacientQuery ?? (_pacientQuery = new PacientQueryRepository(_context));
     public ITreatmentQueryRepository TreatmentQuery => _treatmentQuery ?? (_treatmentQuery = new TreatmentQueryRepository(_context));
     public IWarehouseQueryRepository WarehouseQuery => _warehouseQuery ?? (_warehouseQuery = new WarehouseQueryRepository(_context));

@@ -10,6 +10,7 @@ namespace Medical.Server.Contexts
         {
         }
 
+        public DbSet<Client> Clients { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
@@ -25,6 +26,8 @@ namespace Medical.Server.Contexts
         public DbSet<FiscalFamily> FiscalFamilies { get; set; }
         public DbSet<FiscalClass> FiscalClasses { get; set; }
         public DbSet<FiscalProduct> FiscalProducts { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleArticle> SaleArticles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

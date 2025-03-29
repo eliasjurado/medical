@@ -22,6 +22,7 @@ public static class ConfigureServices
         //Commands
         services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
         services.AddScoped<ISubCategoryCommandRepository, SubCategoryCommandRepository>();
+        services.AddScoped<IClientCommandRepository, ClientCommandRepository>();
         services.AddScoped<IPacientCommandRepository, PacientCommandRepository>();
         services.AddScoped<ITreatmentCommandRepository, TreatmentCommandRepository>();
         services.AddScoped<IWarehouseCommandRepository, WarehouseCommandRepository>();
@@ -39,6 +40,7 @@ public static class ConfigureServices
         //Queries
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
         services.AddScoped<ISubCategoryQueryRepository, SubCategoryQueryRepository>();
+        services.AddScoped<IClientQueryRepository, ClientQueryRepository>();
         services.AddScoped<IPacientQueryRepository, PacientQueryRepository>();
         services.AddScoped<ITreatmentQueryRepository, TreatmentQueryRepository>();
         services.AddScoped<IWarehouseQueryRepository, WarehouseQueryRepository>();

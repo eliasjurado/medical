@@ -5,6 +5,7 @@ public interface ICommandUnitOfWork<Tkey>
     IAppointmentCommandRepository AppointmentCommand { get; }
     ICategoryCommandRepository CategoryCommand { get; }
     ISubCategoryCommandRepository SubCategoryCommand { get; }
+    IClientCommandRepository ClientCommand { get; }
     IPacientCommandRepository PacientCommand { get; }
     ITreatmentCommandRepository TreatmentCommand { get; }
     IWarehouseCommandRepository WarehouseCommand { get; }

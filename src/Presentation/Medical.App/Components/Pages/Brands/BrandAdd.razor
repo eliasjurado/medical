@@ -5,12 +5,26 @@
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="RUC" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.RucCode Name="RucCode" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:6rem"></div>
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <RadzenLabel Text="Nombre" Style="width: 6rem;" />
                 <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 20rem" />
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
                 <div style="width:6rem"></div>
                 <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Razón Social" Style="width: 6rem;" />
+                <RadzenTextBox @bind-Value=@model.BusinessName Name="BusinessName" Style="width: 20rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:6rem"></div>
             </RadzenStack>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />

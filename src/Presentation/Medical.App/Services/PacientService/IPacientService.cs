@@ -1,5 +1,4 @@
-﻿using Medical.Domain.Dto.Pacient;
-using Medical.Domain.Dto.Specialist;
+﻿using Medical.Domain.Dto.Person;
 
 namespace Medical.App.Services.PacientService
 {

@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Pacient;
+﻿using Medical.Domain.Dto.Person;
 
 namespace Medical.Application.MappingProfıles;
 

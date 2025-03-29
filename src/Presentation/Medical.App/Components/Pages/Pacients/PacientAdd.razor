@@ -68,6 +68,14 @@
                         <div style="width:10rem"></div>
                         <RadzenRequiredValidator Component="Phone" Text="Teléfono es requerido" />
                     </RadzenStack>
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                        <RadzenLabel Text="Email" Style="width: 10rem;" />
+                        <RadzenTextBox @bind-Value=@model.Email Name="Email" Style="width: 20rem" />
+                    </RadzenStack>
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                        <div style="width:10rem"></div>
+                        <RadzenEmailValidator Component="Email" Text="Formato Email requerido" />
+                    </RadzenStack>
                 </RadzenStack>
             </RadzenColumn>
         </RadzenRow>

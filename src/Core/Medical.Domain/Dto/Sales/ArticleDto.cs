@@ -17,7 +17,6 @@ public class ArticleDto
     public int BrandId { get; set; }
     public virtual Entities.Brand? Brand { get; set; }
     public string? BrandName { get; set; }
-    public string? Code { get; set; }
     public int FiscalUnitId { get; set; }
     public virtual FiscalUnit? FiscalUnit { get; set; }
     public string? FiscalUnitName { get; set; }

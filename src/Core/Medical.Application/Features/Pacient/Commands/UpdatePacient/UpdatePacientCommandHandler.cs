@@ -1,4 +1,4 @@
-﻿using Medical.Domain.Dto.Pacient;
+﻿using Medical.Domain.Dto.Person;
 
 namespace Medical.Application.Features.Pacient.Commands.UpdatePacient;
 public record UpdatePacientCommandRequest(PacientDto pacient) : IRequest<IResponse>;
