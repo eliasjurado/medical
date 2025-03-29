@@ -3,16 +3,20 @@
 @inject IWarehouseService warehouseService
 @page "/almacen"
 
-<h3>Almacén</h3>
-
-<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
-    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Almacén" Click=@AddRow />
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Almacén</h3>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Almacén" Click=@AddRow />
+    </RadzenStack>
 </RadzenStack>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(WarehouseDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn Property="@nameof(WarehouseDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(WarehouseDto.Address)" Title="Ubicación" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">
                 <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />

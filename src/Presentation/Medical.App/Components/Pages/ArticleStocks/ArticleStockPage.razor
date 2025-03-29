@@ -5,19 +5,30 @@
 @inject IWarehouseService warehouseService
 @page "/stock"
 
-<h3>Movimiento de Stock</h3>
-
-<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5">
-    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Movimiento de Stock" Click=@AddRow />
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Movimiento de Stock</h3>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Movimiento de Stock" Click=@AddRow />
+    </RadzenStack>
 </RadzenStack>
 
 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
     <RadzenLabel Text="Artículo" Style="width: 4rem;" />
     <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Style="width: 28rem" Name="IdArticle" />
+                    Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Style="width: 22rem" Name="IdArticle" />
+</RadzenStack>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
     <RadzenLabel Text="Almacén" Style="width: 4rem;" />
     <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Style="width: 15rem" Name="IdWarehouse" />
+                    Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Style="width: 22rem" Name="IdWarehouse" />
+</RadzenStack>
+<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+        <RadzenLabel Text="Código" Style="width: 4rem;" />
+        <RadzenTextBox @bind-Value=@barCode Name="BarCode" Style="width: 22rem" />
+    </RadzenStack>
     <RadzenButton Icon="search" Text="Filtrar" Click=@FilterList />
 </RadzenStack>
 
@@ -57,6 +68,10 @@
         {
             items = items.Where(x => x.WarehouseName.Equals(warehouseName));
         }
+        if (!string.IsNullOrWhiteSpace(barCode))
+        {
+            items = items.Where(x => x.BarCode.Equals(barCode));
+        }
 
         sumQuantity = items.Sum(x => x.Quantity);
     }
@@ -66,6 +81,7 @@
     IEnumerable<ArticleDto> articles;
     IEnumerable<WarehouseDto> warehouses;
 
+    string barCode = string.Empty;
     string articleName = string.Empty;
     string warehouseName = string.Empty;
     decimal sumQuantity = 0;
