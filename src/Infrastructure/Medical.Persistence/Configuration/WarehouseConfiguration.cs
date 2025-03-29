@@ -10,7 +10,7 @@ public class WarehouseConfiguration : IEntityTypeConfiguration<Warehouse>
         builder.HasQueryFilter(x => !x.IsDeleted);
 
         builder.HasData(
-            new Warehouse { Id = 1, Name = "CLINICA" }
+            new Warehouse { Id = 1, Name = "CLINICA", Address = "Jr. Hermosura 185, Chachapoyas - Amazonas" }
         );
     }
 }

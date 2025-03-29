@@ -15,6 +15,9 @@ public class ArticleStockDto
     public int WarehouseId { get; set; }
     public Warehouse? Warehouse { get; set; }
     public string? WarehouseName { get; set; }
+    public int ShelfNumber { get; set; }
+    public int ShelfRowNumber { get; set; }
+    public int ShelfColumnNumber { get; set; }
     public TypeArticleStockActionId TypeArticleStockActionId { get; set; }
     public DateTime InventoryDateTime { get; set; } = DateTime.Now;
     public bool IsActive { get; set; } = true;

@@ -11,8 +11,10 @@ public class SaleDto
     public string? Correlative { get; set; }
     public int ClientId { get; set; }
     public Client? Client { get; set; }
+    public string? ClientFullName { get; set; }
     public int PacientId { get; set; }
     public Pacient? Pacient { get; set; }
+    public string? PacientFullName { get; set; }
     public decimal SubtotalAmount { get; set; }
     public decimal TaxAmount { get; set; }
     public decimal TotalAmount { get; set; }
