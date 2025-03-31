@@ -15,7 +15,7 @@
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(WarehouseDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
-        <RadzenDataGridColumn Property="@nameof(WarehouseDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(WarehouseDto.Name)" Title="Nombre" Width="150px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(WarehouseDto.Address)" Title="Ubicación" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">

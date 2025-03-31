@@ -16,14 +16,14 @@
 
 <RadzenFieldset Text="Filtros" class="rz-mb-3">
     <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-pb-1 rz-align-items-center">
+        <RadzenFormField Text="Código" class="rz-w-25">
+            <RadzenTextBox @bind-Value=@barCode Name="BarCode" Change=@FilterList />
+        </RadzenFormField>
         <RadzenFormField Text="Artículo" class="rz-w-25">
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Name="IdArticle" Change=@FilterList />
         </RadzenFormField>
         <RadzenFormField Text="Almacén" class="rz-w-25">
             <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Name="IdWarehouse" Change=@FilterList />
-        </RadzenFormField>
-        <RadzenFormField Text="Código" class="rz-w-25">
-            <RadzenTextBox @bind-Value=@barCode Name="BarCode" Change=@FilterList />
         </RadzenFormField>
     </RadzenStack>
 </RadzenFieldset>
