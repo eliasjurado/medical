@@ -30,13 +30,13 @@
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(ArticleDto.IsAllowedSale)" Title="En Venta" TextAlign="TextAlign.Center" Width="80px" Sortable="true" Filterable="true" Frozen="true">
             <Template Context="model">
-                <RadzenCheckBox Value="@model.IsAllowedSale" ReadOnly="true"/>
+                <RadzenCheckBox Value="@model.IsAllowedSale" ReadOnly="true" />
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">
-                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
-                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" class="rz-my-1 rz-ms-1" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
             </Template>
         </RadzenDataGridColumn>
     </Columns>
@@ -45,7 +45,7 @@
 @code {
     IQueryable<ArticleDto> items;
     IList<ArticleDto> selectedItems;
-    DialogOptions dialogOptions = new DialogOptions { Draggable = true, Width = "900px", Height = "590px", };
+    DialogOptions dialogOptions = new DialogOptions { Draggable = true, Width = "900px" };
 
     protected override async Task OnInitializedAsync()
     {

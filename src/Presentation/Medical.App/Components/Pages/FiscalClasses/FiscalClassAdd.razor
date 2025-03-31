@@ -1,33 +1,23 @@
 ﻿@inject HttpInterceptorService Interceptor
 @inject DialogService DialogService
 
-<RadzenTemplateForm TItem="FiscalClassDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+<RadzenTemplateForm TItem="FiscalClassDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre" Style="width: 9rem;" />
-                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 22rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Nombre">
+                    <RadzenTextBox @bind-Value=@model.Name Name="Name" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Código" Style="width: 9rem;" />
-                <RadzenTextBox @bind-Value=@model.Code Name="Code" Style="width: 22rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Código">
+                    <RadzenTextBox @bind-Value=@model.Code Name="Code" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Code" Text="Código es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Código Familia" Style="width: 9rem;" />
-                <RadzenTextBox @bind-Value=@model.FamilyCode Name="FamilyCode" Style="width: 22rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Código Familia">
+                    <RadzenTextBox @bind-Value=@model.FamilyCode Name="FamilyCode" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="FamilyCode" Text="Código Familia es requerido" />
-            </RadzenStack>
+            </RadzenFieldset>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>

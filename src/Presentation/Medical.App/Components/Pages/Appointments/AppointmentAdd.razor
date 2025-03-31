@@ -4,52 +4,42 @@
 @inject ITreatmentService treatmentService
 @inject ISpecialistService specialistService
 
-<RadzenTemplateForm TItem="AppointmentViewModel" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+<RadzenTemplateForm TItem="AppointmentViewModel" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenColumn Size="12" SizeMD="6">
-        <RadzenStack Gap="1rem" >
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Paciente" Style="width: 6rem;" />
-                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                Data=@pacients TextProperty="@nameof(PacientDto.FullName)" ValueProperty="@nameof(PacientDto.FullName)" AllowClear="true" @bind-Value=@model.PacientFullName Style="width: 20rem" Name="Paciente" />
+        <RadzenStack Gap="1rem">
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Paciente">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@pacients TextProperty="@nameof(PacientDto.FullName)" ValueProperty="@nameof(PacientDto.FullName)" AllowClear="true" @bind-Value=@model.PacientFullName Name="Paciente" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Paciente" Text="Paciente es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Servicio" Style="width: 6rem;" />
-                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                Data=@treatments TextProperty="@nameof(TreatmentDto.Name)" ValueProperty="@nameof(TreatmentDto.Name)" AllowClear="true" @bind-Value=@model.TreatmentName Style="width: 20rem" Name="Consultorio" />
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Servicio">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@treatments TextProperty="@nameof(TreatmentDto.Name)" ValueProperty="@nameof(TreatmentDto.Name)" AllowClear="true" @bind-Value=@model.TreatmentName Style="width: 20rem" Name="Consultorio" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Consultorio" Text="Consultorio es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Especialista" Style="width: 6rem;" />
-                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                Data=@specialists TextProperty="@nameof(SpecialistDto.FullName)" ValueProperty="@nameof(SpecialistDto.FullName)" AllowClear="true" @bind-Value=@model.SpecialistFullName Style="width: 20rem" Name="Especialista" />               
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Especialista">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@specialists TextProperty="@nameof(SpecialistDto.FullName)" ValueProperty="@nameof(SpecialistDto.FullName)" AllowClear="true" @bind-Value=@model.SpecialistFullName Style="width: 20rem" Name="Especialista" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Especialista" Text="Especialista es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Tipo" Style="width: 6rem;" />
-                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeAppointmentId)).Cast<Enum>())" @bind-Value=@model.TypeAppointmentId
-                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeAppointment">
-                </RadzenDropDown>
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo">
+                    <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeAppointmentId)).Cast<Enum>())" @bind-Value=@model.TypeAppointmentId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeAppointment">
+                    </RadzenDropDown>
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="TypeAppointment" Text="Tipo es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Turno" Style="width: 6rem;" />
-                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeShiftId)).Cast<Enum>())" @bind-Value=@model.TypeShiftId
-                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeShift">
-                </RadzenDropDown>
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Turno">
+                    <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeShiftId)).Cast<Enum>())" @bind-Value=@model.TypeShiftId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeShift">
+                    </RadzenDropDown>
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="TypeShift" Text="Turno es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Cita" Style="width: 6rem;" />
-                <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 15rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Cita">
+                    <RadzenDatePicker @bind-Value="@model.StartDateTime" Name="StartDateTime" ShowTime="true" Style="width: 15rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="StartDateTime" Text="Cita es requerido" />
-            </RadzenStack>
+            </RadzenFieldset>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>
         </RadzenStack>
     </RadzenColumn>
-
 </RadzenTemplateForm>
 @code {
     [Parameter]

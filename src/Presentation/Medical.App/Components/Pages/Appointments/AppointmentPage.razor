@@ -4,12 +4,21 @@
 @inject HttpInterceptorService Interceptor
 @page "/citas"
 
-<h3>Citas</h3>
-<RadzenStack Orientation="Orientation.Horizontal" class="rz-my-5 rz-align-items-center">
-    <RadzenLabel Text="Ver por" Style="width: 4rem;" />
-    <RadzenDropDown class="rz-shadow-1 rz-border-radius-1" @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Citas</h3>
+    </RadzenStack>
 </RadzenStack>
-<RadzenScheduler class="rz-shadow-2 rz-border-radius-6 rz-p-10"
+
+<RadzenFieldset class="rz-mb-3">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-mt-3 rz-mb-1 rz-align-items-center">
+        <RadzenFormField Text="Ver por" class="rz-w-25">
+            <RadzenDropDown @bind-Value=@textProp Data=@options TextProperty="@nameof(DropDownViewModel<string>.Text)" ValueProperty="@nameof(DropDownViewModel<string>.Value)" />
+        </RadzenFormField>
+    </RadzenStack>
+</RadzenFieldset>
+
+<RadzenScheduler class="rz-p-5"
                  @ref=@scheduler
                  SlotRender=@OnSlotRender
                  style="height: 768px;"
@@ -39,7 +48,7 @@
         new () {Value="PacientFullName",Text= "Paciente"},
         new () {Value="SpecialistFullName",Text= "Especialista"},
         new () {Value="TreatmentName",Text= "Servicio"}
-                        };
+                            };
 
     string textProp = "PacientFullName";
 
@@ -59,20 +68,20 @@
         await appointmentService.GetAdminAppointments();
         appointmentService.OnChange += StateHasChanged;
         appointments = appointmentService.AdminAppointments.Select(x =>
-    new AppointmentViewModel
-            {
-                Id = x.Id,
-                StartDateTime = x.StartDateTime,
-                EndDateTime = x.EndDateTime,
-                PacientId = x.IdPacient,
-                PacientFullName = x.Pacient.FullName,
-                SpecialistId = x.IdSpecialist,
-                SpecialistFullName = x.Specialist.FullName,
-                TreatmentId = x.IdTreatment,
-                TreatmentName = x.Treatment.Name,
-                TypeAppointmentId = x.TypeAppointmentId,
-                TypeShiftId = x.TypeShiftId
-            }).ToList();
+        new AppointmentViewModel
+        {
+            Id = x.Id,
+            StartDateTime = x.StartDateTime,
+            EndDateTime = x.EndDateTime,
+            PacientId = x.IdPacient,
+            PacientFullName = x.Pacient.FullName,
+            SpecialistId = x.IdSpecialist,
+            SpecialistFullName = x.Specialist.FullName,
+            TreatmentId = x.IdTreatment,
+            TreatmentName = x.Treatment.Name,
+            TypeAppointmentId = x.TypeAppointmentId,
+            TypeShiftId = x.TypeShiftId
+        }).ToList();
     }
 
     public void Dispose()

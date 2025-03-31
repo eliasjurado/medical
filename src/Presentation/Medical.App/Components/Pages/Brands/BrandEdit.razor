@@ -1,37 +1,26 @@
 ﻿@inject HttpInterceptorService Interceptor
 @inject DialogService DialogService
 
-<RadzenTemplateForm TItem="BrandDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
+<RadzenTemplateForm TItem="BrandDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="RUC" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.RucCode Name="RucCode" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Nombre" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField Text="Nombre" class="rz-py-2 rz-w-100">
+                    <RadzenTextBox @bind-Value=@model.Name Name="Name" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Razón Social" Style="width: 6rem;" />
-                <RadzenTextBox @bind-Value=@model.BusinessName Name="BusinessName" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:6rem"></div>
-            </RadzenStack>
+                <RadzenFormField Text="Razón Social" class="rz-py-2 rz-w-100">
+                    <RadzenTextBox @bind-Value=@model.BusinessName Name="BusinessName" />
+                </RadzenFormField>
+                <RadzenFormField Text="RUC" class="rz-py-2 rz-w-100">
+                    <RadzenTextBox @bind-Value=@model.RucCode Name="RucCode" />
+                </RadzenFormField>
+            </RadzenFieldset>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>
         </RadzenStack>
     </RadzenColumn>
-
 </RadzenTemplateForm>
 
 @code {
