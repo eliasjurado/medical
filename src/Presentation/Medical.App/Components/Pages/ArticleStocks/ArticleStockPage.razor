@@ -14,26 +14,21 @@
     </RadzenStack>
 </RadzenStack>
 
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
-    <RadzenLabel Text="Artículo" Style="width: 4rem;" />
-    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Style="width: 22rem" Name="IdArticle" />
-</RadzenStack>
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
-    <RadzenLabel Text="Almacén" Style="width: 4rem;" />
-    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Style="width: 22rem" Name="IdWarehouse" />
-</RadzenStack>
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
-    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-        <RadzenLabel Text="Código" Style="width: 4rem;" />
-        <RadzenTextBox @bind-Value=@barCode Name="BarCode" Style="width: 22rem" />
+<RadzenFieldset Text="Filtros" class="rz-mb-5">
+    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-mb-3 rz-align-items-center">
+        <RadzenFormField Text="Artículo" class="rz-w-25">
+            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Name="IdArticle" Change=@FilterList />
+        </RadzenFormField>
+        <RadzenFormField Text="Almacén" class="rz-w-25">
+            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Name="IdWarehouse" Change=@FilterList />
+        </RadzenFormField>
+        <RadzenFormField Text="Código" class="rz-w-25">
+            <RadzenTextBox @bind-Value=@barCode Name="BarCode" Change=@FilterList />
+        </RadzenFormField>
     </RadzenStack>
-    <RadzenButton Icon="search" Text="Filtrar" Click=@FilterList />
-</RadzenStack>
+</RadzenFieldset>
 
-<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
-                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true" Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.ArticleName)" Title="Artículo" Width="200px" Sortable="true" Filterable="true" Frozen="true">
@@ -41,10 +36,11 @@
                 Total Stock: <b>@String.Format("{0:N2}", sumQuantity)</b>
             </FooterTemplate>
         </RadzenDataGridColumn>
-        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.WarehouseName)" Title="Almacén" Width="110px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.WarehouseName)" Title="Almacén" Width="90px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.Quantity)" Title="Cantidad" Width="70px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.TypeArticleStockActionId)" Title="Tipo" Width="90px" Sortable="true" Filterable="true" Frozen="true" />
-        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.InventoryDateTime)" Title="Fecha" Frozen="true" Width="110px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy hh:mm tt}" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.InventoryDateTime)" Title="Registro" Frozen="true" Width="90px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy}" />
+        <RadzenDataGridColumn Property="@nameof(ArticleStockDto.ExpireDate)" Title="Vencimiento" Frozen="true" Width="90px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy}" />
         <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
             <Template Context="model">
                 <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" class="rz-my-1 rz-ms-1" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />

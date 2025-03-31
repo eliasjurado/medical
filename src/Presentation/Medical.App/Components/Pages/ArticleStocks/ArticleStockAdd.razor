@@ -2,68 +2,39 @@
 @inject IArticleService articleService
 @inject IWarehouseService warehouseService
 
-<RadzenTemplateForm TItem="ArticleStockDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
+<RadzenTemplateForm TItem="ArticleStockDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenColumn Size="12" SizeMD="6">
         <RadzenStack Gap="1rem">
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Artículo" Style="width: 9rem;" />
-                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Style="width: 22rem" Name="IdArticle" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField Text="Almacén" class="rz-py-2 rz-w-100">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Name="IdArticle" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="IdArticle" Text="Artículo es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Cantidad" Style="width: 9rem;" />
-                <RadzenNumeric @bind-Value=@model.Quantity Step="0.01" Name="Quantity" Style="width: 22rem" Format="0.00" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
-                @* <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" /> *@
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Código de Barras" Style="width: 9rem;" />
-                <RadzenTextBox @bind-Value=@model.BarCode Name="BarCode" Style="width: 20rem" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField Text="Cantidad" class="rz-py-2 rz-w-100">
+                    <RadzenNumeric @bind-Value=@model.Quantity Step="0.01" Name="Quantity" Format="0.00" />
+                </RadzenFormField>
+                <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" />
+                <RadzenFormField Text="Código de Barras" class="rz-py-2 rz-w-100">
+                    <RadzenTextBox @bind-Value=@model.BarCode Name="BarCode" Style="width: 20rem" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="BarCode" Text="Código de Barras es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Fecha Vencimiento" Style="width: 9rem;" />
-                <RadzenDatePicker Name="ExpireDate" @bind-Value="@model.ExpireDate" ShowTime="false" Style="width: 15rem;" DateFormat="dd/MM/yyyy" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField Text="Fecha Vencimiento" class="rz-py-2 rz-w-100">
+                    <RadzenDatePicker Name="ExpireDate" @bind-Value="@model.ExpireDate" ShowTime="false" DateFormat="dd/MM/yyyy" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="ExpireDate" Text="Fecha Vencimiento es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Almacén" Style="width: 9rem;" />
-                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@model.WarehouseName Style="width: 22rem" Name="IdWarehouse" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField Text="Almacén" class="rz-py-2 rz-w-100">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@model.WarehouseName Name="IdWarehouse" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="IdWarehouse" Text="Almacén es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Tipo Movimiento" Style="width: 9rem;" />
-                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeArticleStockActionId)).Cast<Enum>())" @bind-Value=@model.TypeArticleStockActionId
-                AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 22rem" Name="TypeArticleStockActionId" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField Text="Tipo Movimiento" class="rz-py-2 rz-w-100">
+                    <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeArticleStockActionId)).Cast<Enum>())" @bind-Value=@model.TypeArticleStockActionId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeArticleStockActionId" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="TypeArticleStockActionId" Text="Tipo Movimiento es requerido" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <RadzenLabel Text="Fecha Movimiento" Style="width: 9rem;" />
-                <RadzenDatePicker Name="InventoryDateTime" @bind-Value="@model.InventoryDateTime" ShowTime="true" Style="width: 15rem;" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
-            </RadzenStack>
-            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                <div style="width:9rem"></div>
+                <RadzenFormField Text="Fecha Movimiento" class="rz-py-2 rz-w-100">
+                    <RadzenDatePicker Name="InventoryDateTime" @bind-Value="@model.InventoryDateTime" ShowTime="true" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
+                </RadzenFormField>
                 <RadzenRequiredValidator Component="InventoryDateTime" Text="Fecha Movimiento es requerido" />
-            </RadzenStack>
+            </RadzenFieldset>
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
                 <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>
