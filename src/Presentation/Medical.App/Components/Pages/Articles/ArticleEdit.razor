@@ -6,123 +6,72 @@
 @inject ISubCategoryService subCategoryService
 @inject IArticleStockService articleStockService
 
-<RadzenTemplateForm TItem="ArticleDto" Data="@model" Submit=@OnSubmit class="rz-p-3">
-
+<RadzenTemplateForm TItem="ArticleDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenRow Gap="1rem">
         <RadzenColumn Size="12" SizeMD="6">
             <RadzenStack Gap="1rem">
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Nombre" Style="width: 9rem;" />
-                    <RadzenTextBox @bind-Value=@model.Name Name="Name" Style="width: 22rem" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                <RadzenFieldset class="rz-pt-2">
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Nombre">
+                        <RadzenTextBox @bind-Value=@model.Name Name="Name" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="Name" Text="Nombre es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Nombre Común" Style="width: 9rem;" />
-                    <RadzenTextBox @bind-Value=@model.CommonName Name="CommonName" Style="width: 22rem" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Nombre Común">
+                        <RadzenTextBox @bind-Value=@model.CommonName Name="CommonName" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="CommonName" Text="Nombre Común es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Marca" Style="width: 9rem;" />
-                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                    Data=@brands TextProperty="@nameof(BrandDto.Name)" ValueProperty="@nameof(BrandDto.Name)" AllowClear="true" @bind-Value=@model.BrandName Style="width: 22rem" Name="IdBrand" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Marca">
+                        <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@brands TextProperty="@nameof(BrandDto.Name)" ValueProperty="@nameof(BrandDto.Name)" AllowClear="true" @bind-Value=@model.BrandName Name="IdBrand" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="IdBrand" Text="Marca es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Tamaño" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.Size Step="0.01" Name="Size" Style="width: 22rem" Format="0.00" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Tamaño">
+                        <RadzenNumeric @bind-Value=@model.Size Step="0.01" Name="Size" Format="0.00" />
+                    </RadzenFormField>
                     <RadzenNumericRangeValidator Component="Size" Min=0.01 Text="Tamaño debe ser mayor a cero" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="SubCategoría" Style="width: 9rem;" />
-                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                    Data=@subCategories TextProperty="@nameof(SubCategoryDto.Name)" ValueProperty="@nameof(SubCategoryDto.Name)" AllowClear="true" @bind-Value=@model.SubCategoryName Style="width: 22rem" Name="IdSubCategory" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="SubCategoría">
+                        <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@subCategories TextProperty="@nameof(SubCategoryDto.Name)" ValueProperty="@nameof(SubCategoryDto.Name)" AllowClear="true" @bind-Value=@model.SubCategoryName Name="IdSubCategory" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="IdSubCategory" Text="SubCategoría es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Descripción" Style="width: 9rem;" />
-                    <RadzenTextArea @bind-Value=@model.Description Name="Description" Style="width: 22rem" Rows="3" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Descripción">
+                        <RadzenTextArea @bind-Value=@model.Description Name="Description" Rows="3" Style="resize: none" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="Description" Text="Descripción es requerido" />
-                </RadzenStack>
+                </RadzenFieldset>
             </RadzenStack>
         </RadzenColumn>
         <RadzenColumn Size="12" SizeMD="6">
             <RadzenStack Gap="1rem">
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Código Sunat" Style="width: 9rem;" />
-                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                    Data=@fiscalProducts TextProperty="@nameof(FiscalProductDto.Name)" ValueProperty="@nameof(FiscalProductDto.Name)" AllowClear="true" @bind-Value=@model.FiscalProductName Style="width: 22rem" Name="IdFiscalProduct" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                <RadzenFieldset class="rz-pt-2">
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Código Sunat">
+                        <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@fiscalProducts TextProperty="@nameof(FiscalProductDto.Name)" ValueProperty="@nameof(FiscalProductDto.Name)" AllowClear="true" @bind-Value=@model.FiscalProductName Name="IdFiscalProduct" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="IdFiscalProduct" Text="Código Sunat es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Unidad Sunat" Style="width: 9rem;" />
-                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                                    Data=@fiscalUnits TextProperty="@nameof(FiscalUnitDto.Name)" ValueProperty="@nameof(FiscalUnitDto.Name)" AllowClear="true" @bind-Value=@model.FiscalUnitName Style="width: 22rem" Name="IdFiscalUnit" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:9rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Unidad Sunat">
+                        <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@fiscalUnits TextProperty="@nameof(FiscalUnitDto.Name)" ValueProperty="@nameof(FiscalUnitDto.Name)" AllowClear="true" @bind-Value=@model.FiscalUnitName Name="IdFiscalUnit" />
+                    </RadzenFormField>
                     <RadzenRequiredValidator Component="IdFiscalUnit" Text="Unidad Sunat es requerido" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Costo S/" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.Cost Step="0.01" Name="Cost" Style="width: 22rem" Format="0.00" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Costo S/">
+                        <RadzenNumeric @bind-Value=@model.Cost Step="0.01" Name="Cost" Format="0.00" />
+                    </RadzenFormField>
                     <RadzenNumericRangeValidator Component="Cost" Min=0.01 Text="Costo debe ser mayor a cero" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Stock Mínimo" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.MinimumStock Step="0.01" Name="MinimumStock" Style="width: 22rem" Format="0.00" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Stock Mínimo">
+                        <RadzenNumeric @bind-Value=@model.MinimumStock Step="0.01" Name="MinimumStock" Format="0.00" />
+                    </RadzenFormField>
                     <RadzenNumericRangeValidator Component="MinimumStock" Min=0.01 Text="Stock Mínimo debe ser mayor a cero" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Stock Actual" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@stock Step="0.01" Name="Stock" Style="width: 22rem" Format="0.00" ReadOnly="true" Disabled="true" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="Neto" Style="width: 9rem;" />
-                    <RadzenNumeric @bind-Value=@model.NetPrice Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <div style="width:6rem"></div>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Stock Actual">
+                        <RadzenNumeric @bind-Value=@stock Step="0.01" Name="Stock" Style="width: 22rem" Format="0.00" ReadOnly="true" Disabled="true" />
+                    </RadzenFormField>
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Neto">
+                        <RadzenNumeric @bind-Value=@model.NetPrice Step="0.01" Name="Net" Style="width: 22rem" Format="0.00" />
+                    </RadzenFormField>
                     <RadzenNumericRangeValidator Component="Net" Min=0.01 Text="Neto debe ser mayor a cero" />
-                </RadzenStack>
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
-                    <RadzenLabel Text="En Venta" Style="width: 9rem;" />
-                    <RadzenCheckBox @bind-Value=@model.IsAllowedSale />
-                </RadzenStack>
+                    <RadzenStack class="rz-py-2" Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">
+                        <RadzenLabel Text="En Venta" class="rz-p-1 rz-w-25" />
+                        <RadzenCheckBox @bind-Value=@model.IsAllowedSale class="rz-py-2" />
+                    </RadzenStack>
+                </RadzenFieldset>
             </RadzenStack>
         </RadzenColumn>
-    </RadzenRow>
-    <RadzenRow Gap="1rem" JustifyContent="JustifyContent.Right">
-        <RadzenStack Orientation="Orientation.Horizontal">
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
             <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
         </RadzenStack>
     </RadzenRow>
