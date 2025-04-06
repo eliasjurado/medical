@@ -4,8 +4,8 @@ namespace Medical.Domain.Enums;
 
 public enum TypeSexId
 {
-    [Display(Description = "Femenino")]
+    [Display(Description = "FEMENINO")]
     Female = 1,
-    [Display(Description = "Masculino")]
+    [Display(Description = "MASCULINO")]
     Male = 2
 }
