@@ -11,6 +11,8 @@ public interface IQueryUnitOfWork
     IWarehouseQueryRepository WarehouseQuery { get; }
     ISpecialistQueryRepository SpecialistQuery { get; }
     IBrandQueryRepository BrandQuery { get; }
+    ISaleQueryRepository SaleQuery { get; }
+    ISaleArticleQueryRepository SaleArticleQuery { get; }
     IFiscalUnitQueryRepository FiscalUnitQuery { get; }
     IFiscalSegmentQueryRepository FiscalSegmentQuery { get; }
     IFiscalFamilyQueryRepository FiscalFamilyQuery { get; }

@@ -19,7 +19,9 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private WarehouseCommandRepository? _warehouseCommand;
     private SpecialistCommandRepository? _specialistCommand;
     private AppointmentCommandRepository? _appointmentCommand;
-    private BrandCommandRepository? _brandCommand;
+    private BrandCommandRepository? _brandCommand; 
+    private SaleCommandRepository? _saleCommand; 
+    private SaleArticleCommandRepository? _saleArticleCommand;
     private ArticleCommandRepository? _articleCommand;
     private ArticleStockCommandRepository? _articleStockCommand;
     private FiscalUnitCommandRepository? _fiscalUnitCommand;
@@ -37,6 +39,8 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     public ISpecialistCommandRepository SpecialistCommand => _specialistCommand ?? (_specialistCommand = new SpecialistCommandRepository(_context));
     public IAppointmentCommandRepository AppointmentCommand => _appointmentCommand ?? (_appointmentCommand = new AppointmentCommandRepository(_context));
     public IBrandCommandRepository BrandCommand => _brandCommand ?? (_brandCommand = new BrandCommandRepository(_context));
+    public ISaleCommandRepository SaleCommand => _saleCommand ?? (_saleCommand = new SaleCommandRepository(_context));
+    public ISaleArticleCommandRepository SaleArticleCommand => _saleArticleCommand ?? (_saleArticleCommand = new SaleArticleCommandRepository(_context));
     public IArticleCommandRepository ArticleCommand => _articleCommand ?? (_articleCommand = new ArticleCommandRepository(_context));
     public IArticleStockCommandRepository ArticleStockCommand => _articleStockCommand ?? (_articleStockCommand = new ArticleStockCommandRepository(_context));
     public IFiscalUnitCommandRepository FiscalUnitCommand => _fiscalUnitCommand ?? (_fiscalUnitCommand = new FiscalUnitCommandRepository(_context));

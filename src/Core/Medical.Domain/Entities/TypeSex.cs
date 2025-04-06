@@ -9,7 +9,7 @@ namespace Medical.Domain.Entities
         public TypeSex()
         {
         }
-        public TypeSexId TypeSexId { get; set; }
+        public TypeSexId Id { get; set; }
 
         public string? Name { get; set; }
     }

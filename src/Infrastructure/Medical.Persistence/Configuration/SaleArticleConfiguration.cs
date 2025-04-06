@@ -7,6 +7,11 @@ public class SaleArticleConfiguration : IEntityTypeConfiguration<SaleArticle>
     {
         builder.HasKey(x => new { x.SaleId, x.Id });
 
+        builder.HasOne(p => p.Sale)
+            .WithMany(o => o.SaleArticles)
+            .HasForeignKey(q => q.SaleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
         builder.HasQueryFilter(x => !x.IsDeleted);
 
     }

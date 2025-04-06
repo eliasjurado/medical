@@ -29,7 +29,7 @@
         <RadzenDataGridColumn Property="@nameof(PacientDto.Birthdate)" Title="Fecha Nacimiento" Frozen="true" Width="90px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy}" />
         <RadzenDataGridColumn Property="@nameof(PacientDto.Birthdate)" Title="Edad" Frozen="true" Width="80px" Sortable="true" Filterable="false">
             <Template Context="model">
-                @(Convert.ToInt32((DateTime.Today - model.Birthdate).TotalDays / 365.2425))
+                @(model.Birthdate.GetAge())
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(PacientDto.Address)" Title="Domicilio" Frozen="true" Width="150px" Sortable="true" Filterable="true" />

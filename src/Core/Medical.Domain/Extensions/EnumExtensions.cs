@@ -16,5 +16,6 @@ namespace Medical.Domain.Extensions
 
             return enumVal;
         }
+
     }
 }

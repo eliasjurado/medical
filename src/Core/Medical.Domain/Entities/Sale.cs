@@ -5,6 +5,7 @@ namespace Medical.Domain.Entities;
 
 public class Sale : BaseAuditableEntity<int>
 {
+    public string? UserId { get; set; }
     public TypeSaleId TypeSaleId { get; set; }
     public string? Serie { get; set; }
     public string? Correlative { get; set; }
@@ -16,5 +17,6 @@ public class Sale : BaseAuditableEntity<int>
     public decimal TaxAmount { get; set; }
     public decimal TotalAmount { get; set; }
     public bool IsCancelled { get; set; }
+    public bool IsVatExempted { get; set; }
     public List<SaleArticle> SaleArticles { get; set; } = new List<SaleArticle>();
 }

@@ -29,6 +29,8 @@ public static class ConfigureServices
         services.AddScoped<ISpecialistCommandRepository, SpecialistCommandRepository>();
         services.AddScoped<IAppointmentCommandRepository, AppointmentCommandRepository>();
         services.AddScoped<IBrandCommandRepository, BrandCommandRepository>();
+        services.AddScoped<ISaleCommandRepository, SaleCommandRepository>();
+        services.AddScoped<ISaleArticleCommandRepository, SaleArticleCommandRepository>();
         services.AddScoped<IArticleCommandRepository, ArticleCommandRepository>();
         services.AddScoped<IArticleStockCommandRepository, ArticleStockCommandRepository>();
         services.AddScoped<IFiscalUnitCommandRepository, FiscalUnitCommandRepository>();
@@ -47,6 +49,8 @@ public static class ConfigureServices
         services.AddScoped<ISpecialistQueryRepository, SpecialistQueryRepository>();
         services.AddScoped<IAppointmentQueryRepository, AppointmentQueryRepository>();
         services.AddScoped<IBrandQueryRepository, BrandQueryRepository>();
+        services.AddScoped<ISaleQueryRepository, SaleQueryRepository>();
+        services.AddScoped<ISaleArticleQueryRepository, SaleArticleQueryRepository>();
         services.AddScoped<IArticleQueryRepository, ArticleQueryRepository>();
         services.AddScoped<IArticleStockQueryRepository, ArticleStockQueryRepository>();
         services.AddScoped<IFiscalUnitQueryRepository, FiscalUnitQueryRepository>();

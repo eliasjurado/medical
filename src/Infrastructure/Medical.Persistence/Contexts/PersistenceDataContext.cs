@@ -39,65 +39,65 @@ namespace Medical.Server.Contexts
             modelBuilder.Entity<TypeAppointment>()
                 .HasData(
                     Enum.GetValues(typeof(TypeAppointmentId))
-                        .Cast<TypeAppointmentId>()
-                        .Select(e => new TypeAppointment()
-                        {
-                            TypeAppointmentId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeAppointmentId>()
+                    .Select(e => new TypeAppointment()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
 
             modelBuilder.Entity<TypeDocument>()
                 .HasData(
                     Enum.GetValues(typeof(TypeDocumentId))
-                        .Cast<TypeDocumentId>()
-                        .Select(e => new TypeDocument()
-                        {
-                            TypeDocumentId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeDocumentId>()
+                    .Select(e => new TypeDocument()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
 
             modelBuilder.Entity<TypeSex>()
                 .HasData(
                     Enum.GetValues(typeof(TypeSexId))
-                        .Cast<TypeSexId>()
-                        .Select(e => new TypeSex()
-                        {
-                            TypeSexId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeSexId>()
+                    .Select(e => new TypeSex()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
 
             modelBuilder.Entity<TypeShift>()
                 .HasData(
                     Enum.GetValues(typeof(TypeShiftId))
-                        .Cast<TypeShiftId>()
-                        .Select(e => new TypeShift()
-                        {
-                            TypeShiftId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeShiftId>()
+                    .Select(e => new TypeShift()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
             modelBuilder.Entity<TypeArticle>()
                 .HasData(
                     Enum.GetValues(typeof(TypeArticleId))
-                        .Cast<TypeArticleId>()
-                        .Select(e => new TypeArticle()
-                        {
-                            TypeArticleId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeArticleId>()
+                    .Select(e => new TypeArticle()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
             modelBuilder.Entity<TypeArticleStockAction>()
                 .HasData(
                     Enum.GetValues(typeof(TypeArticleStockActionId))
-                        .Cast<TypeArticleStockActionId>()
-                        .Select(e => new TypeArticleStockAction()
-                        {
-                            TypeArticleStockActionId = e,
-                            Name = e.GetDisplayDescription()
-                        })
+                    .Cast<TypeArticleStockActionId>()
+                    .Select(e => new TypeArticleStockAction()
+                    {
+                        Id = e,
+                        Name = e.GetDisplayDescription()
+                    })
                 );
             //modelBuilder.Entity<CartItem>()
             //    .HasKey(ci => new { ci.UserId, ci.ProductId, ci.ProductTypeId });

@@ -9,7 +9,7 @@ namespace Medical.Domain.Entities
         public TypeArticleStockAction()
         {
         }
-        public TypeArticleStockActionId TypeArticleStockActionId { get; set; }
+        public TypeArticleStockActionId Id { get; set; }
 
         public string? Name { get; set; }
     }

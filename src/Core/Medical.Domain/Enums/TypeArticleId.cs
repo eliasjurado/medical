@@ -5,13 +5,13 @@ namespace Medical.Domain.Enums;
 public enum TypeArticleId
 {
     [Display(Description = "PRODUCCION - CON CONTROL DE STOCK")]
-    ProductionWithStockControl,
+    ProductionWithStockControl = 1,
     [Display(Description = "PRODUCCION - SIN CONTROL DE STOCK")]
-    ProductionWithOutStockControl,
+    ProductionWithOutStockControl = 2,
     [Display(Description = "PRODUCTOS AJENOS AL TIPO DE NEGOCIO")]
-    NonRelatedToBusiness,
+    NonRelatedToBusiness = 3,
     [Display(Description = "COMPRAR PARA VENDER")]
-    ForSale,
+    ForSale = 4,
     [Display(Description = "INSUMOS")]
-    Input,
+    Input = 5,
 }

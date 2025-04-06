@@ -19,7 +19,7 @@
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.FullName)" Title="Nombres y Apellidos" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.Birthdate)" Title="Edad" Frozen="true" Width="80px" Sortable="true" Filterable="false">
             <Template Context="model">
-                @(Convert.ToInt32((DateTime.Today - model.Birthdate).TotalDays / 365.2425))
+                @(model.Birthdate.GetAge())
             </Template>
         </RadzenDataGridColumn>
         <RadzenDataGridColumn Property="@nameof(SpecialistDto.ProfessionName)" Title="Profesión" Frozen="true" Width="100px" Sortable="true" Filterable="true" />

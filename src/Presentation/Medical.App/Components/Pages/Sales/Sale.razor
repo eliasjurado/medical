@@ -1,17 +1,27 @@
-﻿@page "/venta"
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@page "/venta"
 
-<h3>Venta</h3>
-
-<RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap" class="rz-my-5 rz-align-items-center">
-    <RadzenLabel Text="Artículo" Style="width: 4rem;" />
- @*    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@articleName Style="width: 28rem" Name="IdArticle" /> *@
-   @*  <RadzenLabel Text="Almacén" Style="width: 4rem;" />
-    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true"
-                    Data=@warehouses TextProperty="@nameof(WarehouseDto.Name)" ValueProperty="@nameof(WarehouseDto.Name)" AllowClear="true" @bind-Value=@warehouseName Style="width: 15rem" Name="IdWarehouse" /> *@
-    @* <RadzenButton Icon="search" Text="Filtrar" Click=@FilterList /> *@
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Venta</h3>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nueva Venta" Click=@AddRow />
+    </RadzenStack>
 </RadzenStack>
 
-@code {
 
+
+@code {
+    async Task AddRow()
+    {
+        SaleDto data = await DialogService.OpenAsync<SaleAdd>("Nueva Venta");
+        if (data != null)
+        {
+            // await warehouseService.AddWarehouse(data);
+            // selectedItems.Add(data);
+            // items = warehouseService.AdminWarehouses.AsQueryable();
+        }
+    }
 }

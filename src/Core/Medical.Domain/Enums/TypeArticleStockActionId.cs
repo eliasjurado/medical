@@ -4,16 +4,16 @@ namespace Medical.Domain.Enums;
 
 public enum TypeArticleStockActionId
 {
-    [Display(Description = "Carga Inicial")]
-    InitialLoad,
-    [Display(Description = "Compra")]
-    Purchase,
-    [Display(Description = "Devolución")]
-    Return,
-    [Display(Description = "Venta")]
-    Sale,
-    [Display(Description = "Retiro")]
-    Withdrawal,
-    [Display(Description = "Merma")]
-    Wastage
+    [Display(Description = "CARGA INICIAL")]
+    InitialLoad = 1,
+    [Display(Description = "COMPRA")]
+    Purchase = 2,
+    [Display(Description = "DEVOLUCION")]
+    Return = 3,
+    [Display(Description = "VENTA")]
+    Sale = 4,
+    [Display(Description = "RETIRO")]
+    Withdrawal = 5,
+    [Display(Description = "MERMA")]
+    Wastage = 6
 }

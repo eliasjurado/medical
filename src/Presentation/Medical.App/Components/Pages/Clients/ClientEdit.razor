@@ -1,0 +1,109 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="ClientDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenRow Gap="1rem">
+            <RadzenColumn Size="12" SizeMD="6">
+                <RadzenStack Gap="1rem">
+                    <RadzenFieldset class="rz-pt-2">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Documento">
+                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeDocumentId)).Cast<Enum>())" @bind-Value=@model.TypeDocumentId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeDocumentId" Change="@(args => OnTypeDocumentChange(args))" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="TypeDocumentId" Text="Tipo Documento es requerido" />
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="@txtNumDocument">
+                            <RadzenTextBox @bind-Value=@model.NumDocument Name="Documento" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="Documento" Text=@txtNumDocumentRequired />
+                        @if (model.NumDocument.Length > 0)
+                        {
+                            <RadzenLengthValidator Component="Documento" Min=@lenNumDocument Max=@lenNumDocument Text=@lenNumDocumentMessage />
+                        }
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="@txtFullName">
+                            <RadzenTextBox @bind-Value=@model.FullName Name="FullName" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="FullName" Text=@txtFullNameRequired />
+                        @* <RadzenFormField class="rz-py-2 rz-w-100" Text="Sexo">
+                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSexId)).Cast<Enum>())" @bind-Value=@model.TypeSexId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeSexId" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="TypeSexId" Text="Sexo es requerido" /> *@
+                    </RadzenFieldset>
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="6">
+                <RadzenStack Gap="1rem">
+                    <RadzenFieldset class="rz-pt-2">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Fecha Nacimiento">
+                            <RadzenDatePicker Name="Birthdate" @bind-Value="@model.Birthdate" ShowTime="false" Style="width: 12rem;" DateFormat="dd/MM/yyyy" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="Birthdate" Text="Fecha Nacimiento es requerido" />
+                        @* <RadzenFormField class="rz-py-2 rz-w-100" Text="Dirección">
+                            <RadzenTextBox @bind-Value=@model.Address Name="Address" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="Address" Text="Dirección es requerido" /> *@
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Teléfono">
+                            <RadzenTextBox @bind-Value=@model.Phone Name="Phone" />
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="Phone" Text="Teléfono es requerido" />
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Email">
+                            <RadzenTextBox @bind-Value=@model.Email Name="Email" />
+                        </RadzenFormField>
+                        <RadzenEmailValidator Component="Email" Text="Formato Email requerido" />
+                    </RadzenFieldset>
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenRow>
+    </RadzenStack>
+</RadzenTemplateForm>
+
+@code {
+    [Parameter]
+    public ClientDto Param { get; set; }
+
+    ClientDto model = new ClientDto();
+
+    string txtNumDocument = "N° Documento";
+    string txtNumDocumentRequired = "N° Documento es requerido";
+    int lenNumDocument = 8;
+    string lenNumDocumentMessage = "N° Documento debe tener 8 caracteres";
+    string txtFullName = "Nombres y Apellidos";
+    string txtFullNameRequired = "Nombres y Apellidos es requerido";
+    bool isVisible = true;
+
+    void OnTypeDocumentChange(object args)
+    {
+        if (args == null || !args.ToString().Equals("RUC"))
+        {
+            txtNumDocument = "N° Documento";
+            txtNumDocumentRequired = "N° Documento es requerido";
+            txtFullName = "Nombres y Apellidos";
+            txtFullNameRequired = "Nombres y Apellidos es requerido";
+            isVisible = true;
+            lenNumDocument = 8;
+            lenNumDocumentMessage = "N° Documento debe tener 8 caracteres";
+        }
+        else
+        {
+            txtNumDocument = "N° RUC";
+            txtNumDocumentRequired = "N° RUC es requerido";
+            txtFullName = "Razón Social";
+            txtFullNameRequired = "Razón Social es requerido";
+            isVisible = false;
+            lenNumDocument = 11;
+            lenNumDocumentMessage = "N° RUC debe tener 11 caracteres";
+        }
+    }
+
+    async void OnSubmit(ClientDto model)
+    {
+        DialogService.Close(model);
+    }
+
+    protected async override void OnParametersSet()
+    {
+        model = Param;
+    }
+}

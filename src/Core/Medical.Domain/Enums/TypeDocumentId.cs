@@ -1,14 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Medical.Domain.Enums;
+
 public enum TypeDocumentId
 {
     [Display(Description = "DNI")]
-    DNI,
-    [Display(Description = "CI")]
-    CI,
+    DNI = 1,
+    [Display(Description = "RUC")]
+    RUC = 2,
     [Display(Description = "CE")]
-    CE,
-    [Display(Description = "Pasaporte")]
-    Passport
+    CE = 3,
+    [Display(Description = "PASAPORTE")]
+    Passport = 4
 }

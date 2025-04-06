@@ -9,7 +9,7 @@ namespace Medical.Domain.Entities
         public TypeAppointment()
         {
         }
-        public TypeAppointmentId TypeAppointmentId { get; set; }
+        public TypeAppointmentId Id { get; set; }
 
         public string? Name { get; set; }
     }

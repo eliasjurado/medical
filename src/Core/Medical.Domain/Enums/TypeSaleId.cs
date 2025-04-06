@@ -4,8 +4,8 @@ namespace Medical.Domain.Enums;
 
 public enum TypeSaleId
 {
-    [Display(Description = "Recibo")]
-    Receipt,
-    [Display(Description = "Factura")]
-    Invoice
+    [Display(Description = "BOLETA")]
+    Receipt = 1,
+    [Display(Description = "FACTURA")]
+    Invoice = 2
 }

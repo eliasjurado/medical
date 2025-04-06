@@ -1,0 +1,97 @@
+﻿@inject DialogService DialogService
+@inject HttpInterceptorService Interceptor
+@inject IClientService clientService
+@page "/cliente"
+
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Cliente</h3>
+    </RadzenStack>
+    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Cliente" Click=@AddRow />
+    </RadzenStack>
+</RadzenStack>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PageSize="9" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true"
+Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <Columns>
+        <RadzenDataGridColumn Property="@nameof(ClientDto.Id)" Filterable="false" Title="Historia" Frozen="true" Width="70px" TextAlign="TextAlign.Center">
+            <Template Context="model">
+                @model.Id.ToString().PadLeft(6, '0')
+            </Template>
+        </RadzenDataGridColumn>
+        <RadzenDataGridColumn Property="@nameof(ClientDto.FullName)" Title="Nombres y Apellidos" Frozen="true" Width="150px" Sortable="true" Filterable="true" />
+        @*     <RadzenDataGridColumn Property="@nameof(ClientDto.TypeSexId)" Title="Sexo" Frozen="true" Width="90px" Sortable="true" Filterable="true">
+            <Template Context="model">
+                @model.TypeSexId.GetDisplayDescription()
+            </Template>
+        </RadzenDataGridColumn> *@
+        <RadzenDataGridColumn Property="@nameof(ClientDto.Birthdate)" Title="Fecha Nacimiento" Frozen="true" Width="90px" Sortable="true" Filterable="true" FormatString="{0:dd/MM/yyyy}" />
+        <RadzenDataGridColumn Property="@nameof(ClientDto.Birthdate)" Title="Edad" Frozen="true" Width="80px" Sortable="true" Filterable="false">
+            <Template Context="model">
+                @(model.Birthdate.GetAge())
+            </Template>
+        </RadzenDataGridColumn>
+        @*  <RadzenDataGridColumn Property="@nameof(ClientDto.Address)" Title="Domicilio" Frozen="true" Width="150px" Sortable="true" Filterable="true" /> *@
+        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="model">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+@code {
+    IQueryable<ClientDto> items;
+    IList<ClientDto> selectedItems;
+    DialogOptions dialogOptions = new DialogOptions { Draggable = true, Width = "900px"};
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
+
+        await clientService.GetAdminClients();
+        clientService.OnChange += StateHasChanged;
+        items = clientService.AdminClients.AsQueryable();
+
+        selectedItems = new List<ClientDto>() { items.FirstOrDefault() };
+    }
+
+    public void Dispose()
+    {
+        Interceptor.DisposeEvent();
+        clientService.OnChange -= StateHasChanged;
+    }
+
+    async Task AddRow()
+    {
+        ClientDto data = await DialogService.OpenAsync<ClientAdd>("Nuevo Cliente", options: dialogOptions);
+        if (data != null)
+        {
+            
+            await clientService.AddClient(data);
+            items = clientService.AdminClients.AsQueryable();
+        }
+    }
+
+    async Task EditRow(ClientDto model)
+    {
+        ClientDto data = await DialogService.OpenAsync<ClientEdit>("Editar Cliente", new Dictionary<string, object> { { "Param", model } }, dialogOptions);
+        if (data != null)
+        {
+            await clientService.UpdateClient(data);
+        }
+    }
+
+    async Task DeleteRow(ClientDto model)
+    {
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Cliente: {model.FullName}?", "Eliminar Cliente", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            await clientService.DeleteClient(model.Id);
+            items = clientService.AdminClients.AsQueryable();
+        }
+    }
+}

@@ -11,6 +11,8 @@ public interface ICommandUnitOfWork<Tkey>
     IWarehouseCommandRepository WarehouseCommand { get; }
     ISpecialistCommandRepository SpecialistCommand { get; }
     IBrandCommandRepository BrandCommand { get; }
+    ISaleArticleCommandRepository SaleArticleCommand { get; }
+    ISaleCommandRepository SaleCommand { get; }
     IFiscalUnitCommandRepository FiscalUnitCommand { get; }
     IFiscalSegmentCommandRepository FiscalSegmentCommand { get; }
     IFiscalFamilyCommandRepository FiscalFamilyCommand { get; }

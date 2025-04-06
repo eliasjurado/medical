@@ -5,9 +5,9 @@ namespace Medical.Domain.Enums;
 public enum TypeShiftId
 {
     [Display(Description = "Mañana")]
-    Morning,
+    Morning = 1,
     [Display(Description = "Tarde")]
-    Afternoon,
+    Afternoon = 2,
     [Display(Description = "Noche")]
-    Night
+    Night = 3
 }

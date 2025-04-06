@@ -5,6 +5,7 @@ using Medical.App.Services.ArticleStockService;
 using Medical.App.Services.AuthService;
 using Medical.App.Services.BrandService;
 using Medical.App.Services.CategoryService;
+using Medical.App.Services.ClientService;
 using Medical.App.Services.FiscalClassService;
 using Medical.App.Services.FiscalFamilyService;
 using Medical.App.Services.FiscalProductService;
@@ -25,6 +26,7 @@ namespace Medical.App.Extensions
     {
         public static IServiceCollection AddServiceCollection(this IServiceCollection services)
         {
+            services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IPacientService, PacientService>();
