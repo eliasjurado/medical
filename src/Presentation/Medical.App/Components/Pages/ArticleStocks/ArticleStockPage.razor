@@ -9,9 +9,6 @@
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
         <h3>Movimiento de Stock</h3>
     </RadzenStack>
-    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
-        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Movimiento de Stock" Click=@AddRow />
-    </RadzenStack>
 </RadzenStack>
 
 <RadzenFieldset Text="Filtros" class="rz-mb-3">
@@ -29,6 +26,9 @@
 </RadzenFieldset>
 
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true" Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <HeaderTemplate>
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Movimiento de Stock" Click=@AddRow />
+    </HeaderTemplate>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn Property="@nameof(ArticleStockDto.ArticleName)" Title="Artículo" Width="200px" Sortable="true" Filterable="true" Frozen="true">

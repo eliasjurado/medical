@@ -7,12 +7,12 @@
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
         <h3>Servicio</h3>
     </RadzenStack>
-    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
-        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Servicio" Click=@AddRow />
-    </RadzenStack>
 </RadzenStack>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <HeaderTemplate>
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Servicio" Click=@AddRow />
+    </HeaderTemplate>
     <Columns>
         <RadzenDataGridColumn Property="@nameof(TreatmentDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
         <RadzenDataGridColumn Property="@nameof(TreatmentDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />

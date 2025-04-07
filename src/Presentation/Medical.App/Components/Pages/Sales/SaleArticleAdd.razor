@@ -1,0 +1,69 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@inject IArticleService articleService
+
+<RadzenTemplateForm TItem="SaleArticleDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
+    <RadzenRow Gap="1rem">
+        <RadzenStack Gap="1rem">
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField Text="Artículo" class="rz-py-2 rz-w-100">
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Name="IdArticle" />
+                </RadzenFormField>
+                <RadzenRequiredValidator Component="IdArticle" Text="Artículo es requerido" />
+                <RadzenFormField Text="Cantidad" class="rz-py-2 rz-w-100">
+                    <RadzenNumeric TValue="decimal" @bind-Value=@model.Quantity Step="1" Name="Quantity" Format="0.00" />
+                </RadzenFormField>
+                <RadzenNumericRangeValidator Component="Quantity" Min=0.01 Text="Cantidad debe ser mayor a cero" />
+            </RadzenFieldset>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenRow>
+</RadzenTemplateForm>
+
+@code {
+    SaleArticleDto model = new SaleArticleDto();
+    RadzenDropDown<string> radzenDropDown;
+    string value;
+    IEnumerable<PacientDto> pacients;
+    IEnumerable<ClientDto> clients;
+    IEnumerable<ArticleDto> articles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await articleService.GetArticles();
+        articles = articleService.Articles;
+    }
+
+    async void OnSubmit(SaleArticleDto model)
+    {
+        var article = await articleService.GetArticleByName(model.ArticleName);
+        model.Article = article;
+        model.ArticleId = article.Id;
+        model.ArticleNetPrice = article.NetPrice;
+        model.TotalAmount = model.ArticleNetPrice * model.Quantity;
+        DialogService.Close(model);
+    }
+
+    string searchText = "";
+
+    public string SearchText
+    {
+        get
+        {
+            return searchText;
+        }
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+                Console.WriteLine($"Search text: {radzenDropDown.SearchText}");
+            }
+        }
+    }
+
+}

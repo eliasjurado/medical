@@ -20,7 +20,7 @@
                             <RadzenLengthValidator Component="Documento" Min=@lenNumDocument Max=@lenNumDocument Text=@lenNumDocumentMessage />
                         }
                         <RadzenFormField class="rz-py-2 rz-w-100" Text="@txtFullName">
-                            <RadzenTextBox @bind-Value=@model.FullName Name="FullName" />
+                            <RadzenTextBox @bind-Value=@model.FullName Name="FullName" Change="@(args => model.FullName = args.ToUpper())" />
                         </RadzenFormField>
                         <RadzenRequiredValidator Component="FullName" Text=@txtFullNameRequired />
                         @*  <RadzenFormField class="rz-py-2 rz-w-100" Text="Sexo">
@@ -33,13 +33,13 @@
             <RadzenColumn Size="12" SizeMD="6">
                 <RadzenStack Gap="1rem">
                     <RadzenFieldset class="rz-pt-2">
-                        @if (isVisible)
+                    @*     @if (isVisible)
                         {
                             <RadzenFormField class="rz-py-2 rz-w-100" Text="Fecha Nacimiento">
                                 <RadzenDatePicker Name="Birthdate" @bind-Value="@model.Birthdate" ShowTime="false" Style="width: 12rem;" DateFormat="dd/MM/yyyy" />
                             </RadzenFormField>
                             <RadzenRequiredValidator Component="Birthdate" Text="Fecha Nacimiento es requerido" />
-                        }
+                        } *@
                         @*  <RadzenFormField class="rz-py-2 rz-w-100" Text="Dirección">
                             <RadzenTextBox @bind-Value=@model.Address Name="Address" />
                         </RadzenFormField>
@@ -70,7 +70,7 @@
     string lenNumDocumentMessage = "N° Documento debe tener 8 caracteres";
     string txtFullName = "Nombres y Apellidos";
     string txtFullNameRequired = "Nombres y Apellidos es requerido";
-    bool isVisible = true;
+    // bool isVisible = true;
 
     void OnTypeDocumentChange(object args)
     {
@@ -80,7 +80,7 @@
             txtNumDocumentRequired = "N° Documento es requerido";
             txtFullName = "Nombres y Apellidos";
             txtFullNameRequired = "Nombres y Apellidos es requerido";
-            isVisible = true;
+            // isVisible = true;
             lenNumDocument = 8;
             lenNumDocumentMessage = "N° Documento debe tener 8 caracteres";
         }
@@ -90,7 +90,7 @@
             txtNumDocumentRequired = "N° RUC es requerido";
             txtFullName = "Razón Social";
             txtFullNameRequired = "Razón Social es requerido";
-            isVisible = false;
+            // isVisible = false;
             lenNumDocument = 11;
             lenNumDocumentMessage = "N° RUC debe tener 11 caracteres";
         }

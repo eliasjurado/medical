@@ -7,13 +7,13 @@
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
         <h3>Sunat / Segmento</h3>
     </RadzenStack>
-    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-my-5 rz-w-75">
-        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Segmento" Click=@AddRow />
-    </RadzenStack>
 </RadzenStack>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
                 Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
-    <Columns>
+    <HeaderTemplate>
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Segmento" Click=@AddRow />
+    </HeaderTemplate>
+                <Columns>
         <RadzenDataGridColumn Property="@nameof(FiscalSegmentDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center"/>
         <RadzenDataGridColumn Property="@nameof(FiscalSegmentDto.Name)" Title="Nombre" Width="200px" Sortable="true" Filterable="true" Frozen="true" />
         <RadzenDataGridColumn Property="@nameof(FiscalSegmentDto.Code)" Title="Código" Width="100px" Sortable="true" Filterable="true" Frozen="true" />

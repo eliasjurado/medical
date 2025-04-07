@@ -1,0 +1,181 @@
+﻿@* @inject IPacientService pacientService *@
+@inject IClientService clientService
+@inject HttpInterceptorService interceptor
+@inject DialogService dialogService
+@inject NotificationService notificationService;
+@page "/venta"
+@using Medical.App.Components.Pages.Clients
+
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Venta</h3>
+    </RadzenStack>
+</RadzenStack>
+
+<RadzenTemplateForm TItem="SaleDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
+    <RadzenStack Orientation="Orientation.Vertical">
+        <RadzenRow Gap="1rem">
+            <RadzenColumn Size="12" SizeMD="6">
+                <RadzenStack Gap="1rem" class="rz-w-100">
+                    @* <RadzenFieldset class="rz-pt-2"> *@
+                    <RadzenStack Orientation="Orientation.Horizontal">
+                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Cliente">
+                            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@clients TextProperty="@nameof(ClientDto.FullName)" ValueProperty="@nameof(ClientDto.FullName)" AllowClear="true" @bind-Value=@model.ClientFullName Name="Cliente" />
+                        </RadzenFormField>
+
+                        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Cliente" Click=@AddClient class="rz-mt-5 rz-mb-3" />
+                    </RadzenStack>
+
+                    <RadzenRequiredValidator Component="Cliente" Text="Cliente es requerido" />
+                    @* </RadzenFieldset> *@
+                </RadzenStack>
+            </RadzenColumn>
+            <RadzenColumn Size="12" SizeMD="6">
+                <RadzenStack Gap="1rem" class="rz-w-100">
+                    @* <RadzenFieldset class="rz-pt-2"> *@
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Documento">
+                        <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId">
+                        </RadzenDropDown>
+                    </RadzenFormField>
+                    <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento es requerido" />
+                    @* </RadzenFieldset> *@
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow Gap="1rem">
+            <RadzenDataGrid PageSize="9" Data="@items" ColumnWidth="300px" SelectionMode="DataGridSelectionMode.Single" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                <HeaderTemplate>
+                    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Artículo" Click=@AddRow />
+                </HeaderTemplate>
+                <Columns>
+                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleName)" Title="Artículo" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
+                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="80px" Sortable="true" Filterable="true">
+                        <Template Context="items">
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <div class="rz-w-25">S/</div>
+                                <div class="rz-w-75 rz-text-align-right">@items.TotalAmount</div>
+                            </RadzenStack>
+                        </Template>
+                        <FooterTemplate>
+                            <RadzenStack Orientation="Orientation.Horizontal">
+                                <div class="rz-w-25"><h3><b>S/</b></h3></div>
+                                <div class="rz-w-75 rz-text-align-right"><h3><b>@String.Format("{0:N2}", sumQuantity)</b></h3></div>
+                            </RadzenStack>
+                        </FooterTemplate>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+                        <Template Context="model">
+                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+            </RadzenDataGrid>
+        </RadzenRow>
+        <RadzenRow Gap="1rem">
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
+                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenRow>
+    </RadzenStack>
+</RadzenTemplateForm>
+
+@code {
+    List<SaleArticleDto> itemsMap = new List<SaleArticleDto>();
+    IQueryable<SaleArticleDto> items;
+    SaleDto model = new SaleDto();
+    RadzenDropDown<string> radzenDropDown;
+    string value;
+    IEnumerable<ClientDto> clients;
+    decimal sumQuantity = 0;
+    DialogOptions dialogOptions = new DialogOptions { Draggable = true };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        interceptor.RegisterEvent();
+
+        await clientService.GetClients();
+        clients = clientService.Clients;
+
+        clientService.OnChange += StateHasChanged;
+    }
+
+    async void OnSubmit(SaleDto model)
+    {
+        model.ClientId = (await clientService.GetClientByFullName(model.ClientFullName)).Id;
+    }
+
+    async Task AddRow()
+    {
+        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleAdd>("Añadir Artículo");
+        if (data != null)
+        {
+            itemsMap.Add(data);
+            items = itemsMap.AsQueryable();
+            sumQuantity = itemsMap.Sum(x => x.TotalAmount);
+        }
+    }
+
+    async Task AddClient()
+    {
+        ClientDto data = await dialogService.OpenAsync<ClientAdd>("Nuevo Cliente", options: dialogOptions);
+        if (data != null)
+        {
+            await clientService.AddClient(data);
+            var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Nuevo Cliente",
+                    Detail = $"El cliente \"{data.FullName}\" fue creado exitosamente",
+                    Duration = 4000,
+
+                };
+            notificationService.Notify(notification);
+            clients = clientService.Clients;
+        }
+    }
+
+    async Task EditRow(SaleArticleDto model)
+    {
+        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model } }, dialogOptions);
+        if (data != null)
+        {
+            itemsMap.Remove(model);
+            itemsMap.Add(data);
+            items = itemsMap.AsQueryable();
+            sumQuantity = itemsMap.Sum(x => x.TotalAmount);
+        }
+    }
+
+    async Task DeleteRow(SaleArticleDto model)
+    {
+        var isDeleted = await dialogService.Confirm($"¿Está seguro de eliminar el Artículo: {model.ArticleName}?", "Eliminar Artículo", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            itemsMap.Remove(model);
+            items = itemsMap.AsQueryable();
+        }
+    }
+
+    string searchText = "";
+
+    public string SearchText
+    {
+        get
+        {
+            return searchText;
+        }
+        set
+        {
+            if (searchText != value)
+            {
+                searchText = value;
+                Console.WriteLine($"Search text: {radzenDropDown.SearchText}");
+            }
+        }
+    }
+}
