@@ -9,6 +9,7 @@ public class SaleArticleDto
     public ArticleDto? Article { get; set; }
     public string? ArticleName { get; set; }
     public decimal ArticleNetPrice { get; set; }
+    public string? ArticleFiscalUnitName { get; set; }
     public decimal Quantity { get; set; }
     public decimal SubtotalAmount { get; set; }
     public decimal TaxAmount { get; set; }

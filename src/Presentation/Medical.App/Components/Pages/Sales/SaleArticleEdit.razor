@@ -54,6 +54,7 @@
         model.ArticleId = article.Id;
         model.ArticleNetPrice = article.NetPrice;
         model.TotalAmount = model.ArticleNetPrice * model.Quantity;
+        model.ArticleFiscalUnitName = article.FiscalUnitName;
         DialogService.Close(model);
     }
 

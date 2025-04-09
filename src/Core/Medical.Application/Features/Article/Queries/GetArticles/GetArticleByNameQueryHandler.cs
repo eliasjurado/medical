@@ -15,7 +15,7 @@ namespace Medical.Application.Features.Article.Queries.GetArticles
         }
         public async Task<IResponse> Handle(GetArticleByNameQueryRequest request, CancellationToken cancellationToken)
         {
-            var item = await _query.ArticleQuery.GetAsync(x => x.Name!.Equals(request.name));
+            var item = await _query.ArticleQuery.GetWithIncludeAsync(false, x => x.Name!.Equals(request.name), includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!, v => v.SubCategory!]);
             var dtoItem = _mapper.Map<ArticleDto>(item);
 
             return new DataResponse<ArticleDto>(dtoItem, HttpStatusCodes.OK);

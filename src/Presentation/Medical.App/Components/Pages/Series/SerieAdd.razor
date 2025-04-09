@@ -5,31 +5,29 @@
 <RadzenTemplateForm TItem="SerieDto" Data="@model" Submit=@OnSubmit class="rz-w-xl-100">
     <RadzenStack Orientation="Orientation.Vertical">
         <RadzenRow Gap="1rem">
-            <RadzenColumn Size="12" SizeMD="6">
-                <RadzenStack Gap="1rem">
-                    <RadzenFieldset class="rz-pt-2">
-                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Usuario">
-                            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@appUsers TextProperty="@nameof(AppUserDto.Email)" ValueProperty="@nameof(AppUserDto.Email)" AllowClear="true" @bind-Value=@model.AppUserEmail Name="AppUserEmail" />
-                        </RadzenFormField>
-                        <RadzenRequiredValidator Component="AppUserEmail" Text="Usuario es requerido" />
-                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Documento Venta">
-                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeSaleId" />
-                        </RadzenFormField>
-                        <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento Venta es requerido" />
-                        <RadzenFormField class="rz-py-2 rz-w-100" Text="N° Serie">
-                            <RadzenNumeric @bind-Value=@model.NumSerie Name="NumSerie" Style="width: 20rem" />
-                        </RadzenFormField>
-                        <RadzenRequiredValidator Component="NumSerie" Text="N° Serie es requerido" />
-                        <RadzenFormField class="rz-py-2 rz-w-100" Text="N° Correlativo">
-                            <RadzenNumeric @bind-Value=@model.NumCorrelative Name="NumCorrelative" Style="width: 20rem" />
-                        </RadzenFormField>
-                        <RadzenRequiredValidator Component="NumCorrelative" Text="N° Correlativo es requerido" />
-                        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
-                            <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
-                        </RadzenStack>
-                    </RadzenFieldset>
-                </RadzenStack>
-            </RadzenColumn>
+            <RadzenStack Gap="1rem">
+                <RadzenFieldset class="rz-pt-2">
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Usuario">
+                        <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@appUsers TextProperty="@nameof(AppUserDto.Email)" ValueProperty="@nameof(AppUserDto.Email)" AllowClear="true" @bind-Value=@model.AppUserEmail Name="AppUserEmail" />
+                    </RadzenFormField>
+                    <RadzenRequiredValidator Component="AppUserEmail" Text="Usuario es requerido" />
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Documento Venta">
+                        <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeSaleId" />
+                    </RadzenFormField>
+                    <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento Venta es requerido" />
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="N° Serie">
+                        <RadzenNumeric @bind-Value=@model.NumSerie Name="NumSerie" Style="width: 20rem" />
+                    </RadzenFormField>
+                    <RadzenRequiredValidator Component="NumSerie" Text="N° Serie es requerido" />
+                    <RadzenFormField class="rz-py-2 rz-w-100" Text="N° Correlativo">
+                        <RadzenNumeric @bind-Value=@model.NumCorrelative Name="NumCorrelative" Style="width: 20rem" />
+                    </RadzenFormField>
+                    <RadzenRequiredValidator Component="NumCorrelative" Text="N° Correlativo es requerido" />
+                    <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                        <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
+                    </RadzenStack>
+                </RadzenFieldset>
+            </RadzenStack>
         </RadzenRow>
     </RadzenStack>
 </RadzenTemplateForm>
