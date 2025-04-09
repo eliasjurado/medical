@@ -17,19 +17,19 @@ public class GetAllCategoryQueryHandler : IRequestHandler<GetAllCategoryQueryReq
 
     public async Task<IResponse> Handle(GetAllCategoryQueryRequest request, CancellationToken cancellationToken)
     {
-        var categoryList = new List<CategoryDto>();
+        var dtoList = new List<CategoryDto>();
 
         if (request.forAdmin)
         {
-            var categories = await _query.CategoryQuery.GetAllAsync(false);
-            categoryList = _mapper.Map<List<CategoryDto>>(categories).ToList();
+            var list = await _query.CategoryQuery.GetAllAsync(false);
+            dtoList = _mapper.Map<List<CategoryDto>>(list).ToList();
         }
         else
         {
-            var categories = await _query.CategoryQuery.GetAllWithIncludeAsync(false, cat => cat.IsActive);
-            categoryList = _mapper.Map<List<CategoryDto>>(categories).ToList();
+            var list = await _query.CategoryQuery.GetAllWithIncludeAsync(false, o => o.IsActive);
+            dtoList = _mapper.Map<List<CategoryDto>>(list).ToList();
         }
 
-        return new DataResponse<List<CategoryDto>>(categoryList, HttpStatusCodes.OK);
+        return new DataResponse<List<CategoryDto>>(dtoList, HttpStatusCodes.OK);
     }
 }

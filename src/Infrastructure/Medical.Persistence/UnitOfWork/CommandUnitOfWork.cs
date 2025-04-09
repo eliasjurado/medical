@@ -13,14 +13,16 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
 
     private CategoryCommandRepository? _categoryCommand;
     private SubCategoryCommandRepository? _subCategoryCommand;
+    private AppUserCommandRepository? _appUserCommand;
+    private SerieCommandRepository? _serieCommand;
     private ClientCommandRepository? _clientCommand;
     private PacientCommandRepository? _pacientCommand;
     private TreatmentCommandRepository? _treatmentCommand;
     private WarehouseCommandRepository? _warehouseCommand;
     private SpecialistCommandRepository? _specialistCommand;
     private AppointmentCommandRepository? _appointmentCommand;
-    private BrandCommandRepository? _brandCommand; 
-    private SaleCommandRepository? _saleCommand; 
+    private BrandCommandRepository? _brandCommand;
+    private SaleCommandRepository? _saleCommand;
     private SaleArticleCommandRepository? _saleArticleCommand;
     private ArticleCommandRepository? _articleCommand;
     private ArticleStockCommandRepository? _articleStockCommand;
@@ -30,6 +32,8 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private FiscalClassCommandRepository? _fiscalClassCommand;
     private FiscalProductCommandRepository? _fiscalProductCommand;
 
+    public ISerieCommandRepository SerieCommand => _serieCommand ?? (_serieCommand = new SerieCommandRepository(_context));
+    public IAppUserCommandRepository AppUserCommand => _appUserCommand ?? (_appUserCommand = new AppUserCommandRepository(_context));
     public ICategoryCommandRepository CategoryCommand => _categoryCommand ?? (_categoryCommand = new CategoryCommandRepository(_context));
     public ISubCategoryCommandRepository SubCategoryCommand => _subCategoryCommand ?? (_subCategoryCommand = new SubCategoryCommandRepository(_context));
     public IClientCommandRepository ClientCommand => _clientCommand ?? (_clientCommand = new ClientCommandRepository(_context));

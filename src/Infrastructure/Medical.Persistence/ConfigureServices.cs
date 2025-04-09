@@ -20,6 +20,8 @@ public static class ConfigureServices
         services.AddScoped(typeof(ICommandUnitOfWork<>), typeof(CommandUnitOfWork<>));
 
         //Commands
+        services.AddScoped<ISerieCommandRepository, SerieCommandRepository>();
+        services.AddScoped<IAppUserCommandRepository, AppUserCommandRepository>();
         services.AddScoped<ICategoryCommandRepository, CategoryCommandRepository>();
         services.AddScoped<ISubCategoryCommandRepository, SubCategoryCommandRepository>();
         services.AddScoped<IClientCommandRepository, ClientCommandRepository>();
@@ -40,6 +42,8 @@ public static class ConfigureServices
         services.AddScoped<IFiscalProductCommandRepository, FiscalProductCommandRepository>();
 
         //Queries
+        services.AddScoped<IAppUserQueryRepository, AppUserQueryRepository>();
+        services.AddScoped<ISerieQueryRepository, SerieQueryRepository>();
         services.AddScoped<ICategoryQueryRepository, CategoryQueryRepository>();
         services.AddScoped<ISubCategoryQueryRepository, SubCategoryQueryRepository>();
         services.AddScoped<IClientQueryRepository, ClientQueryRepository>();

@@ -21,7 +21,7 @@ public class GetAllArticleQueryHandler : IRequestHandler<GetAllArticleQueryReque
 
         if (request.forAdmin)
         {
-            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, o => o.IsActive, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!, v => v.SubCategory!]);
+            var list = await _query.ArticleQuery.GetAllWithIncludeAsync(false, includes: [x => x.FiscalProduct!, y => y.Brand!, z => z.FiscalUnit!, v => v.SubCategory!]);
             dtoList = _mapper.Map<List<ArticleDto>>(list).ToList();
         }
         else

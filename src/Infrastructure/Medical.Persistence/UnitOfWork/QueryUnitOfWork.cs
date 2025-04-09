@@ -9,6 +9,8 @@ public class QueryUnitOfWork : IQueryUnitOfWork
         _context = context;
     }
 
+    private AppUserQueryRepository? _appUserQuery;
+    private SerieQueryRepository? _serieQuery;
     private CategoryQueryRepository? _categoryQuery;
     private SubCategoryQueryRepository? _subCategoryQuery;
     private ClientQueryRepository? _clientQuery;
@@ -28,7 +30,8 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     private FiscalClassQueryRepository? _fiscalClassQuery;
     private FiscalProductQueryRepository? _fiscalProductQuery;
 
-
+    public ISerieQueryRepository SerieQuery => _serieQuery ?? (_serieQuery = new SerieQueryRepository(_context));
+    public IAppUserQueryRepository AppUserQuery => _appUserQuery ?? (_appUserQuery = new AppUserQueryRepository(_context));
     public ICategoryQueryRepository CategoryQuery => _categoryQuery ?? (_categoryQuery = new CategoryQueryRepository(_context));
     public ISubCategoryQueryRepository SubCategoryQuery => _subCategoryQuery ?? (_subCategoryQuery = new SubCategoryQueryRepository(_context));
     public IClientQueryRepository ClientQuery => _clientQuery ?? (_clientQuery = new ClientQueryRepository(_context));

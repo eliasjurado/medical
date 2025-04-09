@@ -1,11 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using Medical.Domain.Dto.Auth;
+using Medical.Domain.Dto.Response.Concrete;
 using Medical.Domain.Dto.User;
-using Medical.App.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Options;
-using Medical.Domain.Dto.Response.Concrete;
 
 namespace Medical.App.Services.AuthService
 {

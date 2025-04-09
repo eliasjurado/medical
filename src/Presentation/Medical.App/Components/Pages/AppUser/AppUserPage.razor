@@ -1,0 +1,150 @@
+﻿@inject AuthenticationStateProvider authenticationStateProvider
+@inject HttpInterceptorService interceptor
+@inject NotificationService notificationService
+@inject ISerieService serieService
+@inject IAppUserService appUserService
+@page "/perfil"
+
+
+<h3>Perfil</h3>
+<RadzenTemplateForm TItem="AppUserDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
+    <RadzenFieldset class="rz-p-5 rz-mb-3">
+        <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap" class="rz-mt-3 rz-mb-1">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="UserId" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@userId Name="UserId" Style="width: 25rem" ReadOnly="true" />
+            </RadzenStack>
+
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Email" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@email Name="Email" Style="width: 25rem" ReadOnly="true" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Nombres" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@name Name="Name" Style="width: 25rem" ReadOnly="true" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Apellidos" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@lastName Name="LastName" Style="width: 25rem" ReadOnly="true" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenFieldset>
+    <RadzenFieldset class="rz-p-5 rz-mb-3">
+        <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap" class="rz-mt-3 rz-mb-1">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Tipo Documento" Style="width: 9rem;" />
+                <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeDocumentId)).Cast<Enum>())" @bind-Value=@model.TypeDocumentId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Name="TypeDocumentId" Style="width: 25rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="TypeDocumentId" Text="Tipo Documento es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="N° Documento" Style="width: 9rem;" />
+                <RadzenTextBox @bind-Value=@model.NumDocument Name="NumDocument" Style="width: 25rem" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <div style="width:9rem"></div>
+                <RadzenRequiredValidator Component="NumDocument" Text="N° Documento es requerido" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Wrap="FlexWrap.Wrap">
+                <RadzenLabel Text="Exención IGV" Style="width: 9rem;" />
+                <RadzenCheckBox @bind-Value=@model.IsTaxExempted class="rz-py-2" Name="IsTaxExempted" />
+            </RadzenStack>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <div style="width:9rem"></div>
+                <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenFieldset>
+</RadzenTemplateForm>
+<RadzenFieldset class="rz-p-5 rz-mb-3">
+    <h3>Series</h3>
+    <RadzenDataGrid PageSize="9" Data="@items" ColumnWidth="300px" SelectionMode="DataGridSelectionMode.Single" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+        <Columns>
+            <RadzenDataGridColumn Property="@nameof(SerieDto.TypeSaleId)" Filterable="false" Title="Tipo Documento Venta" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
+            <RadzenDataGridColumn Property="@nameof(SerieDto.NumSerie)" Title="Serie" Width="50px" Sortable="true" Filterable="true" Frozen="true">
+                <Template Context="model">
+                    @model.NumSerie.ToString().PadLeft(3, '0')
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn Property="@nameof(SerieDto.NumCorrelative)" Title="Correlativo" Width="50px" Frozen="true">
+                <Template Context="model">
+                    @model.NumCorrelative.ToString().PadLeft(6, '0')
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+    </RadzenDataGrid>
+</RadzenFieldset>
+
+@code {
+    AppUserDto model = new AppUserDto();
+    IQueryable<SerieDto> items;
+    string userId = string.Empty;
+    string email = string.Empty;
+    string name = string.Empty;
+    string lastName = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        interceptor.RegisterEvent();
+
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        userId = authState.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        email = authState.User.Identity.Name;
+        name = authState.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName).Value;
+        lastName = authState.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname).Value;
+
+        model.UserId = userId;
+        model.Email = email;
+        model.FirstName = name;
+        model.LastName = lastName;
+
+        var appUser = await appUserService.GetAppUserByUserId(userId);
+        if (appUser == null)
+        {
+            await appUserService.AddAppUser(new AppUserDto
+                {
+                    UserId = userId,
+                    Email = email,
+                    FirstName = name,
+                    LastName = lastName
+                });
+
+            var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Nuevo Usuario",
+                    Detail = $"Bienvenido {name} {lastName} al {Constants.SYSTEM_LEAD} {Constants.APPLICATION_NAME}",
+                    Duration = 4000,
+
+                };
+            notificationService.Notify(notification);
+        }
+        else
+        {
+            model = appUser;
+        }
+
+        var series = await serieService.GetSeriesByUserId(userId);
+        serieService.OnChange += StateHasChanged;
+        items = series.AsQueryable();
+    }
+
+    async void OnSubmit(AppUserDto model)
+    {
+        await appUserService.UpdateAppUser(model);
+
+        var notification = new NotificationMessage
+            {
+                Severity = NotificationSeverity.Success,
+                Summary = "Perfil",
+                Detail = $"Tu perfil fue actualizado satisfactoriamente",
+                Duration = 4000,
+
+            };
+        notificationService.Notify(notification);
+    }
+}

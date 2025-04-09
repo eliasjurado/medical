@@ -3,6 +3,8 @@
 public interface IQueryUnitOfWork
 {
     IAppointmentQueryRepository AppointmentQuery { get; }
+    ISerieQueryRepository SerieQuery { get; }
+    IAppUserQueryRepository AppUserQuery { get; }
     ICategoryQueryRepository CategoryQuery { get; }
     ISubCategoryQueryRepository SubCategoryQuery { get; }
     IPacientQueryRepository PacientQuery { get; }

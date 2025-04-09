@@ -10,6 +10,8 @@ namespace Medical.Server.Contexts
         {
         }
 
+        public DbSet<Serie> Series { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Pacient> Pacients { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -20,7 +22,7 @@ namespace Medical.Server.Contexts
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Article> Articles { get; set; }
-        public DbSet<ArticleStock> ArticlesStock { get; set; }
+        public DbSet<ArticleStock> ArticleStocks { get; set; }
         public DbSet<FiscalUnit> FiscalUnits { get; set; }
         public DbSet<FiscalSegment> FiscalSegments { get; set; }
         public DbSet<FiscalFamily> FiscalFamilies { get; set; }

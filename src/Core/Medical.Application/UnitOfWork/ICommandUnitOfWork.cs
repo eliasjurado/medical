@@ -3,6 +3,8 @@
 public interface ICommandUnitOfWork<Tkey>
 {
     IAppointmentCommandRepository AppointmentCommand { get; }
+    ISerieCommandRepository SerieCommand { get; }
+    IAppUserCommandRepository AppUserCommand { get; }
     ICategoryCommandRepository CategoryCommand { get; }
     ISubCategoryCommandRepository SubCategoryCommand { get; }
     IClientCommandRepository ClientCommand { get; }

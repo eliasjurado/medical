@@ -2,7 +2,7 @@
 @inject IClientService clientService
 @inject HttpInterceptorService interceptor
 @inject DialogService dialogService
-@inject NotificationService notificationService;
+@inject NotificationService notificationService
 @page "/venta"
 @using Medical.App.Components.Pages.Clients
 
@@ -76,7 +76,7 @@
         </RadzenRow>
         <RadzenRow Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
-                <RadzenButton ButtonType="ButtonType.Submit" Text="Guardar" />
+                <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
             </RadzenStack>
         </RadzenRow>
     </RadzenStack>
