@@ -1,8 +1,10 @@
-﻿@* @inject IPacientService pacientService *@
+﻿@inject AuthenticationStateProvider authenticationStateProvider
 @inject IClientService clientService
 @inject HttpInterceptorService interceptor
 @inject DialogService dialogService
 @inject NotificationService notificationService
+@inject IAppUserService appUserService
+@inject ISerieService serieService
 @page "/venta"
 @using Medical.App.Components.Pages.Clients
 
@@ -14,67 +16,83 @@
 
 <RadzenTemplateForm TItem="SaleDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
     <RadzenStack Orientation="Orientation.Vertical">
-        <RadzenRow Gap="1rem">
-            <RadzenColumn Size="12" SizeMD="6">
-                <RadzenStack Gap="1rem" class="rz-w-100">
-                    @* <RadzenFieldset class="rz-pt-2"> *@
-                    <RadzenStack Orientation="Orientation.Horizontal">
-                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Cliente">
-                            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@clients TextProperty="@nameof(ClientDto.FullName)" ValueProperty="@nameof(ClientDto.FullName)" AllowClear="true" @bind-Value=@model.ClientFullName Name="Cliente" />
+        <RadzenFieldset>
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Usuario">
+                            <RadzenTextBox @bind-Value=@user Name="User" Style="width: 25rem" Disabled="true" />
                         </RadzenFormField>
-
-                        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Cliente" Click=@AddClient class="rz-mt-5 rz-mb-3" />
                     </RadzenStack>
-
-                    <RadzenRequiredValidator Component="Cliente" Text="Cliente es requerido" />
-                    @* </RadzenFieldset> *@
-                </RadzenStack>
-            </RadzenColumn>
-            <RadzenColumn Size="12" SizeMD="6">
-                <RadzenStack Gap="1rem" class="rz-w-100">
-                    @* <RadzenFieldset class="rz-pt-2"> *@
-                    <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Documento">
-                        <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId">
-                        </RadzenDropDown>
-                    </RadzenFormField>
-                    <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento es requerido" />
-                    @* </RadzenFieldset> *@
-                </RadzenStack>
-            </RadzenColumn>
-        </RadzenRow>
-        <RadzenRow Gap="1rem">
-            <RadzenDataGrid PageSize="9" Data="@items" ColumnWidth="300px" SelectionMode="DataGridSelectionMode.Single" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                <HeaderTemplate>
-                    <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Artículo" Click=@AddRow />
-                </HeaderTemplate>
-                <Columns>
-                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleName)" Title="Artículo" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
-                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
-                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
-                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
-                    <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="80px" Sortable="true" Filterable="true">
-                        <Template Context="items">
-                            <RadzenStack Orientation="Orientation.Horizontal">
-                                <div class="rz-w-25">S/</div>
-                                <div class="rz-w-75 rz-text-align-right">@items.TotalAmount</div>
-                            </RadzenStack>
-                        </Template>
-                        <FooterTemplate>
-                            <RadzenStack Orientation="Orientation.Horizontal">
-                                <div class="rz-w-25"><h3><b>S/</b></h3></div>
-                                <div class="rz-w-75 rz-text-align-right"><h3><b>@String.Format("{0:N2}", sumQuantity)</b></h3></div>
-                            </RadzenStack>
-                        </FooterTemplate>
-                    </RadzenDataGridColumn>
-                    <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
-                        <Template Context="model">
-                            <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
-                            <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
-                        </Template>
-                    </RadzenDataGridColumn>
-                </Columns>
-            </RadzenDataGrid>
-        </RadzenRow>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Comprobante N°">
+                            <RadzenTextBox @bind-Value=@receiptNumber Name="ReceiptNumber" Style="width: 25rem" Disabled="true" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenFieldset>
+        <RadzenFieldset>
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenStack Orientation="Orientation.Horizontal">
+                            <RadzenFormField class="rz-py-2 rz-w-75" Text="Cliente">
+                                <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@clients TextProperty="@nameof(ClientDto.FullName)" ValueProperty="@nameof(ClientDto.FullName)" AllowClear="true" @bind-Value=@model.ClientFullName Name="Cliente" />
+                            </RadzenFormField>
+                            <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Cliente" Click=@AddClient class="rz-mt-5 rz-mb-3" />
+                        </RadzenStack>
+                        <RadzenRequiredValidator Component="Cliente" Text="Cliente es requerido" />
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Tipo Comprobante">
+                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId">
+                            </RadzenDropDown>
+                        </RadzenFormField>
+                        <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento es requerido" />
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenFieldset>
+        <RadzenFieldset class="rz-py-5">
+            <RadzenRow Gap="1rem">
+                <RadzenDataGrid PageSize="9" Data="@items" ColumnWidth="300px" SelectionMode="DataGridSelectionMode.Single" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                    <HeaderTemplate>
+                        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Agregar Artículo" Click=@AddRow />
+                    </HeaderTemplate>
+                    <Columns>
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleName)" Title="Artículo" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="80px" Sortable="true" Filterable="true">
+                            <Template Context="items">
+                                <RadzenStack Orientation="Orientation.Horizontal">
+                                    <div class="rz-w-25">S/</div>
+                                    <div class="rz-w-75 rz-text-align-right">@items.TotalAmount</div>
+                                </RadzenStack>
+                            </Template>
+                            <FooterTemplate>
+                                <RadzenStack Orientation="Orientation.Horizontal">
+                                    <div class="rz-w-25"><h3><b>S/</b></h3></div>
+                                    <div class="rz-w-75 rz-text-align-right"><h3><b>@String.Format("{0:N2}", sumQuantity)</b></h3></div>
+                                </RadzenStack>
+                            </FooterTemplate>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+                            <Template Context="model">
+                                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                </RadzenDataGrid>
+            </RadzenRow>
+        </RadzenFieldset>
         <RadzenRow Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
                 <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
@@ -92,16 +110,28 @@
     IEnumerable<ClientDto> clients;
     decimal sumQuantity = 0;
     DialogOptions dialogOptions = new DialogOptions { Draggable = true };
+    string userId;
+    string user;
+    string receiptNumber;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         interceptor.RegisterEvent();
 
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        userId = authState.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+        var appUser = await appUserService.GetAppUserByUserId(userId);
+        user = $"{appUser.FirstName} {appUser.LastName}";
+
         await clientService.GetClients();
         clients = clientService.Clients;
 
         clientService.OnChange += StateHasChanged;
+
+        var series = await serieService.GetSeriesByUserId(userId);
+        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);
+        receiptNumber = $"{defaultSerie.TypeSaleId.GetReceiptTypeCode()}{defaultSerie.NumSerie.ToString().PadLeft(3, '0')}-{(defaultSerie.NumCorrelative + 1).ToString().PadLeft(6, '0')}";
     }
 
     async void OnSubmit(SaleDto model)
