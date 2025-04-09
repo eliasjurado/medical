@@ -50,7 +50,7 @@
                 <RadzenColumn Size="12" SizeMD="6">
                     <RadzenStack Gap="1rem" class="rz-w-100">
                         <RadzenFormField class="rz-py-2 rz-w-75" Text="Tipo Comprobante">
-                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId">
+                            <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId" Change=@(args=>SetReceiptNumber(args))>
                             </RadzenDropDown>
                         </RadzenFormField>
                         <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento es requerido" />
@@ -95,7 +95,7 @@
         </RadzenFieldset>
         <RadzenRow Gap="1rem">
             <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" class="rz-w-100">
-                <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
+                <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" Disabled="disabled" />
             </RadzenStack>
         </RadzenRow>
     </RadzenStack>
@@ -113,6 +113,37 @@
     string userId;
     string user;
     string receiptNumber;
+    bool disabled = false;
+    List<SerieDto> series = new List<SerieDto>();
+
+    void SetReceiptNumber(object args)
+    {
+        var selectedSerie = series.FirstOrDefault(x => x.TypeSaleId == (TypeSaleId)args);
+        receiptNumber = GetReceiptCode(selectedSerie);
+    }
+
+    string GetReceiptCode(SerieDto serie)
+    {
+        var val = string.Empty;
+        if (serie == null)
+        {
+            var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = "Serie",
+                    Detail = $"El usuario no cuenta con una serie asignada para vender con este tipo de comprobante",
+                    Duration = 6000,
+                };
+            notificationService.Notify(notification);
+            disabled = true;
+        }
+        else
+        {
+            val = $"{serie.TypeSaleId.GetReceiptTypeCode()}{serie.NumSerie.ToString().PadLeft(3, '0')}-{(serie.NumCorrelative + 1).ToString().PadLeft(6, '0')}";
+            disabled = false;
+        }
+        return val;
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -129,9 +160,10 @@
 
         clientService.OnChange += StateHasChanged;
 
-        var series = await serieService.GetSeriesByUserId(userId);
-        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);
-        receiptNumber = $"{defaultSerie.TypeSaleId.GetReceiptTypeCode()}{defaultSerie.NumSerie.ToString().PadLeft(3, '0')}-{(defaultSerie.NumCorrelative + 1).ToString().PadLeft(6, '0')}";
+        series = await serieService.GetSeriesByUserId(userId);
+        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);       
+        receiptNumber = GetReceiptCode(defaultSerie);
+
     }
 
     async void OnSubmit(SaleDto model)
