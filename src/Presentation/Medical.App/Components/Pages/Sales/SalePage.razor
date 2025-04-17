@@ -66,14 +66,16 @@
                     </HeaderTemplate>
                     <Columns>
                         <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleName)" Title="Artículo" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="80px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.SubtotalAmount)" Title="Subtotal" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TaxAmount)" Title="IGV" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
                         <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="80px" Sortable="true" Filterable="true">
                             <Template Context="items">
                                 <RadzenStack Orientation="Orientation.Horizontal">
                                     <div class="rz-w-25">S/</div>
-                                    <div class="rz-w-75 rz-text-align-right">@items.TotalAmount</div>
+                                    <div class="rz-w-75 rz-text-align-right">@String.Format("{0:N2}", items.TotalAmount)</div>
                                 </RadzenStack>
                             </Template>
                             <FooterTemplate>
@@ -120,6 +122,8 @@
     {
         var selectedSerie = series.FirstOrDefault(x => x.TypeSaleId == (TypeSaleId)args);
         receiptNumber = GetReceiptCode(selectedSerie);
+        model.Serie = receiptNumber.GetReceiptSerie();
+        model.Correlative = receiptNumber.GetReceiptCorrelative();
     }
 
     string GetReceiptCode(SerieDto serie)
@@ -161,9 +165,8 @@
         clientService.OnChange += StateHasChanged;
 
         series = await serieService.GetSeriesByUserId(userId);
-        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);       
+        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);
         receiptNumber = GetReceiptCode(defaultSerie);
-
     }
 
     async void OnSubmit(SaleDto model)

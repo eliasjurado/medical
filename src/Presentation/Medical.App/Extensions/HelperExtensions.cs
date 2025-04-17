@@ -29,5 +29,57 @@ namespace Medical.App.Utils
             }
             return abbrev;
         }
+
+        public static TypeSaleId GetReceiptTypeSaleId(this string receiptCode)
+        {
+            if (string.IsNullOrWhiteSpace(receiptCode))
+            {
+                return TypeSaleId.Note;
+            }
+            TypeSaleId typeSale;
+            switch (receiptCode.Substring(0, 2))
+            {
+                case "NV":
+                    typeSale = TypeSaleId.Note;
+                    break;
+                case "BL":
+                    typeSale = TypeSaleId.Receipt;
+                    break;
+                case "FA":
+                    typeSale = TypeSaleId.Invoice;
+                    break;
+                default:
+                    typeSale = TypeSaleId.Note;
+                    break;
+            }
+            return typeSale;
+        }
+
+        public static string GetReceiptTypeSaleCode(this string receiptCode)
+        {
+            if (string.IsNullOrWhiteSpace(receiptCode))
+            {
+                return string.Empty;
+            }
+            return receiptCode.Substring(0, 2);
+        }
+
+        public static string GetReceiptSerie(this string receiptCode)
+        {
+            if (string.IsNullOrWhiteSpace(receiptCode))
+            {
+                return string.Empty;
+            }
+            return receiptCode.Substring(2, 3);
+        }
+
+        public static string GetReceiptCorrelative(this string receiptCode)
+        {
+            if (string.IsNullOrWhiteSpace(receiptCode))
+            {
+                return string.Empty;
+            }
+            return receiptCode.Substring(6, 6);
+        }
     }
 }
