@@ -1,4 +1,5 @@
-﻿using Medical.Persistence.Contexts;
+﻿using Medical.Application.Repositories.Commands;
+using Medical.Persistence.Contexts;
 using Medical.Persistence.UnitOfWork;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,7 @@ public static class ConfigureServices
         services.AddScoped<IFiscalFamilyCommandRepository, FiscalFamilyCommandRepository>();
         services.AddScoped<IFiscalClassCommandRepository, FiscalClassCommandRepository>();
         services.AddScoped<IFiscalProductCommandRepository, FiscalProductCommandRepository>();
+        services.AddScoped<IFiscalTaxCommandRepository, FiscalTaxCommandRepository>();
 
         //Queries
         services.AddScoped<IAppUserQueryRepository, AppUserQueryRepository>();
@@ -62,6 +64,7 @@ public static class ConfigureServices
         services.AddScoped<IFiscalFamilyQueryRepository, FiscalFamilyQueryRepository>();
         services.AddScoped<IFiscalClassQueryRepository, FiscalClassQueryRepository>();
         services.AddScoped<IFiscalProductQueryRepository, FiscalProductQueryRepository>();
+        services.AddScoped<IFiscalTaxQueryRepository, FiscalTaxQueryRepository>();
 
         return services;
     }

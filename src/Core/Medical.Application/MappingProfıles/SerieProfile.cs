@@ -6,11 +6,6 @@ public class SerieProfile : Profile
 {
     public SerieProfile()
     {
-        /*
-             public string? SysUserEmail { get; set; }
-        public string? SysUserFirstName { get; set; }
-        public string? SysUserLastName { get; set; }
-         */
         CreateMap<SerieDto, Serie>().ReverseMap()
             .ForMember(d => d.AppUserUserId, o => o.MapFrom(src => src.AppUser != null ? src.AppUser.UserId : string.Empty))
             .ForMember(d => d.AppUserEmail, o => o.MapFrom(src => src.AppUser != null ? src.AppUser.Email : string.Empty))

@@ -22,6 +22,7 @@ public interface ICommandUnitOfWork<Tkey>
     IFiscalProductCommandRepository FiscalProductCommand { get; }
     IArticleCommandRepository ArticleCommand { get; }
     IArticleStockCommandRepository ArticleStockCommand { get; }
+    IFiscalTaxCommandRepository FiscalTaxCommand { get; }
 
     Task<int> SaveAsync();
 }

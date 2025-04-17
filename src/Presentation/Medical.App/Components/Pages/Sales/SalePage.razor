@@ -1,10 +1,12 @@
 ﻿@inject AuthenticationStateProvider authenticationStateProvider
+@inject NavigationManager navigationManager
 @inject IClientService clientService
 @inject HttpInterceptorService interceptor
 @inject DialogService dialogService
 @inject NotificationService notificationService
 @inject IAppUserService appUserService
 @inject ISerieService serieService
+@inject IFiscalTaxService fiscalTaxService
 @page "/venta"
 @using Medical.App.Components.Pages.Clients
 
@@ -18,17 +20,31 @@
     <RadzenStack Orientation="Orientation.Vertical">
         <RadzenFieldset>
             <RadzenRow Gap="1rem">
-                <RadzenColumn Size="12" SizeMD="6">
+                <RadzenColumn Size="12" SizeMD="3">
                     <RadzenStack Gap="1rem" class="rz-w-100">
-                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Usuario">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Usuario">
                             <RadzenTextBox @bind-Value=@user Name="User" Style="width: 25rem" Disabled="true" />
                         </RadzenFormField>
                     </RadzenStack>
                 </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="6">
+                <RadzenColumn Size="12" SizeMD="3">
                     <RadzenStack Gap="1rem" class="rz-w-100">
-                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Comprobante N°">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Comprobante N°">
                             <RadzenTextBox @bind-Value=@receiptNumber Name="ReceiptNumber" Style="width: 25rem" Disabled="true" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="IGV">
+                            <RadzenTextBox @bind-Value=@vatPercentaje Name="VatPercentaje" Style="width: 25rem" Disabled="true" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Venta exenta de IGV">
+                            <RadzenTextBox @bind-Value=@isVatExented Name="VatAffected" Style="width: 25rem" Disabled="true" />
                         </RadzenFormField>
                     </RadzenStack>
                 </RadzenColumn>
@@ -47,15 +63,27 @@
                         <RadzenRequiredValidator Component="Cliente" Text="Cliente es requerido" />
                     </RadzenStack>
                 </RadzenColumn>
-                <RadzenColumn Size="12" SizeMD="6">
+                <RadzenColumn Size="12" SizeMD="3">
                     <RadzenStack Gap="1rem" class="rz-w-100">
-                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Tipo Comprobante">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Tipo Comprobante">
                             <RadzenDropDown Data="@(Enum.GetValues(typeof(TypeSaleId)).Cast<Enum>())" @bind-Value=@model.TypeSaleId AllowClear="true" AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" Style="width: 20rem" Name="TypeSaleId" Change=@(args=>SetReceiptNumber(args))>
                             </RadzenDropDown>
                         </RadzenFormField>
                         <RadzenRequiredValidator Component="TypeSaleId" Text="Tipo Documento es requerido" />
                     </RadzenStack>
                 </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="3">
+                    <RadzenStack Gap="1rem" class="rz-w-100">
+                        <RadzenFormField class="rz-py-2 rz-w-100" Text="Fecha de Venta">
+                            <RadzenDatePicker Min="DateTime.Today" Name="SaleDate" @bind-Value="@model.SaleDateTime" ShowTime="true" HourFormat="12" DateFormat="dd/MM/yyyy h:mm tt" />
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenColumn>
+
+
+
+
+
             </RadzenRow>
         </RadzenFieldset>
         <RadzenFieldset class="rz-py-5">
@@ -116,38 +144,9 @@
     string user;
     string receiptNumber;
     bool disabled = false;
+    string isVatExented = Constants.SYSTEM_BOOLEAN_NOT;
+    string vatPercentaje = string.Empty;
     List<SerieDto> series = new List<SerieDto>();
-
-    void SetReceiptNumber(object args)
-    {
-        var selectedSerie = series.FirstOrDefault(x => x.TypeSaleId == (TypeSaleId)args);
-        receiptNumber = GetReceiptCode(selectedSerie);
-        model.Serie = receiptNumber.GetReceiptSerie();
-        model.Correlative = receiptNumber.GetReceiptCorrelative();
-    }
-
-    string GetReceiptCode(SerieDto serie)
-    {
-        var val = string.Empty;
-        if (serie == null)
-        {
-            var notification = new NotificationMessage
-                {
-                    Severity = NotificationSeverity.Warning,
-                    Summary = "Serie",
-                    Detail = $"El usuario no cuenta con una serie asignada para vender con este tipo de comprobante",
-                    Duration = 6000,
-                };
-            notificationService.Notify(notification);
-            disabled = true;
-        }
-        else
-        {
-            val = $"{serie.TypeSaleId.GetReceiptTypeCode()}{serie.NumSerie.ToString().PadLeft(3, '0')}-{(serie.NumCorrelative + 1).ToString().PadLeft(6, '0')}";
-            disabled = false;
-        }
-        return val;
-    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -157,16 +156,27 @@
         var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
         userId = authState.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
         var appUser = await appUserService.GetAppUserByUserId(userId);
-        user = $"{appUser.FirstName} {appUser.LastName}";
+        if (appUser == null)
+        {
+            await Task.Run(() => navigationManager!.NavigateTo("/perfil"));
+        }
+        else
+        {
+            user = $"{appUser.FirstName} {appUser.LastName}";
+            isVatExented = appUser.IsTaxExempted.GetYesNoFromBoolean();
+            vatPercentaje = ((await fiscalTaxService.GetFiscalTaxByYear(DateTime.Now.Year)).TaxAmount * 100).ToString() + "%";
 
-        await clientService.GetClients();
-        clients = clientService.Clients;
 
-        clientService.OnChange += StateHasChanged;
+            await clientService.GetClients();
+            clients = clientService.Clients;
 
-        series = await serieService.GetSeriesByUserId(userId);
-        var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);
-        receiptNumber = GetReceiptCode(defaultSerie);
+            clientService.OnChange += StateHasChanged;
+
+            series = await serieService.GetSeriesByUserId(userId);
+            var defaultSerie = series.FirstOrDefault(x => x.TypeSaleId == model.TypeSaleId);
+            receiptNumber = GetReceiptCode(defaultSerie);
+        }
+
     }
 
     async void OnSubmit(SaleDto model)
@@ -243,5 +253,36 @@
                 Console.WriteLine($"Search text: {radzenDropDown.SearchText}");
             }
         }
+    }
+
+    void SetReceiptNumber(object args)
+    {
+        var selectedSerie = series.FirstOrDefault(x => x.TypeSaleId == (TypeSaleId)args);
+        receiptNumber = GetReceiptCode(selectedSerie);
+        model.Serie = receiptNumber.GetSerieByReceipt();
+        model.Correlative = receiptNumber.GetCorrelativeByReceipt();
+    }
+
+    string GetReceiptCode(SerieDto serie)
+    {
+        var val = string.Empty;
+        if (serie == null)
+        {
+            var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Warning,
+                    Summary = "Serie",
+                    Detail = $"El usuario no cuenta con una serie asignada para vender con este tipo de comprobante",
+                    Duration = 6000,
+                };
+            notificationService.Notify(notification);
+            disabled = true;
+        }
+        else
+        {
+            val = $"{serie.TypeSaleId.GetReceiptTypeCode()}{serie.NumSerie.ToString().PadLeft(3, '0')}-{(serie.NumCorrelative + 1).ToString().PadLeft(6, '0')}";
+            disabled = false;
+        }
+        return val;
     }
 }

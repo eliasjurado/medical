@@ -31,6 +31,7 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     private FiscalFamilyCommandRepository? _fiscalFamilyCommand;
     private FiscalClassCommandRepository? _fiscalClassCommand;
     private FiscalProductCommandRepository? _fiscalProductCommand;
+    private FiscalTaxCommandRepository? _fiscalTaxCommand;
 
     public ISerieCommandRepository SerieCommand => _serieCommand ?? (_serieCommand = new SerieCommandRepository(_context));
     public IAppUserCommandRepository AppUserCommand => _appUserCommand ?? (_appUserCommand = new AppUserCommandRepository(_context));
@@ -52,6 +53,7 @@ public class CommandUnitOfWork<Tkey> : ICommandUnitOfWork<Tkey>
     public IFiscalFamilyCommandRepository FiscalFamilyCommand => _fiscalFamilyCommand ?? (_fiscalFamilyCommand = new FiscalFamilyCommandRepository(_context));
     public IFiscalClassCommandRepository FiscalClassCommand => _fiscalClassCommand ?? (_fiscalClassCommand = new FiscalClassCommandRepository(_context));
     public IFiscalProductCommandRepository FiscalProductCommand => _fiscalProductCommand ?? (_fiscalProductCommand = new FiscalProductCommandRepository(_context));
+    public IFiscalTaxCommandRepository FiscalTaxCommand => _fiscalTaxCommand ?? (_fiscalTaxCommand = new FiscalTaxCommandRepository(_context));
 
     public async Task<int> SaveAsync()
     {

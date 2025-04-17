@@ -20,6 +20,7 @@ public class SaleDto
     public decimal TotalAmount { get; set; }
     public bool IsCancelled { get; set; }
     public bool IsVatExempted { get; set; }
+    public DateTime SaleDateTime { get; set; } = DateTime.Now;
     public List<SaleArticle> SaleArticles { get; set; } = new List<SaleArticle>();
     public bool IsActive { get; set; } = true;
     public bool Editing { get; set; } = false;

@@ -30,6 +30,7 @@ namespace Medical.Server.Contexts
         public DbSet<FiscalProduct> FiscalProducts { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleArticle> SaleArticles { get; set; }
+        public DbSet<FiscalTax> FiscalTaxes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

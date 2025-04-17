@@ -22,4 +22,5 @@ public interface IQueryUnitOfWork
     IFiscalProductQueryRepository FiscalProductQuery { get; }
     IArticleQueryRepository ArticleQuery { get; }
     IArticleStockQueryRepository ArticleStockQuery { get; }
+    IFiscalTaxQueryRepository FiscalTaxQuery { get; }
 }

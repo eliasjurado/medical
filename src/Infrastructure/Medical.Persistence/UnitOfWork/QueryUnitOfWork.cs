@@ -29,6 +29,7 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     private FiscalFamilyQueryRepository? _fiscalFamilyQuery;
     private FiscalClassQueryRepository? _fiscalClassQuery;
     private FiscalProductQueryRepository? _fiscalProductQuery;
+    private FiscalTaxQueryRepository? _fiscalTaxQuery;
 
     public ISerieQueryRepository SerieQuery => _serieQuery ?? (_serieQuery = new SerieQueryRepository(_context));
     public IAppUserQueryRepository AppUserQuery => _appUserQuery ?? (_appUserQuery = new AppUserQueryRepository(_context));
@@ -50,4 +51,5 @@ public class QueryUnitOfWork : IQueryUnitOfWork
     public IFiscalFamilyQueryRepository FiscalFamilyQuery => _fiscalFamilyQuery ?? (_fiscalFamilyQuery = new FiscalFamilyQueryRepository(_context));
     public IFiscalClassQueryRepository FiscalClassQuery => _fiscalClassQuery ?? (_fiscalClassQuery = new FiscalClassQueryRepository(_context));
     public IFiscalProductQueryRepository FiscalProductQuery => _fiscalProductQuery ?? (_fiscalProductQuery = new FiscalProductQueryRepository(_context));
+    public IFiscalTaxQueryRepository FiscalTaxQuery => _fiscalTaxQuery ?? (_fiscalTaxQuery = new FiscalTaxQueryRepository(_context));
 }

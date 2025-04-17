@@ -1,4 +1,5 @@
 ﻿using Medical.Domain.Enums;
+using Medical.Resource;
 
 namespace Medical.App.Utils
 {
@@ -30,7 +31,7 @@ namespace Medical.App.Utils
             return abbrev;
         }
 
-        public static TypeSaleId GetReceiptTypeSaleId(this string receiptCode)
+        public static TypeSaleId GetTypeSaleIdByReceipt(this string receiptCode)
         {
             if (string.IsNullOrWhiteSpace(receiptCode))
             {
@@ -55,7 +56,7 @@ namespace Medical.App.Utils
             return typeSale;
         }
 
-        public static string GetReceiptTypeSaleCode(this string receiptCode)
+        public static string GetTypeSaleCodeByReceipt(this string receiptCode)
         {
             if (string.IsNullOrWhiteSpace(receiptCode))
             {
@@ -64,7 +65,7 @@ namespace Medical.App.Utils
             return receiptCode.Substring(0, 2);
         }
 
-        public static string GetReceiptSerie(this string receiptCode)
+        public static string GetSerieByReceipt(this string receiptCode)
         {
             if (string.IsNullOrWhiteSpace(receiptCode))
             {
@@ -73,13 +74,31 @@ namespace Medical.App.Utils
             return receiptCode.Substring(2, 3);
         }
 
-        public static string GetReceiptCorrelative(this string receiptCode)
+        public static string GetCorrelativeByReceipt(this string receiptCode)
         {
             if (string.IsNullOrWhiteSpace(receiptCode))
             {
                 return string.Empty;
             }
             return receiptCode.Substring(6, 6);
+        }
+
+        public static string GetYesNoFromBoolean(this bool value)
+        {
+            if (value)
+            {
+                return Constants.SYSTEM_BOOLEAN_YES;
+            }
+            return Constants.SYSTEM_BOOLEAN_NOT;
+        }
+
+        public static bool GetBooleanFromYesNo(this string value)
+        {
+            if (value.Equals(Constants.SYSTEM_BOOLEAN_YES))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
