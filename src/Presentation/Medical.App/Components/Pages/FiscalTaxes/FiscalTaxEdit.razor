@@ -1,0 +1,39 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+
+<RadzenTemplateForm TItem="FiscalTaxDto" Data="@model" Submit=@OnSubmit class="rz-px-3">
+    <RadzenColumn Size="12" SizeMD="6">
+        <RadzenStack Gap="1rem">
+            <RadzenFieldset class="rz-pt-2">
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Año">
+                    <RadzenNumeric @bind-Value=@model.NumYear Name="NumYear" Step="1" />
+                </RadzenFormField>
+                <RadzenRequiredValidator Component="NumYear" Text="Año es requerido" />
+                <RadzenFormField class="rz-py-2 rz-w-100" Text="Impuesto">
+                    <RadzenNumeric @bind-Value=@model.TaxAmount Name="TaxAmount" Step="0.01" Format="0.00" />
+                </RadzenFormField>
+                <RadzenRequiredValidator Component="TaxAmount" Text="Impuesto es requerido" />
+            </RadzenFieldset>
+            <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End">
+                <RadzenButton Icon="save" ButtonType="ButtonType.Submit" Text="Guardar" />
+            </RadzenStack>
+        </RadzenStack>
+    </RadzenColumn>
+</RadzenTemplateForm>
+
+@code {
+    [Parameter]
+    public FiscalTaxDto Param { get; set; }
+
+    FiscalTaxDto model = new FiscalTaxDto();
+
+    async void OnSubmit(FiscalTaxDto model)
+    {
+        DialogService.Close(model);
+    }
+
+    protected async override void OnParametersSet()
+    {
+        model = Param;
+    }
+}

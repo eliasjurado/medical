@@ -3,7 +3,7 @@
 public class FiscalTaxDto
 {
     public int Id { get; set; }
-    public int NumYear { get; set; }
+    public int NumYear { get; set; } = DateTime.Now.Year;
     public decimal TaxAmount { get; set; }
     public bool IsActive { get; set; } = true;
     public bool Editing { get; set; } = false;

@@ -1,0 +1,77 @@
+﻿@inject HttpInterceptorService Interceptor
+@inject DialogService DialogService
+@inject IFiscalTaxService service
+@page "/sunatimpuesto"
+
+<RadzenStack Orientation="Orientation.Horizontal">
+    <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
+        <h3>Sunat / Impuesto Anual</h3>
+    </RadzenStack>
+</RadzenStack>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Simple" AllowSorting="true" PagerHorizontalAlign="HorizontalAlign.Left" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" ShowPagingSummary="true" PageSize="9" AllowPaging="true"
+                Data="@items" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" @bind-Value=@selectedItems>
+    <HeaderTemplate>
+        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Nuevo Impuesto Anual" Click=@AddRow />
+    </HeaderTemplate>
+                <Columns>
+        <RadzenDataGridColumn Property="@nameof(FiscalTaxDto.Id)" Filterable="false" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center"/>
+        <RadzenDataGridColumn Property="@nameof(FiscalTaxDto.NumYear)" Title="Año" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Property="@nameof(FiscalTaxDto.TaxAmount)" Title="Impuesto" Width="100px" Sortable="true" Filterable="true" Frozen="true" />
+        <RadzenDataGridColumn Title="Acciones" Context="model" Filterable="false" Sortable="false" TextAlign="TextAlign.Center" Frozen="true" Width="80px" FrozenPosition="FrozenColumnPosition.Right">
+            <Template Context="model">
+                <RadzenButton Icon="edit" ButtonStyle="ButtonStyle.Light" Variant="Variant.Flat" Size="ButtonSize.Medium" Click="@(() => EditRow(model))" @onclick:stopPropagation="true" />
+                <RadzenButton Icon="delete" ButtonStyle="ButtonStyle.Danger" Variant="Variant.Flat" Size="ButtonSize.Medium" Shade="Shade.Lighter" Click="@(() => DeleteRow(model))" @onclick:stopPropagation="true" />
+            </Template>
+        </RadzenDataGridColumn>
+    </Columns>
+</RadzenDataGrid>
+
+@code {
+    IQueryable<FiscalTaxDto> items;
+    IList<FiscalTaxDto> selectedItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        Interceptor.RegisterEvent();
+
+        await service.GetAdminFiscalTaxes();
+        service.OnChange += StateHasChanged;
+        items = service.AdminFiscalTaxes.AsQueryable();
+
+        selectedItems = new List<FiscalTaxDto>() { items.FirstOrDefault() };
+    }
+
+    async Task AddRow()
+    {
+        FiscalTaxDto data = await DialogService.OpenAsync<FiscalTaxAdd>("Nuevo Impuesto Anual");
+        if (data != null)
+        {
+            await service.AddFiscalTax(data);
+            selectedItems.Add(data);
+            items = service.AdminFiscalTaxes.AsQueryable();
+        }
+    }
+
+    async Task EditRow(FiscalTaxDto model)
+    {
+        FiscalTaxDto data = await DialogService.OpenAsync<FiscalTaxEdit>("Editar Impuesto Anual", new Dictionary<string, object> { { "Param", model } });
+        if (data != null)
+        {
+            await service.UpdateFiscalTax(data);
+        }
+    }
+
+    async Task DeleteRow(FiscalTaxDto model)
+    {
+        Interceptor.RegisterEvent();
+        var isDeleted = await DialogService.Confirm($"¿Está seguro de eliminar el Impuesto para el Año: {model.NumYear}?", "Eliminar Impuesto Anual", new ConfirmOptions() { OkButtonText = Constants.SYSTEM_BOOLEAN_YES, CancelButtonText = Constants.SYSTEM_BOOLEAN_NOT });
+
+        if (isDeleted.GetValueOrDefault())
+        {
+            await service.DeleteFiscalTax(model.Id);
+            service.OnChange += StateHasChanged;
+            items = service.AdminFiscalTaxes.AsQueryable();
+        }
+    }
+}
