@@ -22,6 +22,7 @@
     </RadzenRow>
 </RadzenTemplateForm>
 
+
 @code {
     SaleArticleDto model = new SaleArticleDto();
     RadzenDropDown<string> radzenDropDown;
@@ -30,12 +31,22 @@
     IEnumerable<ClientDto> clients;
     IEnumerable<ArticleDto> articles;
 
+    [Parameter]
+    public List<SaleArticleDto> SelectedArticles { get; set; }
+
+    [Parameter]
+    public bool IsTaxExempted { get; set; }
+
+    [Parameter]
+    public decimal TaxAmount { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
 
         await articleService.GetArticles();
-        articles = articleService.Articles;
+
+        articles = articleService.Articles.Except(SelectedArticles.Select(x => x.Article), new ArticleDtoComparer());
     }
 
     async void OnSubmit(SaleArticleDto model)
@@ -46,6 +57,17 @@
         model.ArticleNetPrice = article.NetPrice;
         model.TotalAmount = model.ArticleNetPrice * model.Quantity;
         model.ArticleFiscalUnitName = article.FiscalUnitName;
+
+        if (IsTaxExempted)
+        {
+            model.SubtotalAmount = model.TotalAmount;
+        }
+        else
+        {
+            model.SubtotalAmount = Math.Round(model.TotalAmount / (TaxAmount + 1), 2);
+            model.TaxAmount = model.TotalAmount - model.SubtotalAmount;
+        }
+
         DialogService.Close(model);
     }
 
@@ -67,4 +89,16 @@
         }
     }
 
+    public class ArticleDtoComparer : IEqualityComparer<ArticleDto>
+    {
+        public bool Equals(ArticleDto x, ArticleDto y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(ArticleDto obj)
+        {
+            return obj.Id.GetHashCode();
+        }
+    }
 }

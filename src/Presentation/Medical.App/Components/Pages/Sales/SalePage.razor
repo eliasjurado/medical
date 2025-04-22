@@ -147,6 +147,7 @@
     string isVatExented = Constants.SYSTEM_BOOLEAN_NOT;
     string vatPercentaje = string.Empty;
     List<SerieDto> series = new List<SerieDto>();
+    decimal taxAmount;
 
     protected override async Task OnInitializedAsync()
     {
@@ -164,7 +165,8 @@
         {
             user = $"{appUser.FirstName} {appUser.LastName}";
             isVatExented = appUser.IsTaxExempted.GetYesNoFromBoolean();
-            vatPercentaje = ((await fiscalTaxService.GetFiscalTaxByYear(DateTime.Now.Year)).TaxAmount * 100).ToString() + "%";
+            taxAmount = (await fiscalTaxService.GetFiscalTaxByYear(DateTime.Now.Year)).TaxAmount;
+            vatPercentaje = (taxAmount * 100).ToString() + "%";
 
 
             await clientService.GetClients();
@@ -186,7 +188,7 @@
 
     async Task AddRow()
     {
-        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleAdd>("Añadir Artículo");
+        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleAdd>("Añadir Artículo", new Dictionary<string, object> { { "SelectedArticles", itemsMap }, { "IsTaxExempted", isVatExented.GetBooleanFromYesNo() }, { "TaxAmount", taxAmount } });
         if (data != null)
         {
             itemsMap.Add(data);
@@ -197,7 +199,7 @@
 
     async Task AddClient()
     {
-        ClientDto data = await dialogService.OpenAsync<ClientAdd>("Nuevo Cliente", options: dialogOptions);
+        ClientDto data = await dialogService.OpenAsync<ClientAdd>("Nuevo Cliente",options: dialogOptions);
         if (data != null)
         {
             await clientService.AddClient(data);
@@ -216,7 +218,7 @@
 
     async Task EditRow(SaleArticleDto model)
     {
-        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model } }, dialogOptions);
+        SaleArticleDto data = await dialogService.OpenAsync<SaleArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model }, { "IsTaxExempted", isVatExented.GetBooleanFromYesNo() }, { "TaxAmount", taxAmount } }, dialogOptions);
         if (data != null)
         {
             itemsMap.Remove(model);
