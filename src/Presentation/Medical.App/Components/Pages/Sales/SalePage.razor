@@ -94,12 +94,17 @@
                     </HeaderTemplate>
                     <Columns>
                         <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleName)" Title="Artículo" Frozen="true" Width="200px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.SubtotalAmount)" Title="Subtotal" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TaxAmount)" Title="IGV" Frozen="true" Width="70px" Sortable="true" Filterable="true" />
-                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="80px" Sortable="true" Filterable="true">
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleFiscalUnitName)" Title="Unidad" Frozen="true" Width="60px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleStock)" Title="Stock" Frozen="true" Width="60px" Sortable="true" Filterable="true">
+                            <Template Context="items">
+                                @String.Format("{0:N0}", items.ArticleStock)
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.Quantity)" Title="Cantidad" Frozen="true" Width="60px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.ArticleNetPrice)" Title="Precio" Frozen="true" Width="60px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.SubtotalAmount)" Title="Subtotal" Frozen="true" Width="60px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TaxAmount)" Title="IGV" Frozen="true" Width="60px" Sortable="true" Filterable="true" />
+                        <RadzenDataGridColumn Property="@nameof(SaleArticleDto.TotalAmount)" Title="Total" Frozen="true" Width="70px" Sortable="true" Filterable="true">
                             <Template Context="items">
                                 <RadzenStack Orientation="Orientation.Horizontal">
                                     <div class="rz-w-25">S/</div>
@@ -199,7 +204,7 @@
 
     async Task AddClient()
     {
-        ClientDto data = await dialogService.OpenAsync<ClientAdd>("Nuevo Cliente",options: dialogOptions);
+        ClientDto data = await dialogService.OpenAsync<ClientAdd>("Nuevo Cliente", options: dialogOptions);
         if (data != null)
         {
             await clientService.AddClient(data);

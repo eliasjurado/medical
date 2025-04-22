@@ -57,6 +57,7 @@
         model.ArticleNetPrice = article.NetPrice;
         model.TotalAmount = model.ArticleNetPrice * model.Quantity;
         model.ArticleFiscalUnitName = article.FiscalUnitName;
+        model.ArticleStock = article.Stock;
 
         if (IsTaxExempted)
         {
