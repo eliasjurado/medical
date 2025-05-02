@@ -179,6 +179,11 @@
             receiptNumber = GetReceiptCode(defaultSerie);
         }
 
+        if (!itemsMap.Any())
+        {
+            disabled = true;
+        }
+
     }
 
     async void OnSubmit(SaleDto model)
@@ -191,6 +196,15 @@
         SaleArticleDto data = await dialogService.OpenAsync<SaleArticleAdd>("Añadir Artículo", new Dictionary<string, object> { { "SelectedArticles", itemsMap }, { "IsTaxExempted", isVatExented.GetBooleanFromYesNo() }, { "TaxAmount", taxAmount } });
         if (data != null)
         {
+            if (!itemsMap.Any())
+            {
+                disabled = true;
+            }
+            else
+            {
+                disabled = false;
+            }
+
             if (data.Quantity > data.ArticleStock)
             {
                 var notification = new NotificationMessage
@@ -234,6 +248,15 @@
 
     async Task EditRow(SaleArticleDto model)
     {
+        if (!itemsMap.Any())
+        {
+            disabled = true;
+        }
+        else
+        {
+            disabled = false;
+        }
+
         SaleArticleDto data = await dialogService.OpenAsync<SaleArticleEdit>("Editar Artículo", new Dictionary<string, object> { { "Param", model }, { "IsTaxExempted", isVatExented.GetBooleanFromYesNo() }, { "TaxAmount", taxAmount } }, dialogOptions);
         if (data != null)
         {
@@ -268,6 +291,15 @@
         {
             itemsMap.Remove(model);
             items = itemsMap.AsQueryable();
+            if (!itemsMap.Any())
+            {
+                disabled = true;
+            }
+            else
+            {
+                disabled = false;
+            }
+
         }
     }
 
