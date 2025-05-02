@@ -59,15 +59,8 @@
         model.ArticleFiscalUnitName = article.FiscalUnitName;
         model.ArticleStock = article.Stock;
 
-        if (IsTaxExempted)
-        {
-            model.SubtotalAmount = model.TotalAmount;
-        }
-        else
-        {
-            model.SubtotalAmount = Math.Round(model.TotalAmount / (TaxAmount + 1), 2);
-            model.TaxAmount = model.TotalAmount - model.SubtotalAmount;
-        }
+        model.SubtotalAmount = Math.Round(model.TotalAmount / (TaxAmount + 1), 2);
+        model.TaxAmount = model.TotalAmount - model.SubtotalAmount;
 
         DialogService.Close(model);
     }

@@ -7,7 +7,7 @@
         <RadzenStack Gap="1rem">
             <RadzenFieldset class="rz-pt-2">
                 <RadzenFormField Text="Artículo" class="rz-py-2 rz-w-100">
-                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Name="IdArticle" Disabled="true"/>
+                    <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@articles TextProperty="@nameof(ArticleDto.Name)" ValueProperty="@nameof(ArticleDto.Name)" AllowClear="true" @bind-Value=@model.ArticleName Name="IdArticle" Disabled="true" />
                 </RadzenFormField>
                 <RadzenRequiredValidator Component="IdArticle" Text="Artículo es requerido" />
                 <RadzenFormField Text="Cantidad" class="rz-py-2 rz-w-100">
@@ -62,15 +62,8 @@
         model.TotalAmount = model.ArticleNetPrice * model.Quantity;
         model.ArticleFiscalUnitName = article.FiscalUnitName;
 
-        if (IsTaxExempted)
-        {
-            model.SubtotalAmount = model.TotalAmount;
-        }
-        else
-        {
-            model.SubtotalAmount = Math.Round(model.TotalAmount / (TaxAmount + 1), 2);
-            model.TaxAmount = model.TotalAmount - model.SubtotalAmount;
-        }
+        model.SubtotalAmount = Math.Round(model.TotalAmount / (TaxAmount + 1), 2);
+        model.TaxAmount = model.TotalAmount - model.SubtotalAmount;
 
         DialogService.Close(model);
     }
