@@ -132,12 +132,12 @@ public class ArticleStockService : IArticleStockService
         }
     }
 
-    public async Task<int> GetStockByArticleId(int itemId)
+    public async Task<decimal> GetStockByArticleId(int itemId)
     {
         int quantity = 0;
         try
         {
-            var response = await _http.GetFromJsonAsync<ApiResponse<int>>($"{BaseURL}{itemId}");
+            var response = await _http.GetFromJsonAsync<ApiResponse<decimal>>($"{BaseURL}{itemId}");
 
             if (response != null && response.Success)
             {

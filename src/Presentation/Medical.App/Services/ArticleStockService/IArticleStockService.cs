@@ -7,7 +7,7 @@ public interface IArticleStockService
     event Action OnChange;
     List<ArticleStockDto> ArticleStocks { get; set; }
     List<ArticleStockDto> AdminArticleStocks { get; set; }
-    Task<int> GetStockByArticleId(int itemId);
+    Task<decimal> GetStockByArticleId(int itemId);
     Task GetArticleStocks();
     Task GetAdminArticleStocks();
     Task AddArticleStock(ArticleStockDto item);
