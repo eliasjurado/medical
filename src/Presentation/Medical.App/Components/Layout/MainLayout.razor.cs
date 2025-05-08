@@ -1,5 +1,5 @@
+using Medical.App.Services;
 using Medical.App.Services.AppUserService;
-using Medical.Domain.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
@@ -34,11 +34,15 @@ namespace Medical.App.Components.Layout
         [Inject]
         private IAppUserService appUserService { get; set; }
 
+        [Inject]
+        protected HttpInterceptorService Interceptor { get; set; }
+
         private bool sidebarExpanded = true;
 
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
+            Interceptor.RegisterEvent();
 
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             if (!authState.User.Identity.IsAuthenticated)

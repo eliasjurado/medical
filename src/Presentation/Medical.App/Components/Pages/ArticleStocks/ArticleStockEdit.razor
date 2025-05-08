@@ -11,7 +11,7 @@
                 </RadzenFormField>
                 <RadzenRequiredValidator Component="IdArticle" Text="Artículo es requerido" />
                 <RadzenFormField Text="Cantidad" class="rz-py-2 rz-w-100">
-                    <RadzenNumeric @bind-Value=@model.Quantity Step="0.01" Name="Quantity" Format="0.00" />
+                    <RadzenNumeric @bind-Value=@model.Quantity Step="1" Name="Quantity" Format="0" />
                 </RadzenFormField>
                 <RadzenFormField Text="Código de Barras" class="rz-py-2 rz-w-100">
                     <RadzenTextBox @bind-Value=@model.BarCode Name="BarCode" />
@@ -65,7 +65,7 @@
 
     async void OnSubmit(ArticleStockDto model)
     {
-        model.Quantity = int.Abs(model.Quantity);
+        model.Quantity = decimal.Abs(model.Quantity);
         if (model.TypeArticleStockActionId == TypeArticleStockActionId.Sale || model.TypeArticleStockActionId == TypeArticleStockActionId.Withdrawal || model.TypeArticleStockActionId == TypeArticleStockActionId.Wastage)
         {
             model.Quantity = model.Quantity * -1;

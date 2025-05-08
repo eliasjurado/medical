@@ -1,14 +1,17 @@
 ﻿@inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager navigationManager
 @inject IClientService clientService
+@inject IPacientService pacientService
 @inject HttpInterceptorService interceptor
 @inject DialogService dialogService
 @inject NotificationService notificationService
 @inject IAppUserService appUserService
 @inject ISerieService serieService
 @inject IFiscalTaxService fiscalTaxService
+@inject ISaleService saleService
 @page "/venta"
 @using Medical.App.Components.Pages.Clients
+@using Medical.App.Components.Pages.Pacients
 
 <RadzenStack Orientation="Orientation.Horizontal">
     <RadzenStack Orientation="Orientation.Horizontal" class="rz-w-25">
@@ -81,6 +84,18 @@
                 </RadzenColumn>
             </RadzenRow>
         </RadzenFieldset>
+        <RadzenFieldset>
+            <RadzenRow Gap="1rem">
+                <RadzenColumn Size="12" SizeMD="6">
+                    <RadzenStack Orientation="Orientation.Horizontal">
+                        <RadzenFormField class="rz-py-2 rz-w-75" Text="Paciente">
+                            <RadzenDropDown @ref=@radzenDropDown @bind-SearchText=SearchText FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.Contains" AllowFiltering="true" Data=@pacients TextProperty="@nameof(PacientDto.FullName)" ValueProperty="@nameof(PacientDto.FullName)" AllowClear="true" @bind-Value=@model.PacientFullName Name="Paciente" />
+                        </RadzenFormField>
+                        <RadzenButton Icon="add" ButtonStyle="ButtonStyle.Success" Text="Paciente" Click=@AddPacient class="rz-mt-5 rz-mb-3" />
+                    </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenFieldset>
         <RadzenFieldset class="rz-py-5">
             <RadzenRow Gap="1rem">
                 <RadzenDataGrid PageSize="9" Data="@items" ColumnWidth="300px" SelectionMode="DataGridSelectionMode.Single" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
@@ -138,6 +153,7 @@
     RadzenDropDown<string> radzenDropDown;
     string value;
     IEnumerable<ClientDto> clients;
+    IEnumerable<PacientDto> pacients;
     decimal sumQuantity = 0;
     DialogOptions dialogOptions = new DialogOptions { Draggable = true };
     string userId;
@@ -172,6 +188,9 @@
             await clientService.GetClients();
             clients = clientService.Clients;
 
+            await pacientService.GetPacients();
+            pacients = pacientService.Pacients;
+
             clientService.OnChange += StateHasChanged;
 
             series = await serieService.GetSeriesByUserId(userId);
@@ -189,6 +208,46 @@
     async void OnSubmit(SaleDto model)
     {
         model.ClientId = (await clientService.GetClientByFullName(model.ClientFullName)).Id;
+        model.PacientId = (await pacientService.GetPacientByFullName(model.PacientFullName)).Id;
+        foreach (var item in itemsMap)
+        {
+            model.SaleArticles.Add(new Domain.Entities.SaleArticle
+                {
+                    ArticleId = item.ArticleId,
+                    Quantity = item.Quantity,
+                    SubtotalAmount = item.SubtotalAmount,
+                    TaxAmount = item.TaxAmount,
+                    TotalAmount = item.TotalAmount
+                });
+        }
+        model.SubtotalAmount = itemsMap.Sum(x => x.SubtotalAmount);
+        model.TaxAmount = itemsMap.Sum(x => x.TaxAmount);
+        model.TotalAmount = itemsMap.Sum(x => x.TotalAmount);
+        model.Correlative = receiptNumber.GetCorrelativeByReceipt();
+        model.Serie = receiptNumber.GetSerieByReceipt();
+        model.IsVatExempted = isVatExented.GetBooleanFromYesNo();
+
+        await saleService.AddSale(model);
+        
+        // CleanUI();
+        await Task.Run(() => navigationManager!.Refresh(true));
+        // var notification = new NotificationMessage
+        //     {
+        //         Severity = NotificationSeverity.Success,
+        //         Summary = "Venta exitosa",
+        //         Detail = $"Comprobante N° {receiptNumber} generado exitosamente",
+        //         Duration = 6000,
+        //     };
+        // notificationService.Notify(notification);
+    }
+
+    void CleanUI()
+    {
+        model = new SaleDto();
+        itemsMap = new List<SaleArticleDto>();
+        items = itemsMap.AsQueryable();
+        searchText = string.Empty;
+        SearchText = string.Empty;
     }
 
     async Task AddRow()
@@ -243,6 +302,25 @@
                 };
             notificationService.Notify(notification);
             clients = clientService.Clients;
+        }
+    }
+
+    async Task AddPacient()
+    {
+        PacientDto data = await dialogService.OpenAsync<PacientAdd>("Nuevo Paciente", options: dialogOptions);
+        if (data != null)
+        {
+            await pacientService.AddPacient(data);
+            var notification = new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Success,
+                    Summary = "Nuevo Paciente",
+                    Detail = $"El paciente \"{data.FullName}\" fue creado exitosamente",
+                    Duration = 4000,
+
+                };
+            notificationService.Notify(notification);
+            pacients = pacientService.Pacients;
         }
     }
 

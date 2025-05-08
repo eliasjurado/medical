@@ -9,7 +9,7 @@ public class ArticleStock : BaseAuditableEntity<int>
     public Article? Article { get; set; }
     public string? BarCode { get; set; }
     public DateTime ExpireDate { get; set; }
-    public int Quantity { get; set; }
+    public decimal Quantity { get; set; }
     public int WarehouseId { get; set; }
     public Warehouse? Warehouse { get; set; }
     public int ShelfNumber { get; set; }

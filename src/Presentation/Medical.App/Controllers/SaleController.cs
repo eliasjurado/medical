@@ -1,11 +1,8 @@
 ﻿using MediatR;
 using Medical.Application.Features.Sale.Commands.AddSale;
-//using Medical.Application.Features.Sale.Commands.DeleteSale;
-//using Medical.Application.Features.Sale.Commands.UpdateSale;
-//using Medical.Application.Features.Sale.Queries.GetSales;
-using Medical.Domain.Dto.Sales;
+using Medical.Application.Features.Sale.Queries.GetSales;
 using Medical.Domain.Dto.Response.Abstract;
-using Medical.Domain.Dto.Response.Concrete;
+using Medical.Domain.Dto.Sales;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +19,12 @@ public class SaleController : ControllerBase
         _mediator = mediator;
     }
 
-    //[HttpGet]
-    //public async Task<ActionResult<IResponse>> GetSales()
-    //{
-    //    var response = await _mediator.Send(new GetAllSaleQueryRequest());
-    //    return Ok(response);
-    //}
+    [HttpGet]
+    public async Task<ActionResult<IResponse>> GetSales()
+    {
+        var response = await _mediator.Send(new GetAllSaleQueryRequest());
+        return Ok(response);
+    }
 
     //[HttpGet("name")]
     //public async Task<ActionResult<IResponse>> GetSaleByName(string name)
@@ -36,12 +33,12 @@ public class SaleController : ControllerBase
     //    return Ok(response);
     //}
 
-    //[HttpGet("admin"), Authorize(Roles = "Administrador")]
-    //public async Task<ActionResult<IResponse>> GetAdminSales()
-    //{
-    //    var response = await _mediator.Send(new GetAllSaleQueryRequest(true));
-    //    return Ok(response);
-    //}
+    [HttpGet("admin"), Authorize(Roles = "Administrador")]
+    public async Task<ActionResult<IResponse>> GetAdminSales()
+    {
+        var response = await _mediator.Send(new GetAllSaleQueryRequest(true));
+        return Ok(response);
+    }
 
     //[HttpDelete("admin/{id}"), Authorize(Roles = "Administrador")]
     //public async Task<ActionResult<IResponse>> DeleteSale(int id)
@@ -59,14 +56,14 @@ public class SaleController : ControllerBase
     //    return Ok(response);
     //}
 
-    //[HttpPost("admin"), Authorize(Roles = "Administrador")]
-    //public async Task<ActionResult<IResponse>> AddSale(SaleDto item)
-    //{
-    //    var r = await _mediator.Send(new AddSaleCommandRequest(item));
+    [HttpPost("admin"), Authorize(Roles = "Administrador")]
+    public async Task<ActionResult<IResponse>> AddSale(SaleDto item)
+    {
+        var r = await _mediator.Send(new AddSaleCommandRequest(item));
 
-    //    var response = await _mediator.Send(new GetAllSaleQueryRequest(true));
-    //    return Ok(response);
-    //}
+        var response = await _mediator.Send(new GetAllSaleQueryRequest(true));
+        return Ok(response);
+    }
 
     //[HttpPut("admin"), Authorize(Roles = "Administrador")]
     //public async Task<ActionResult<IResponse>> UpdateSale(SaleDto item)

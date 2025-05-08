@@ -14,6 +14,7 @@ using Medical.App.Services.FiscalSegmentService;
 using Medical.App.Services.FiscalTaxService;
 using Medical.App.Services.FiscalUnitService;
 using Medical.App.Services.PacientService;
+using Medical.App.Services.SaleService;
 using Medical.App.Services.SerieService;
 using Medical.App.Services.SpecialistService;
 using Medical.App.Services.SubCategoryService;
@@ -46,6 +47,7 @@ namespace Medical.App.Extensions
             services.AddScoped<IFiscalProductService, FiscalProductService>();
             services.AddScoped<IFiscalTaxService, FiscalTaxService>();
             services.AddScoped<IWarehouseService, WarehouseService>();
+            services.AddScoped<ISaleService, SaleService>();
             services.AddScoped<ISerieService, SerieService>();
             services.AddScoped<IAppUserService, AppUserService>();
 

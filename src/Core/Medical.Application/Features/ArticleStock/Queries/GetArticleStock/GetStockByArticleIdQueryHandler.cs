@@ -16,12 +16,12 @@ public class GetStockByArticleIdQueryHandler : IRequestHandler<GetStockByArticle
     {
         var list = await _query.ArticleStockQuery.GetAllWithIncludeAsync(false, o => o.IsActive && o.ArticleId == request.id);
 
-        var quantity = 0;
+        var quantity = 0m;
         if (list.Any())
         {
             quantity = list.Sum(x => x.Quantity);
         }
 
-        return new DataResponse<int>(quantity, HttpStatusCodes.OK);
+        return new DataResponse<decimal>(quantity, HttpStatusCodes.OK);
     }
 }

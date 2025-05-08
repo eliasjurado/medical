@@ -26,6 +26,10 @@
         public static string USER_THUMBNAIL_PATH => "images/user.png";
         public static string USER_THUMBNAIL_CIRCLE_PATH => "images/user-circle.png";
 
+        public static string USER_GENERIC_NAME => "GENERICO";
+        public static string USER_GENERIC_ID => "00000000";
+        public static DateTime USER_GENERIC_BIRTHDATE => new DateTime(2000, 1, 1);
+
         #endregion
 
         #region Application
