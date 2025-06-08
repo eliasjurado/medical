@@ -12,5 +12,7 @@ public class AppUser : BaseAuditableEntity<int>
     public TypeDocumentId? TypeDocumentId { get; set; }
     public string? NumDocument { get; set; }
     public bool? IsTaxExempted { get; set; }
+    public int WarehouseId { get; set; }
+    public virtual Warehouse? Warehouse { get; set; }
     public List<Serie> Series { get; set; } = new List<Serie>();
 }

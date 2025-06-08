@@ -14,6 +14,9 @@ public class AppUserDto
     public TypeDocumentId? TypeDocumentId { get; set; }
     public string? NumDocument { get; set; }
     public bool IsTaxExempted { get; set; }
+    public int WarehouseId { get; set; }
+    public virtual Warehouse? Warehouse { get; set; }
+    public string? WarehouseName { get; set; }
     public List<Serie> Series { get; set; } = new List<Serie>();
     public bool IsActive { get; set; } = true;
     public bool Editing { get; set; } = false;
