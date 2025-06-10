@@ -10,7 +10,7 @@
                     <RadzenSidebarToggle Click="@SidebarToggleClick"></RadzenSidebarToggle>
                     <a href="/" class="rz-display-flex" style="align-items: center;">
                         <RadzenImage Path="images/logo.png" style="width: 40px" class="rz-mr-4 rz-border-radius-2" AlternateText="Application logo"></RadzenImage>
-                        <RadzenText Text="Thaniwasi" TextStyle="TextStyle.DisplayH5" class="rz-mb-0" style="color: var(--rz-sidebar-toggle-color);" />
+                        <RadzenText Text="@Constants.APPLICATION_NAME" TextStyle="TextStyle.DisplayH5" class="rz-mb-0" style="color: var(--rz-sidebar-toggle-color);" />
                     </a>
                 </RadzenStack>
             </RadzenColumn>
@@ -82,7 +82,7 @@
             </AuthorizeView>
         </RadzenPanelMenu>
         <RadzenStack AlignItems="AlignItems.Center" Gap="0" class="rz-py-4 rz-py-lg-6" Style="padding: var(--rz-panel-menu-item-padding);">
-            <RadzenText Text="Thaniwasi v1.0.0" TextStyle="TextStyle.Caption" Style="color:lightgrey" TagName="TagName.P" TextAlign="TextAlign.Center" />
+            <RadzenText Text="@(Constants.APPLICATION_NAME + " v1.0.0")" TextStyle="TextStyle.Caption" Style="color:lightgrey" TagName="TagName.P" TextAlign="TextAlign.Center" />
             <RadzenText Text="Copyright Ⓒ 2025" TextStyle="TextStyle.Caption" Style="color:lightgrey" class="rz-mb-0" TagName="TagName.P" TextAlign="TextAlign.Center" />
         </RadzenStack>
 

@@ -24,4 +24,8 @@
         <ProjectReference Include="..\..\Core\Medical.Application\Medical.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

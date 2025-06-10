@@ -17,7 +17,7 @@ namespace Medical.Identity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.16")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -42,11 +42,9 @@ namespace Medical.Identity.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -99,19 +97,19 @@ namespace Medical.Identity.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d58137d6-f80f-4403-85b0-f4b9fc29c8f0",
-                            Email = "admin@thaniwasi.com",
+                            ConcurrencyStamp = "c10dcfc0-9f6d-4b17-bd53-f78395ed61e3",
+                            Email = "admin@medical.com",
                             EmailConfirmed = true,
                             FirstName = "Administrador",
                             LastName = "Sistema",
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@THANIWASI.COM",
-                            NormalizedUserName = "ADMIN@THANIWASI.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIk8Ny+Gl27fveJC5uUrotG4DuiE6iEfqNl8Cl63/XIzSSsPdEK4VjYuy9T7TlYSOg==",
+                            NormalizedEmail = "ADMIN@MEDICAL.COM",
+                            NormalizedUserName = "ADMIN@MEDICAL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJJUQHqsMAjWtGzmjARLLFWDE2+/oMikydEfKF1VTGYYDpQgW46Qocg98bUaXdaydA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6e484a11-d5c4-401d-85e1-7b20c0c4cce3",
+                            SecurityStamp = "57c80bd6-b771-4115-9817-037136835c87",
                             TwoFactorEnabled = false,
-                            UserName = "admin@thaniwasi.com"
+                            UserName = "admin@medical.com"
                         });
                 });
 

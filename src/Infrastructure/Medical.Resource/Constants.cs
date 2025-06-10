@@ -14,8 +14,8 @@
         public static string SYSTEM_AUTHOR_NAME = "Medical Systems Services";
 
         public static string ADMIN_GUID => "8e445865-a24d-4543-a6c6-9443d048cdb9";
-        public static string ADMIN_EMAIL => "admin@thaniwasi.com";
-        public static string ADMIN_PASSWORD => "Thaniwasi.123";
+        public static string ADMIN_EMAIL => "admin@medical.com";
+        public static string ADMIN_PASSWORD => "Medical.123";
         public static string ADMIN_NAME => "Administrador";
         public static string ADMIN_ROLE_NAME => "Administrador";
         public static string ADMIN_ROLE_GUID => "cbc43a8e-f7bb-4445-baaf-1add431ffbbf";
@@ -34,8 +34,8 @@
 
         #region Application
 
-        public static string APPLICATION_NAME = "Thaniwasi";
-        public static string APPLICATION_LEAD = "Integrativo y Natural";
+        public static string APPLICATION_NAME = "Medical";
+        public static string APPLICATION_LEAD = "Medicina Integral";
         public static string APPLICATION_DATE_FORMAT = "dd/MM/yyyy";
 
         #region Login
